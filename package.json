@@ -1,0 +1,23 @@
+{
+  "name": "cryptodrive",
+  "version": "1.0.0",
+  "description": "A simple encrypted File Sharing Service",
+  "main": "server/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MLH-Fellowship/cryptoDrive.git"
+  },
+  "keywords": [
+    "ethical",
+    "data"
+  ],
+  "author": "imabp, sameerkash, ksdkamesh99",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MLH-Fellowship/cryptoDrive/issues"
+  },
+  "homepage": "https://github.com/MLH-Fellowship/cryptoDrive#readme"
+}
