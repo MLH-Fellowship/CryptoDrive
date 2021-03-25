@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-
+import {Container} from '@material-ui/core'
 
 ReactDOM.render(
   <React.StrictMode>
-    <h1>CryptoDrive</h1>
+    <Container>
     <App />
+    </Container>
   </React.StrictMode>,
   document.getElementById('root')
 );
