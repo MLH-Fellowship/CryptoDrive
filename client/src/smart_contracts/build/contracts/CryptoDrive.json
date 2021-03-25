@@ -1,0 +1,1300 @@
+{
+  "contractName": "CryptoDrive",
+  "abi": [
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "user_id",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "filehash",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "filename",
+          "type": "string"
+        }
+      ],
+      "name": "AddFileHash",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "user_id",
+          "type": "string"
+        }
+      ],
+      "name": "GetFilehash",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "string",
+              "name": "filehash",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "filename",
+              "type": "string"
+            }
+          ],
+          "internalType": "struct CryptoDrive.File[]",
+          "name": "",
+          "type": "tuple[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.16+commit.9c3226ce\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":false,\"inputs\":[{\"internalType\":\"string\",\"name\":\"user_id\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"filehash\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"filename\",\"type\":\"string\"}],\"name\":\"AddFileHash\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"string\",\"name\":\"user_id\",\"type\":\"string\"}],\"name\":\"GetFilehash\",\"outputs\":[{\"components\":[{\"internalType\":\"string\",\"name\":\"filehash\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"filename\",\"type\":\"string\"}],\"internalType\":\"struct CryptoDrive.File[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/C/Users/ASUS/Desktop/CryptoDrive/client/src/smart_contracts/contracts/CryptoDrive.sol\":\"CryptoDrive\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/C/Users/ASUS/Desktop/CryptoDrive/client/src/smart_contracts/contracts/CryptoDrive.sol\":{\"keccak256\":\"0x560333ce8c62c3eeac96595b334b6f89e34977e732ad64b24c7af16392138ba7\",\"urls\":[\"bzz-raw://38456ed06ac445e176510ca741dda4a778ad427dd2ae6c166ae81241a2154391\",\"dweb:/ipfs/Qme7fq1X2WTfV2MfcUqzCgopTT9kYjMD8UqFcCnFexU3jY\"]}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b50610783806100206000396000f3fe608060405234801561001057600080fd5b50600436106100365760003560e01c8063146f46d31461003b578063cdaa3abf14610057575b600080fd5b61005560048036036100509190810190610422565b610087565b005b610071600480360361006c91908101906103e1565b610127565b60405161007e9190610607565b60405180910390f35b60008360405161009791906105f0565b90815260200160405180910390206040518060400160405280848152602001838152509080600181540180825580915050906001820390600052602060002090600202016000909192909190915060008201518160000190805190602001906101019291906102e8565b50602082015181600101908051906020019061011e9291906102e8565b50505050505050565b606060008260405161013991906105f0565b9081526020016040518091039020805480602002602001604051908101604052809291908181526020016000905b828210156102dd5783829060005260206000209060020201604051806040016040529081600082018054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156102235780601f106101f857610100808354040283529160200191610223565b820191906000526020600020905b81548152906001019060200180831161020657829003601f168201915b50505050508152602001600182018054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156102c55780601f1061029a576101008083540402835291602001916102c5565b820191906000526020600020905b8154815290600101906020018083116102a857829003601f168201915b50505050508152505081526020019060010190610167565b505050509050919050565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f1061032957805160ff1916838001178555610357565b82800160010185558215610357579182015b8281111561035657825182559160200191906001019061033b565b5b5090506103649190610368565b5090565b61038a91905b8082111561038657600081600090555060010161036e565b5090565b90565b600082601f83011261039e57600080fd5b81356103b16103ac82610656565b610629565b915080825260208301602083018583830111156103cd57600080fd5b6103d88382846106ed565b50505092915050565b6000602082840312156103f357600080fd5b600082013567ffffffffffffffff81111561040d57600080fd5b6104198482850161038d565b91505092915050565b60008060006060848603121561043757600080fd5b600084013567ffffffffffffffff81111561045157600080fd5b61045d8682870161038d565b935050602084013567ffffffffffffffff81111561047a57600080fd5b6104868682870161038d565b925050604084013567ffffffffffffffff8111156104a357600080fd5b6104af8682870161038d565b9150509250925092565b60006104c583836105ac565b905092915050565b60006104d882610692565b6104e281856106c0565b9350836020820285016104f485610682565b8060005b85811015610530578484038952815161051185826104b9565b945061051c836106b3565b925060208a019950506001810190506104f8565b50829750879550505050505092915050565b600061054d826106a8565b61055781856106e2565b93506105678185602086016106fc565b80840191505092915050565b600061057e8261069d565b61058881856106d1565b93506105988185602086016106fc565b6105a18161072f565b840191505092915050565b600060408301600083015184820360008601526105c98282610573565b915050602083015184820360208601526105e38282610573565b9150508091505092915050565b60006105fc8284610542565b915081905092915050565b6000602082019050818103600083015261062181846104cd565b905092915050565b6000604051905081810181811067ffffffffffffffff8211171561064c57600080fd5b8060405250919050565b600067ffffffffffffffff82111561066d57600080fd5b601f19601f8301169050602081019050919050565b6000819050602082019050919050565b600081519050919050565b600081519050919050565b600081519050919050565b6000602082019050919050565b600082825260208201905092915050565b600082825260208201905092915050565b600081905092915050565b82818337600083830152505050565b60005b8381101561071a5780820151818401526020810190506106ff565b83811115610729576000848401525b50505050565b6000601f19601f830116905091905056fea365627a7a7231582037449b682266285b13382fe06bf8d781a0b20b09915b823f6a48c0c7d63e6b9c6c6578706572696d656e74616cf564736f6c63430005100040",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100365760003560e01c8063146f46d31461003b578063cdaa3abf14610057575b600080fd5b61005560048036036100509190810190610422565b610087565b005b610071600480360361006c91908101906103e1565b610127565b60405161007e9190610607565b60405180910390f35b60008360405161009791906105f0565b90815260200160405180910390206040518060400160405280848152602001838152509080600181540180825580915050906001820390600052602060002090600202016000909192909190915060008201518160000190805190602001906101019291906102e8565b50602082015181600101908051906020019061011e9291906102e8565b50505050505050565b606060008260405161013991906105f0565b9081526020016040518091039020805480602002602001604051908101604052809291908181526020016000905b828210156102dd5783829060005260206000209060020201604051806040016040529081600082018054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156102235780601f106101f857610100808354040283529160200191610223565b820191906000526020600020905b81548152906001019060200180831161020657829003601f168201915b50505050508152602001600182018054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156102c55780601f1061029a576101008083540402835291602001916102c5565b820191906000526020600020905b8154815290600101906020018083116102a857829003601f168201915b50505050508152505081526020019060010190610167565b505050509050919050565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f1061032957805160ff1916838001178555610357565b82800160010185558215610357579182015b8281111561035657825182559160200191906001019061033b565b5b5090506103649190610368565b5090565b61038a91905b8082111561038657600081600090555060010161036e565b5090565b90565b600082601f83011261039e57600080fd5b81356103b16103ac82610656565b610629565b915080825260208301602083018583830111156103cd57600080fd5b6103d88382846106ed565b50505092915050565b6000602082840312156103f357600080fd5b600082013567ffffffffffffffff81111561040d57600080fd5b6104198482850161038d565b91505092915050565b60008060006060848603121561043757600080fd5b600084013567ffffffffffffffff81111561045157600080fd5b61045d8682870161038d565b935050602084013567ffffffffffffffff81111561047a57600080fd5b6104868682870161038d565b925050604084013567ffffffffffffffff8111156104a357600080fd5b6104af8682870161038d565b9150509250925092565b60006104c583836105ac565b905092915050565b60006104d882610692565b6104e281856106c0565b9350836020820285016104f485610682565b8060005b85811015610530578484038952815161051185826104b9565b945061051c836106b3565b925060208a019950506001810190506104f8565b50829750879550505050505092915050565b600061054d826106a8565b61055781856106e2565b93506105678185602086016106fc565b80840191505092915050565b600061057e8261069d565b61058881856106d1565b93506105988185602086016106fc565b6105a18161072f565b840191505092915050565b600060408301600083015184820360008601526105c98282610573565b915050602083015184820360208601526105e38282610573565b9150508091505092915050565b60006105fc8284610542565b915081905092915050565b6000602082019050818103600083015261062181846104cd565b905092915050565b6000604051905081810181811067ffffffffffffffff8211171561064c57600080fd5b8060405250919050565b600067ffffffffffffffff82111561066d57600080fd5b601f19601f8301169050602081019050919050565b6000819050602082019050919050565b600081519050919050565b600081519050919050565b600081519050919050565b6000602082019050919050565b600082825260208201905092915050565b600082825260208201905092915050565b600081905092915050565b82818337600083830152505050565b60005b8381101561071a5780820151818401526020810190506106ff565b83811115610729576000848401525b50505050565b6000601f19601f830116905091905056fea365627a7a7231582037449b682266285b13382fe06bf8d781a0b20b09915b823f6a48c0c7d63e6b9c6c6578706572696d656e74616cf564736f6c63430005100040",
+  "sourceMap": "96:893:0:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;96:893:0;;;;;;;",
+  "deployedSourceMap": "96:893:0:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;96:893:0;;;;;;;;;;;;;;;;;;;;;;;;573:165;;;;;;;;;;;;;;;;:::i;:::-;;850:124;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;573:165;681:10;692:7;681:19;;;;;;;;;;;;;;;;;;;;706:23;;;;;;;;711:8;706:23;;;;720:8;706:23;;;681:49;;39:1:-1;33:3;27:10;23:18;57:10;52:3;45:23;79:10;72:17;;0:93;681:49:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;573:165;;;:::o;850:124::-;915:13;947:10;958:7;947:19;;;;;;;;;;;;;;;;;;;;940:26;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;850:124;;;:::o;96:893::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;6:442:-1:-;;108:3;101:4;93:6;89:17;85:27;75:2;;126:1;123;116:12;75:2;163:6;150:20;185:65;200:49;242:6;200:49;;;185:65;;;176:74;;270:6;263:5;256:21;306:4;298:6;294:17;339:4;332:5;328:16;374:3;365:6;360:3;356:16;353:25;350:2;;;391:1;388;381:12;350:2;401:41;435:6;430:3;425;401:41;;;68:380;;;;;;;;456:347;;570:2;558:9;549:7;545:23;541:32;538:2;;;586:1;583;576:12;538:2;649:1;638:9;634:17;621:31;672:18;664:6;661:30;658:2;;;704:1;701;694:12;658:2;724:63;779:7;770:6;759:9;755:22;724:63;;;714:73;;600:193;532:271;;;;;810:809;;;;978:2;966:9;957:7;953:23;949:32;946:2;;;994:1;991;984:12;946:2;1057:1;1046:9;1042:17;1029:31;1080:18;1072:6;1069:30;1066:2;;;1112:1;1109;1102:12;1066:2;1132:63;1187:7;1178:6;1167:9;1163:22;1132:63;;;1122:73;;1008:193;1260:2;1249:9;1245:18;1232:32;1284:18;1276:6;1273:30;1270:2;;;1316:1;1313;1306:12;1270:2;1336:63;1391:7;1382:6;1371:9;1367:22;1336:63;;;1326:73;;1211:194;1464:2;1453:9;1449:18;1436:32;1488:18;1480:6;1477:30;1474:2;;;1520:1;1517;1510:12;1474:2;1540:63;1595:7;1586:6;1575:9;1571:22;1540:63;;;1530:73;;1415:194;940:679;;;;;;1627:217;;1758:80;1834:3;1826:6;1758:80;;;1744:94;;1737:107;;;;;1915:968;;2090:69;2153:5;2090:69;;;2172:101;2266:6;2261:3;2172:101;;;2165:108;;2296:3;2338:4;2330:6;2326:17;2321:3;2317:27;2365:71;2430:5;2365:71;;;2456:7;2484:1;2469:375;2494:6;2491:1;2488:13;2469:375;;;2556:9;2550:4;2546:20;2541:3;2534:33;2601:6;2595:13;2623:94;2712:4;2697:13;2623:94;;;2615:102;;2734:75;2802:6;2734:75;;;2724:85;;2832:4;2827:3;2823:14;2816:21;;2526:318;2516:1;2513;2509:9;2504:14;;2469:375;;;2473:14;2857:4;2850:11;;2874:3;2867:10;;2069:814;;;;;;;;;;2891:360;;3021:39;3054:5;3021:39;;;3072:89;3154:6;3149:3;3072:89;;;3065:96;;3166:52;3211:6;3206:3;3199:4;3192:5;3188:16;3166:52;;;3239:6;3234:3;3230:16;3223:23;;3001:250;;;;;;3258:319;;3356:35;3385:5;3356:35;;;3403:61;3457:6;3452:3;3403:61;;;3396:68;;3469:52;3514:6;3509:3;3502:4;3495:5;3491:16;3469:52;;;3542:29;3564:6;3542:29;;;3537:3;3533:39;3526:46;;3336:241;;;;;;3641:621;;3766:4;3761:3;3757:14;3853:4;3846:5;3842:16;3836:23;3905:3;3899:4;3895:14;3888:4;3883:3;3879:14;3872:38;3925:69;3989:4;3975:12;3925:69;;;3917:77;;3786:220;4083:4;4076:5;4072:16;4066:23;4135:3;4129:4;4125:14;4118:4;4113:3;4109:14;4102:38;4155:69;4219:4;4205:12;4155:69;;;4147:77;;4016:220;4253:4;4246:11;;3739:523;;;;;;4269:266;;4415:95;4506:3;4497:6;4415:95;;;4408:102;;4527:3;4520:10;;4396:139;;;;;4542:421;;4740:2;4729:9;4725:18;4717:26;;4790:9;4784:4;4780:20;4776:1;4765:9;4761:17;4754:47;4815:138;4948:4;4939:6;4815:138;;;4807:146;;4711:252;;;;;4970:256;;5032:2;5026:9;5016:19;;5070:4;5062:6;5058:17;5169:6;5157:10;5154:22;5133:18;5121:10;5118:34;5115:62;5112:2;;;5190:1;5187;5180:12;5112:2;5210:10;5206:2;5199:22;5010:216;;;;;5233:322;;5377:18;5369:6;5366:30;5363:2;;;5409:1;5406;5399:12;5363:2;5476:4;5472:9;5465:4;5457:6;5453:17;5449:33;5441:41;;5540:4;5534;5530:15;5522:23;;5300:255;;;;5562:166;;5663:3;5655:11;;5701:4;5696:3;5692:14;5684:22;;5649:79;;;;5735:152;;5859:5;5853:12;5843:22;;5824:63;;;;5894:118;;5984:5;5978:12;5968:22;;5949:63;;;;6019:122;;6113:5;6107:12;6097:22;;6078:63;;;;6148:123;;6261:4;6256:3;6252:14;6244:22;;6238:33;;;;6279:193;;6424:6;6419:3;6412:19;6461:4;6456:3;6452:14;6437:29;;6405:67;;;;;6481:153;;6586:6;6581:3;6574:19;6623:4;6618:3;6614:14;6599:29;;6567:67;;;;;6643:145;;6779:3;6764:18;;6757:31;;;;;6797:145;6878:6;6873:3;6868;6855:30;6934:1;6925:6;6920:3;6916:16;6909:27;6848:94;;;;6951:268;7016:1;7023:101;7037:6;7034:1;7031:13;7023:101;;;7113:1;7108:3;7104:11;7098:18;7094:1;7089:3;7085:11;7078:39;7059:2;7056:1;7052:10;7047:15;;7023:101;;;7139:6;7136:1;7133:13;7130:2;;;7204:1;7195:6;7190:3;7186:16;7179:27;7130:2;7000:219;;;;;7227:97;;7315:2;7311:7;7306:2;7299:5;7295:14;7291:28;7281:38;;7275:49;;;",
+  "source": "// SPDX-License-Identifier: MIT\r\npragma solidity >0.5.11;\r\npragma experimental ABIEncoderV2;\r\n\r\ncontract CryptoDrive{\r\n    // Structure for storing the filehash,filename as File \r\n    \r\n    struct File{\r\n        string filehash;\r\n        string filename;\r\n    }\r\n    \r\n    // Mapping for Storing user id as string and File Structure array as value\r\n    // Mapping is private\r\n    \r\n    mapping(string=>File[]) private FileHashes;\r\n    \r\n    // Function AddFileHash which takes user id , filehash , filename\r\n    // It is pushes the structure in Filehash Mapping\r\n    \r\n    function AddFileHash(string memory user_id,string memory filehash,string memory filename) public {\r\n        FileHashes[user_id].push(File(filehash,filename));\r\n    }\r\n    \r\n    // Function GetFilehash which takes the user id \r\n    // It will return the struct array\r\n    \r\n    function GetFilehash(string memory user_id) public view returns (File[] memory){\r\n        return FileHashes[user_id];\r\n    }\r\n    \r\n    \r\n}\r\n\r\n",
+  "sourcePath": "C:/Users/ASUS/Desktop/CryptoDrive/client/src/smart_contracts/contracts/CryptoDrive.sol",
+  "ast": {
+    "absolutePath": "/C/Users/ASUS/Desktop/CryptoDrive/client/src/smart_contracts/contracts/CryptoDrive.sol",
+    "exportedSymbols": {
+      "CryptoDrive": [
+        46
+      ]
+    },
+    "id": 47,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1,
+        "literals": [
+          "solidity",
+          ">",
+          "0.5",
+          ".11"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "33:24:0"
+      },
+      {
+        "id": 2,
+        "literals": [
+          "experimental",
+          "ABIEncoderV2"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "59:33:0"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 46,
+        "linearizedBaseContracts": [
+          46
+        ],
+        "name": "CryptoDrive",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "canonicalName": "CryptoDrive.File",
+            "id": 7,
+            "members": [
+              {
+                "constant": false,
+                "id": 4,
+                "name": "filehash",
+                "nodeType": "VariableDeclaration",
+                "scope": 7,
+                "src": "212:15:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 3,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "212:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 6,
+                "name": "filename",
+                "nodeType": "VariableDeclaration",
+                "scope": 7,
+                "src": "238:15:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 5,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "238:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "File",
+            "nodeType": "StructDefinition",
+            "scope": 46,
+            "src": "190:71:0",
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 12,
+            "name": "FileHashes",
+            "nodeType": "VariableDeclaration",
+            "scope": 46,
+            "src": "386:42:0",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_string_memory_$_t_array$_t_struct$_File_$7_storage_$dyn_storage_$",
+              "typeString": "mapping(string => struct CryptoDrive.File[])"
+            },
+            "typeName": {
+              "id": 11,
+              "keyType": {
+                "id": 8,
+                "name": "string",
+                "nodeType": "ElementaryTypeName",
+                "src": "394:6:0",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "386:23:0",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_string_memory_$_t_array$_t_struct$_File_$7_storage_$dyn_storage_$",
+                "typeString": "mapping(string => struct CryptoDrive.File[])"
+              },
+              "valueType": {
+                "baseType": {
+                  "contractScope": null,
+                  "id": 9,
+                  "name": "File",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 7,
+                  "src": "402:4:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_File_$7_storage_ptr",
+                    "typeString": "struct CryptoDrive.File"
+                  }
+                },
+                "id": 10,
+                "length": null,
+                "nodeType": "ArrayTypeName",
+                "src": "402:6:0",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_array$_t_struct$_File_$7_storage_$dyn_storage_ptr",
+                  "typeString": "struct CryptoDrive.File[]"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "private"
+          },
+          {
+            "body": {
+              "id": 31,
+              "nodeType": "Block",
+              "src": "670:68:0",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "arguments": [
+                          {
+                            "argumentTypes": null,
+                            "id": 26,
+                            "name": "filehash",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 16,
+                            "src": "711:8:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_string_memory_ptr",
+                              "typeString": "string memory"
+                            }
+                          },
+                          {
+                            "argumentTypes": null,
+                            "id": 27,
+                            "name": "filename",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 18,
+                            "src": "720:8:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_string_memory_ptr",
+                              "typeString": "string memory"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_string_memory_ptr",
+                              "typeString": "string memory"
+                            },
+                            {
+                              "typeIdentifier": "t_string_memory_ptr",
+                              "typeString": "string memory"
+                            }
+                          ],
+                          "id": 25,
+                          "name": "File",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 7,
+                          "src": "706:4:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_type$_t_struct$_File_$7_storage_ptr_$",
+                            "typeString": "type(struct CryptoDrive.File storage pointer)"
+                          }
+                        },
+                        "id": 28,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "structConstructorCall",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "706:23:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_File_$7_memory",
+                          "typeString": "struct CryptoDrive.File memory"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_struct$_File_$7_memory",
+                          "typeString": "struct CryptoDrive.File memory"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "baseExpression": {
+                          "argumentTypes": null,
+                          "id": 21,
+                          "name": "FileHashes",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 12,
+                          "src": "681:10:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_mapping$_t_string_memory_$_t_array$_t_struct$_File_$7_storage_$dyn_storage_$",
+                            "typeString": "mapping(string memory => struct CryptoDrive.File storage ref[] storage ref)"
+                          }
+                        },
+                        "id": 23,
+                        "indexExpression": {
+                          "argumentTypes": null,
+                          "id": 22,
+                          "name": "user_id",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 14,
+                          "src": "692:7:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_string_memory_ptr",
+                            "typeString": "string memory"
+                          }
+                        },
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "IndexAccess",
+                        "src": "681:19:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_array$_t_struct$_File_$7_storage_$dyn_storage",
+                          "typeString": "struct CryptoDrive.File storage ref[] storage ref"
+                        }
+                      },
+                      "id": 24,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "push",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": null,
+                      "src": "681:24:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_arraypush_nonpayable$_t_struct$_File_$7_storage_$returns$_t_uint256_$",
+                        "typeString": "function (struct CryptoDrive.File storage ref) returns (uint256)"
+                      }
+                    },
+                    "id": 29,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "681:49:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 30,
+                  "nodeType": "ExpressionStatement",
+                  "src": "681:49:0"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 32,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "AddFileHash",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 19,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 14,
+                  "name": "user_id",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 32,
+                  "src": "594:21:0",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 13,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "594:6:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 16,
+                  "name": "filehash",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 32,
+                  "src": "616:22:0",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 15,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "616:6:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 18,
+                  "name": "filename",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 32,
+                  "src": "639:22:0",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 17,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "639:6:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "593:69:0"
+            },
+            "returnParameters": {
+              "id": 20,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "670:0:0"
+            },
+            "scope": 46,
+            "src": "573:165:0",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 44,
+              "nodeType": "Block",
+              "src": "929:45:0",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "baseExpression": {
+                      "argumentTypes": null,
+                      "id": 40,
+                      "name": "FileHashes",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 12,
+                      "src": "947:10:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_mapping$_t_string_memory_$_t_array$_t_struct$_File_$7_storage_$dyn_storage_$",
+                        "typeString": "mapping(string memory => struct CryptoDrive.File storage ref[] storage ref)"
+                      }
+                    },
+                    "id": 42,
+                    "indexExpression": {
+                      "argumentTypes": null,
+                      "id": 41,
+                      "name": "user_id",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 34,
+                      "src": "958:7:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_string_memory_ptr",
+                        "typeString": "string memory"
+                      }
+                    },
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "IndexAccess",
+                    "src": "947:19:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_struct$_File_$7_storage_$dyn_storage",
+                      "typeString": "struct CryptoDrive.File storage ref[] storage ref"
+                    }
+                  },
+                  "functionReturnParameters": 39,
+                  "id": 43,
+                  "nodeType": "Return",
+                  "src": "940:26:0"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 45,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "GetFilehash",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 35,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 34,
+                  "name": "user_id",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 45,
+                  "src": "871:21:0",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 33,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "871:6:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "870:23:0"
+            },
+            "returnParameters": {
+              "id": 39,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 38,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 45,
+                  "src": "915:13:0",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_struct$_File_$7_memory_$dyn_memory_ptr",
+                    "typeString": "struct CryptoDrive.File[]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "contractScope": null,
+                      "id": 36,
+                      "name": "File",
+                      "nodeType": "UserDefinedTypeName",
+                      "referencedDeclaration": 7,
+                      "src": "915:4:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_File_$7_storage_ptr",
+                        "typeString": "struct CryptoDrive.File"
+                      }
+                    },
+                    "id": 37,
+                    "length": null,
+                    "nodeType": "ArrayTypeName",
+                    "src": "915:6:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_struct$_File_$7_storage_$dyn_storage_ptr",
+                      "typeString": "struct CryptoDrive.File[]"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "914:15:0"
+            },
+            "scope": 46,
+            "src": "850:124:0",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 47,
+        "src": "96:893:0"
+      }
+    ],
+    "src": "33:960:0"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "/C/Users/ASUS/Desktop/CryptoDrive/client/src/smart_contracts/contracts/CryptoDrive.sol",
+      "exportedSymbols": {
+        "CryptoDrive": [
+          46
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            ">",
+            "0.5",
+            ".11"
+          ]
+        },
+        "id": 1,
+        "name": "PragmaDirective",
+        "src": "33:24:0"
+      },
+      {
+        "attributes": {
+          "literals": [
+            "experimental",
+            "ABIEncoderV2"
+          ]
+        },
+        "id": 2,
+        "name": "PragmaDirective",
+        "src": "59:33:0"
+      },
+      {
+        "attributes": {
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "contract",
+          "documentation": null,
+          "fullyImplemented": true,
+          "linearizedBaseContracts": [
+            46
+          ],
+          "name": "CryptoDrive",
+          "scope": 47
+        },
+        "children": [
+          {
+            "attributes": {
+              "canonicalName": "CryptoDrive.File",
+              "name": "File",
+              "scope": 46,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "filehash",
+                  "scope": 7,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "string",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "string",
+                      "type": "string"
+                    },
+                    "id": 3,
+                    "name": "ElementaryTypeName",
+                    "src": "212:6:0"
+                  }
+                ],
+                "id": 4,
+                "name": "VariableDeclaration",
+                "src": "212:15:0"
+              },
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "filename",
+                  "scope": 7,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "string",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "string",
+                      "type": "string"
+                    },
+                    "id": 5,
+                    "name": "ElementaryTypeName",
+                    "src": "238:6:0"
+                  }
+                ],
+                "id": 6,
+                "name": "VariableDeclaration",
+                "src": "238:15:0"
+              }
+            ],
+            "id": 7,
+            "name": "StructDefinition",
+            "src": "190:71:0"
+          },
+          {
+            "attributes": {
+              "constant": false,
+              "name": "FileHashes",
+              "scope": 46,
+              "stateVariable": true,
+              "storageLocation": "default",
+              "type": "mapping(string => struct CryptoDrive.File[])",
+              "value": null,
+              "visibility": "private"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "type": "mapping(string => struct CryptoDrive.File[])"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "string",
+                      "type": "string"
+                    },
+                    "id": 8,
+                    "name": "ElementaryTypeName",
+                    "src": "394:6:0"
+                  },
+                  {
+                    "attributes": {
+                      "length": null,
+                      "type": "struct CryptoDrive.File[]"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "contractScope": null,
+                          "name": "File",
+                          "referencedDeclaration": 7,
+                          "type": "struct CryptoDrive.File"
+                        },
+                        "id": 9,
+                        "name": "UserDefinedTypeName",
+                        "src": "402:4:0"
+                      }
+                    ],
+                    "id": 10,
+                    "name": "ArrayTypeName",
+                    "src": "402:6:0"
+                  }
+                ],
+                "id": 11,
+                "name": "Mapping",
+                "src": "386:23:0"
+              }
+            ],
+            "id": 12,
+            "name": "VariableDeclaration",
+            "src": "386:42:0"
+          },
+          {
+            "attributes": {
+              "documentation": null,
+              "implemented": true,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "AddFileHash",
+              "scope": 46,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "user_id",
+                      "scope": 32,
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "type": "string",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "string",
+                          "type": "string"
+                        },
+                        "id": 13,
+                        "name": "ElementaryTypeName",
+                        "src": "594:6:0"
+                      }
+                    ],
+                    "id": 14,
+                    "name": "VariableDeclaration",
+                    "src": "594:21:0"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "filehash",
+                      "scope": 32,
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "type": "string",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "string",
+                          "type": "string"
+                        },
+                        "id": 15,
+                        "name": "ElementaryTypeName",
+                        "src": "616:6:0"
+                      }
+                    ],
+                    "id": 16,
+                    "name": "VariableDeclaration",
+                    "src": "616:22:0"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "filename",
+                      "scope": 32,
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "type": "string",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "string",
+                          "type": "string"
+                        },
+                        "id": 17,
+                        "name": "ElementaryTypeName",
+                        "src": "639:6:0"
+                      }
+                    ],
+                    "id": 18,
+                    "name": "VariableDeclaration",
+                    "src": "639:22:0"
+                  }
+                ],
+                "id": 19,
+                "name": "ParameterList",
+                "src": "593:69:0"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 20,
+                "name": "ParameterList",
+                "src": "670:0:0"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "uint256",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_struct$_File_$7_memory",
+                                  "typeString": "struct CryptoDrive.File memory"
+                                }
+                              ],
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "push",
+                              "referencedDeclaration": null,
+                              "type": "function (struct CryptoDrive.File storage ref) returns (uint256)"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": true,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "type": "struct CryptoDrive.File storage ref[] storage ref"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 12,
+                                      "type": "mapping(string memory => struct CryptoDrive.File storage ref[] storage ref)",
+                                      "value": "FileHashes"
+                                    },
+                                    "id": 21,
+                                    "name": "Identifier",
+                                    "src": "681:10:0"
+                                  },
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 14,
+                                      "type": "string memory",
+                                      "value": "user_id"
+                                    },
+                                    "id": 22,
+                                    "name": "Identifier",
+                                    "src": "692:7:0"
+                                  }
+                                ],
+                                "id": 23,
+                                "name": "IndexAccess",
+                                "src": "681:19:0"
+                              }
+                            ],
+                            "id": 24,
+                            "name": "MemberAccess",
+                            "src": "681:24:0"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "isStructConstructorCall": true,
+                              "lValueRequested": false,
+                              "names": [
+                                null
+                              ],
+                              "type": "struct CryptoDrive.File memory",
+                              "type_conversion": false
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": [
+                                    {
+                                      "typeIdentifier": "t_string_memory_ptr",
+                                      "typeString": "string memory"
+                                    },
+                                    {
+                                      "typeIdentifier": "t_string_memory_ptr",
+                                      "typeString": "string memory"
+                                    }
+                                  ],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 7,
+                                  "type": "type(struct CryptoDrive.File storage pointer)",
+                                  "value": "File"
+                                },
+                                "id": 25,
+                                "name": "Identifier",
+                                "src": "706:4:0"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 16,
+                                  "type": "string memory",
+                                  "value": "filehash"
+                                },
+                                "id": 26,
+                                "name": "Identifier",
+                                "src": "711:8:0"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 18,
+                                  "type": "string memory",
+                                  "value": "filename"
+                                },
+                                "id": 27,
+                                "name": "Identifier",
+                                "src": "720:8:0"
+                              }
+                            ],
+                            "id": 28,
+                            "name": "FunctionCall",
+                            "src": "706:23:0"
+                          }
+                        ],
+                        "id": 29,
+                        "name": "FunctionCall",
+                        "src": "681:49:0"
+                      }
+                    ],
+                    "id": 30,
+                    "name": "ExpressionStatement",
+                    "src": "681:49:0"
+                  }
+                ],
+                "id": 31,
+                "name": "Block",
+                "src": "670:68:0"
+              }
+            ],
+            "id": 32,
+            "name": "FunctionDefinition",
+            "src": "573:165:0"
+          },
+          {
+            "attributes": {
+              "documentation": null,
+              "implemented": true,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "GetFilehash",
+              "scope": 46,
+              "stateMutability": "view",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "user_id",
+                      "scope": 45,
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "type": "string",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "string",
+                          "type": "string"
+                        },
+                        "id": 33,
+                        "name": "ElementaryTypeName",
+                        "src": "871:6:0"
+                      }
+                    ],
+                    "id": 34,
+                    "name": "VariableDeclaration",
+                    "src": "871:21:0"
+                  }
+                ],
+                "id": 35,
+                "name": "ParameterList",
+                "src": "870:23:0"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 45,
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "type": "struct CryptoDrive.File[]",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "length": null,
+                          "type": "struct CryptoDrive.File[]"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "contractScope": null,
+                              "name": "File",
+                              "referencedDeclaration": 7,
+                              "type": "struct CryptoDrive.File"
+                            },
+                            "id": 36,
+                            "name": "UserDefinedTypeName",
+                            "src": "915:4:0"
+                          }
+                        ],
+                        "id": 37,
+                        "name": "ArrayTypeName",
+                        "src": "915:6:0"
+                      }
+                    ],
+                    "id": 38,
+                    "name": "VariableDeclaration",
+                    "src": "915:13:0"
+                  }
+                ],
+                "id": 39,
+                "name": "ParameterList",
+                "src": "914:15:0"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "functionReturnParameters": 39
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "type": "struct CryptoDrive.File storage ref[] storage ref"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 12,
+                              "type": "mapping(string memory => struct CryptoDrive.File storage ref[] storage ref)",
+                              "value": "FileHashes"
+                            },
+                            "id": 40,
+                            "name": "Identifier",
+                            "src": "947:10:0"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 34,
+                              "type": "string memory",
+                              "value": "user_id"
+                            },
+                            "id": 41,
+                            "name": "Identifier",
+                            "src": "958:7:0"
+                          }
+                        ],
+                        "id": 42,
+                        "name": "IndexAccess",
+                        "src": "947:19:0"
+                      }
+                    ],
+                    "id": 43,
+                    "name": "Return",
+                    "src": "940:26:0"
+                  }
+                ],
+                "id": 44,
+                "name": "Block",
+                "src": "929:45:0"
+              }
+            ],
+            "id": 45,
+            "name": "FunctionDefinition",
+            "src": "850:124:0"
+          }
+        ],
+        "id": 46,
+        "name": "ContractDefinition",
+        "src": "96:893:0"
+      }
+    ],
+    "id": 47,
+    "name": "SourceUnit",
+    "src": "33:960:0"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.16+commit.9c3226ce.Emscripten.clang"
+  },
+  "networks": {
+    "5777": {
+      "events": {},
+      "links": {},
+      "address": "0x94eEC37114592995751D836caF36dc9dd3EAeff0",
+      "transactionHash": "0x18d41c7b73291a9b35bc7e6a5b0ea307e6e5fa9ccbcea4218eacdc2477ae4c6f"
+    }
+  },
+  "schemaVersion": "3.3.4",
+  "updatedAt": "2021-03-25T06:57:42.009Z",
+  "networkType": "ethereum",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}
