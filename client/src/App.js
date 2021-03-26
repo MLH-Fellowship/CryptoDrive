@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { DragAndDrop, Header, Info, Footer } from "./components";
+import { DragAndDrop, Header, Home, Footer } from "./components";
 import { LoginUI, SignUpUI } from "./components/AuthUIs";
 import * as ROUTES from "./constants/routes";
 import {
@@ -19,6 +19,16 @@ export default function App() {
       {console.log(location.pathname)}
       <Header />
       <Switch>
+        <Route exact path='/'>
+          <Container>
+            <Home />
+          </Container>
+          <Footer
+            label="Crypto Drive"
+            link='/'
+            linkText="You are at Home"
+          />
+        </Route>
         <Route exact path={ROUTES.SIGN_IN}>
           <Container>
             <LoginUI />
