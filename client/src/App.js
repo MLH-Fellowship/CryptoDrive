@@ -1,15 +1,14 @@
-import React from 'react';
+import React, { useState } from "react";
+import {DragAndDrop,Header} from './components'
 
 
-function App() {
+
+export default function App() {
+  
   return (
-    <div className="App">
-      <center>
-        <h1>CryptoDrive</h1>
-      </center>
-
-    </div>
+  <>
+  <Header/>
+  <DragAndDrop/>
+  </>
   );
 }
-
-export default App;

@@ -2,11 +2,11 @@ import express from "express";
 import multer from "multer";
 import ipfsAPI from "ipfs-api";
 import fs from "fs";
-
+import cors from "cors"
 const app = express();
 const ipfs = ipfsAPI("localhost", "5001", { protocol: "http" });
 const PORT = process.env.PORT || 8000;
-
+app.use(cors())
 var upload = multer({ dest: "./uploads/" });
 
 app.post("/upload", upload.single("file"), function (req, res, _next) {
