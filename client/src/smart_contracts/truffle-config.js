@@ -18,11 +18,11 @@
  *
  */
  
-// const HDWalletProvider = require('@truffle/hdwallet-provider');
-// // const infuraKey = "wss://rinkeby.infura.io/ws/v3/0ea31ba94e0e48c9ab9eb5e02befa624";
+const HDWalletProvider = require('@truffle/hdwallet-provider');
+const infuraKey = "wss://rinkeby.infura.io/ws/v3/4d9b97ee3a18449e8cf69c95d39a4ac4";
 
-// const fs = require('fs');
-// const mnemonic = fs.readFileSync(".secret").toString().trim();
+const fs = require('fs');
+const mnemonic = fs.readFileSync(".secret").toString().trim();
 
 module.exports = {
   /**
@@ -59,15 +59,15 @@ module.exports = {
     // Useful for deploying to a public network.
     // NB: It's important to wrap the provider as a function.
 
-    // rinkeby: {
-    // provider: () => new HDWalletProvider(mnemonic,infuraKey),
-    // network_id: 4,       // Ropsten's id
-    // gas: 5500000,        // Ropsten has a lower block limit than mainnet
-    // confirmations: 2,    // # of confs to wait between deployments. (default: 0)
-    // timeoutBlocks: 200,  // # of blocks before a deployment times out  (minimum/default: 50)
-    // skipDryRun: true     // Skip dry run before migrations? (default: false for public nets )
-    // },
-    // // Useful for private networks
+    rinkeby: {
+    provider: () => new HDWalletProvider(mnemonic,infuraKey),
+    network_id: 4,       // Ropsten's id
+    gas: 5500000,        // Ropsten has a lower block limit than mainnet
+    confirmations: 2,    // # of confs to wait between deployments. (default: 0)
+    timeoutBlocks: 200,  // # of blocks before a deployment times out  (minimum/default: 50)
+    skipDryRun: true     // Skip dry run before migrations? (default: false for public nets )
+    },
+    // Useful for private networks
     // private: {
     // provider: () => new HDWalletProvider(mnemonic, `https://network.io`),
     // network_id: 2111,   // This network is yours, in the cloud.
@@ -83,7 +83,7 @@ module.exports = {
   // Configure your compilers
   compilers: {
     solc: {
-      // version: "0.5.1",    // Fetch exact version from solc-bin (default: truffle's version)
+      version: "0.5.11",    // Fetch exact version from solc-bin (default: truffle's version)
       // docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
       // settings: {          // See the solidity docs for advice about optimization and evmVersion
       //  optimizer: {
