@@ -35,6 +35,21 @@ contract('CryptoDrive', (accounts) => {
         asserted.equal(public_key,result,"Public Key not Retrived Successfully");
     });
 
+    const filehash="aaaaaaaawwwwwww0dddddd";
+    const filename="name.txt"
+
+    it('Add the file hashes', async () => {
+        const result= await cryptodrive.AddFileHash(user_id,filehash,filename);
+      });
+
+    it('Getting the Files from user id u1',async()=>{
+        const result=await cryptodrive.GetFilehash(user_id);
+        asserted.equal(filehash,result[0]['filehash'],"File Hash not Successfully Retrived");
+        asserted.equal(filename,result[0]['filename'],"File Name not Successfully Retrived");
+    });
+
+    
+
 
   })
 })
