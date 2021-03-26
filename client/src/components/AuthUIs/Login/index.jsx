@@ -1,6 +1,6 @@
 import React from 'react';
 import {TextField} from '@material-ui/core'
-const Login=()=>{
+const SignUp=()=>{
 
     const [username,setUsername] = React.useState("") 
     return(
@@ -9,4 +9,5 @@ const Login=()=>{
         </>
     )
 }
-export default Login
+
+export default SignUp
