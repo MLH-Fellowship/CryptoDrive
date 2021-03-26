@@ -17,7 +17,24 @@ contract('CryptoDrive', (accounts) => {
       assert.notEqual(address, undefined)
     });
 
-    
+    const user_id="u1";
+    const passhash="whdkwuxdhdrmi";
+    const public_key="hhhhhhhhhhhssssssssseeee"
+
+    it('Signup Successfully',async()=>{
+        const result=await cryptodrive.SignUp(user_id,passhash,public_key);
+    });
+
+    it('Retrive Pass Hash',async()=>{
+        const result=await cryptodrive.GetPassHash(user_id);
+        asserted.equal(passhash,result,"Pass Hash not Retrived Successfully");
+    });
+
+    it('Retrive the Public Key',async()=>{
+        const result=await cryptodrive.getPublicKey(user_id);
+        asserted.equal(public_key,result,"Public Key not Retrived Successfully");
+    });
+
 
   })
 })
