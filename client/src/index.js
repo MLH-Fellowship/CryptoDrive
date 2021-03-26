@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import {Container} from '@material-ui/core'
-
+import {Container,Grid} from '@material-ui/core'
+import {DragAndDrop,Header, Info} from './components'
 ReactDOM.render(
   <React.StrictMode>
     <Container>
-    <App />
+      <Header/>
+      <App />
     </Container>
   </React.StrictMode>,
   document.getElementById('root')
