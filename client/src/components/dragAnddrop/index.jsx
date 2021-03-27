@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Grid} from '@material-ui/core'
+import { Grid } from "@material-ui/core";
 // Import React FilePond
 import { FilePond, registerPlugin } from "react-filepond";
 
@@ -13,26 +13,48 @@ import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orien
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 
+// Import  Redirect and ROute
+import {Redirect} from 'react-router-dom'
+import * as ROUTES from "./../../constants/routes";
 // Register the plugins
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
 export default function DragAndDrop() {
+
+  function getToken() {
+    const tokenString = sessionStorage.getItem("token");
+    const userToken = JSON.parse(tokenString);
+    return userToken?.token;
+  }
+
+  const token = getToken();
   const [files, setFiles] = useState([]);
+
+
+  if (!token) {
+    return <Redirect to={ROUTES.SIGN_IN}/>
+  }
+
   return (
     <Grid container>
-         
-    <Grid item xs={12} sm={12} md={12} lg={12}><br/>
-    <br/><center> <h2>Use CryptoDrive Here </h2></center>
-    <FilePond
-        files={files}
-        allowReorder={true}
-        allowMultiple={true}
-        server="http://localhost:8000/upload"
-        onupdatefiles={setFiles}
-        labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
-        name="file"
-      />
-      {console.log(files)}
-  </Grid></Grid>
+      <Grid item xs={12} sm={12} md={12} lg={12}>
+        <br />
+        <br />
+        <center>
+          {" "}
+          <h2>Use CryptoDrive Here </h2>
+        </center>
+        <FilePond
+          files={files}
+          allowReorder={true}
+          allowMultiple={true}
+          server="http://localhost:8000/upload"
+          onupdatefiles={setFiles}
+          labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
+          name="file"
+        />
+        {console.log(files)}
+      </Grid>
+    </Grid>
   );
 }
