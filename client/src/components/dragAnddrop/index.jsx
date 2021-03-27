@@ -13,9 +13,9 @@ import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orien
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 
-// Import Login 
-import {LoginUI} from './../AuthUIs'
-
+// Import  Redirect and ROute
+import {Redirect} from 'react-router-dom'
+import * as ROUTES from "./../../constants/routes";
 // Register the plugins
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
@@ -26,13 +26,13 @@ export default function DragAndDrop() {
     const userToken = JSON.parse(tokenString);
     return userToken?.token;
   }
-  
+
   const token = getToken();
   const [files, setFiles] = useState([]);
 
 
   if (!token) {
-    return <LoginUI/>;
+    return <Redirect to={ROUTES.SIGN_IN}/>
   }
 
   return (
