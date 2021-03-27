@@ -50,7 +50,7 @@ export default function App() {
             linkText="Sign in"
           />
         </Route>
-        <Route exact path={ROUTES.HOME}>
+        <Route exact path={ROUTES.DASHBOARD}>
           <Container>
             <DragAndDrop />
           </Container>
