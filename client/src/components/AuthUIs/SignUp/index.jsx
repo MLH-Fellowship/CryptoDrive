@@ -12,6 +12,7 @@ const SignUp = () => {
   const [pubKey, setPubKey] = React.useState("");
   const [privateKey, setPrivate] = React.useState("");
   const [contract, setContract] = React.useState("");
+  const [error, setError] = React.useState("");
 
   React.useEffect(async () => {
     await loadWeb3();
@@ -22,21 +23,26 @@ const SignUp = () => {
   }, []);
 
   const generateKeyPair = async () => {
-    const key = await new NodeRSA({ b: 2048 });
-    const public_key = key.exportKey("public");
-    const private_key = key.exportKey("private");
-    setPrivate(private_key);
-    setPubKey(public_key);
-    const encrypted_text = await EncrptPublicKey("username", public_key);
-    const hash = await StringUpload(encrypted_text);
-    console.log(hash);
-    const encrypted_retrived_string = await StringRetrive(hash);
-    const decrypted_text = await DecryptPrivateKey(
-      encrypted_retrived_string,
-      private_key
-    );
-    console.log(decrypted_text);
-    console.log(decrypted_text === "username");
+    if (username) {
+      setError(false);
+      const key = await new NodeRSA({ b: 2048 });
+      const public_key = key.exportKey("public");
+      const private_key = key.exportKey("private");
+      setPrivate(private_key);
+      setPubKey(public_key);
+      const encrypted_text = await EncrptPublicKey("username", public_key);
+      const hash = await StringUpload(encrypted_text);
+      console.log(hash);
+      const encrypted_retrived_string = await StringRetrive(hash);
+      const decrypted_text = await DecryptPrivateKey(
+        encrypted_retrived_string,
+        private_key
+      );
+      console.log(decrypted_text);
+      console.log(decrypted_text === "username");
+    } else {
+      setError("Enter a valid username");
+    }
   };
 
   return (
@@ -64,6 +70,7 @@ const SignUp = () => {
         <Button
           variant="outlined"
           style={{ backgroundColor: "#2B3B4E", color: "#F4A200" }}
+          onClick={generateKeyPair}
         >
           Sign Up
         </Button>
@@ -101,6 +108,9 @@ const SignUp = () => {
             </TextField>
           </h3>
         )}
+        <br />
+        <br />
+        {error && <span style={{ color: "red" }}><center><h2>{error}</h2></center></span>}
       </Grid>
     </Grid>
   );
