@@ -4,6 +4,8 @@ import loadWeb3 from './../../../Web3/LoadWeb3';
 import ContractConnect from './../../../Web3/ContractConnect'
 import EncrptPublicKey from './../../Cryptography/Encryption'
 import DecryptPrivateKey from './../../Cryptography/Decryption'
+import StringUpload from './../../Ipfs/StringUpload';
+import StringRetrive from './../../Ipfs/StringRetrive';
 const NodeRSA = require("node-rsa");
 const SignUp=()=>{
 
@@ -29,9 +31,13 @@ const SignUp=()=>{
         setPrivate(private_key);
         setPubKey(public_key);
         const encrypted_text= await EncrptPublicKey("username",public_key);
-        console.log(encrypted_text);
-        const decrypted_text= await DecryptPrivateKey(encrypted_text,private_key);
+        const hash=await StringUpload(encrypted_text);
+        console.log(hash)
+        const encrypted_retrived_string=await StringRetrive(hash);
+        const decrypted_text= await DecryptPrivateKey(encrypted_retrived_string,private_key);
+        console.log(decrypted_text)
         console.log(decrypted_text==='username')
+        
     };
     
     
