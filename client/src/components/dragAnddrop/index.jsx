@@ -24,8 +24,9 @@ export default function DragAndDrop() {
   function getToken() {
     const tokenString = sessionStorage.getItem("token");
     const userToken = JSON.parse(tokenString);
-    return userToken?.token;
+    return userToken;
   }
+
 
   const token = getToken();
   const [files, setFiles] = useState([]);
