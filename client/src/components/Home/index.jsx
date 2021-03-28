@@ -1,15 +1,37 @@
 import React from "react";
-import { Button, TextField } from "@material-ui/core";
-import { Grid } from "@material-ui/core";
+import { Grid, Button } from "@material-ui/core";
+import Typist from "react-text-typist";
+import "./home.css";
 const Login = () => {
-  const [username, setUsername] = React.useState("");
   return (
-    <Grid container spacing={4}>
-      <Grid item xs={12} sm={12} md={12} lg={12}>
-   Hello World, we are Crypto Drive
-      </Grid>
-</Grid>
+    <div className="top-container">
+      <Typist
+        className="typist-custom"
+        cursorSmooth={true}
+        cursorDelay={100000}
+        sentences={["Secure", "Fast", "Private"]}
+      />
+      <div className="title">
+        Welcome to CrytpoDrive, your one stop solution to fast secure storage.
+      </div>
+      <div className="button-container">
+        <Button
+          style={{
+            borderRadius: 25,
+            backgroundColor: "#2b3b4e",
+            color: "white",
+          }}
+          href="/signin"
+        >
+          Get Started
+        </Button>
+      </div>
+    </div>
   );
 };
 
 export default Login;
+
+//<div className="title">
+// Welcome to CrytpoDrive, your one stop solution to fast secure storage
+// </div>
