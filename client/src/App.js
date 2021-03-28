@@ -14,15 +14,21 @@ export default function App() {
       <Header />
       <Switch>
         <Route exact path="/">
-          <Container>
-            <Home />
-          </Container>
+          <div className="MainContent">
+            <Container>
+              <Home />
+            </Container>
+          </div>
           <Footer label="Crypto Drive" link="/" linkText="You are at Home" />
         </Route>
         <Route exact path={ROUTES.SIGN_IN}>
-          <Container>
-            <LoginUI />
-          </Container>
+          <div className="MainContent">
+            {" "}
+            <Container>
+              <LoginUI />
+            </Container>
+          </div>
+
           <Footer
             label="Dont Have an Account?"
             link={ROUTES.SIGN_UP}
@@ -30,10 +36,11 @@ export default function App() {
           />
         </Route>
         <Route exact path={ROUTES.SIGN_UP}>
-          <Container>
-            <SignUpUI />
-          </Container>
-
+          <div className="MainContent">
+            <Container>
+              <SignUpUI />
+            </Container>
+          </div>
           <Footer
             label="Already Have an Account?"
             link={ROUTES.SIGN_IN}
@@ -41,9 +48,11 @@ export default function App() {
           />
         </Route>
         <Route exact path={ROUTES.DASHBOARD}>
-          <Container>
-            <DragAndDrop />
-          </Container>
+          <div className="MainContent">
+            <Container>
+              <DragAndDrop />
+            </Container>
+          </div>
           <Footer
             label="We save you from getting hijacked by Big Techies"
             link="/"

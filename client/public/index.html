@@ -44,15 +44,22 @@
   </body>
 </html>
 <style>
-
+html{
+  box-sizing: border-box;
+  margin:0;
+  padding:0;
+}
 body{
   margin:0;
   padding:0;
       color:#443F3F;
       background:#F3F9FF;
-      height:98vh;
-      width:98vw;
+      
       font-family: 'Rajdhani', sans-serif;
+}
+.MainContent{
+  min-height: calc(100vh - 239px - 80px);
+  padding-bottom: 40px;
 }
 .filepond--credits{
   visibility: hidden;
