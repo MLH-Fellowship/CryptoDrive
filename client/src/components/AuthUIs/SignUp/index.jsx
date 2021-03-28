@@ -2,6 +2,9 @@ import React from 'react';
 import {TextField, Grid} from '@material-ui/core'
 import loadWeb3 from './../../../Web3/LoadWeb3';
 import ContractConnect from './../../../Web3/ContractConnect'
+import EncrptPublicKey from './../../Cryptography/Encryption'
+import DecryptPrivateKey from './../../Cryptography/Decryption'
+const NodeRSA = require("node-rsa");
 const SignUp=()=>{
 
     const [username,setUsername] = React.useState("") 
@@ -15,12 +18,24 @@ const SignUp=()=>{
         console.log("Web3 Loaded")
         const Contract = await ContractConnect();
         setContract(Contract)
-
+        await generateKeyPair();
+        
     },[])
+
+    const generateKeyPair = async () => {
+        const key = await new NodeRSA({ b: 2048 });
+        const public_key = key.exportKey("public");
+        const private_key = key.exportKey("private");
+        setPrivate(private_key);
+        setPubKey(public_key);
+        const encrypted_text= await EncrptPublicKey("username",public_key);
+        console.log(encrypted_text);
+        const decrypted_text= await DecryptPrivateKey(encrypted_text,private_key);
+        console.log(decrypted_text==='username')
+    };
     
-
-
-
+    
+    
     return(
         <Grid container spacing={4}>
                <Grid item xs={12} sm={12} md={4} lg={4}><br/>
