@@ -1,6 +1,6 @@
-<center>
+<p align="center">
 <img src="./docs/assets/logo.png" height="250px"  />
-</center>
+</p>
 
-## About 
+## CryptoDrive
 CryptoDrive helps you by providing a decentralized blockchain based file storage service, where you only have the access to your file. 
