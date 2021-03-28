@@ -12,7 +12,7 @@ const Login = () => {
         sentences={["Secure", "Fast", "Private"]}
       />
       <div className="title">
-        Welcome to CrytpoDrive, your one stop solution to fast secure storage.
+        Welcome to CrytpoDrive, your one stop solution to fast secure serverless storage.
       </div>
       <div className="button-container">
         <Button
