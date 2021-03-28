@@ -9,10 +9,10 @@ const Login = () => {
         className="typist-custom"
         cursorSmooth={true}
         cursorDelay={100000}
-        sentences={["Secure", "Fast", "Private"]}
+        sentences={["Secure", "Fast", "Decentralized", "Serverless"]}
       />
       <div className="title">
-        Welcome to CrytpoDrive, your one stop solution to fast secure serverless storage.
+      <center>  Welcome to CrytpoDrive, your one stop solution to fast, secure, decentralized and serverless storage.</center>
       </div>
       <div className="button-container">
         <Button
