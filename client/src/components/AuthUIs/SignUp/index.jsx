@@ -3,6 +3,7 @@ import {TextField, Grid} from '@material-ui/core'
 import loadWeb3 from './../../../Web3/LoadWeb3';
 import ContractConnect from './../../../Web3/ContractConnect'
 import EncrptPublicKey from './../../Cryptography/Encryption'
+import DecryptPrivateKey from './../../Cryptography/Decryption'
 const NodeRSA = require("node-rsa");
 const SignUp=()=>{
 
@@ -25,11 +26,12 @@ const SignUp=()=>{
         const key = await new NodeRSA({ b: 2048 });
         const public_key = key.exportKey("public");
         const private_key = key.exportKey("private");
-        console.log(public_key);
         setPrivate(private_key);
         setPubKey(public_key);
         const encrypted_text= await EncrptPublicKey("username",public_key);
         console.log(encrypted_text);
+        const decrypted_text= await DecryptPrivateKey(encrypted_text,private_key);
+        console.log(decrypted_text==='username')
     };
     
     
