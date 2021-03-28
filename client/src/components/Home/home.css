@@ -11,5 +11,5 @@
 }
 
 .button-container {
-  position: relative;
+  align-self: flex-end;
 }
