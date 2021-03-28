@@ -1,0 +1,15 @@
+.typist-custom {
+  font-size: 50px;
+}
+
+.top-container {
+  padding-top: 3em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.button-container {
+  position: relative;
+}
