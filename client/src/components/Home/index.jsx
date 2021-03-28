@@ -11,7 +11,7 @@ const Login = () => {
         cursorDelay={100000}
         sentences={["Secure", "Fast", "Private"]}
       />
-      <div>
+      <div className="title">
         Welcome to CrytpoDrive, your one stop solution to fast secure storage.
       </div>
       <div className="button-container">

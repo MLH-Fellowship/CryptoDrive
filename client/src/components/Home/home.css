@@ -10,6 +10,10 @@
   align-items: center;
 }
 
+.title {
+  font-size: 2rem;
+}
+
 .button-container {
   padding-top: 5em;
   align-self: center;
