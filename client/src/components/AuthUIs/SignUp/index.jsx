@@ -1,10 +1,25 @@
 import React from 'react';
 import {TextField, Grid} from '@material-ui/core'
-const Login=()=>{
+import loadWeb3 from './../../../Web3/LoadWeb3';
+import ContractConnect from './../../../Web3/ContractConnect'
+const SignUp=()=>{
 
     const [username,setUsername] = React.useState("") 
     const [pubKey,setPubKey] = React.useState("")
     const [privateKey,setPrivate] = React.useState("")
+    const [contract, setContract] = React.useState("")
+
+    React.useEffect(async()=>{
+        
+        await loadWeb3();
+        console.log("Web3 Loaded")
+        const Contract = await ContractConnect();
+        setContract(Contract)
+
+    },[])
+    
+
+
 
     return(
         <Grid container spacing={4}>
@@ -30,4 +45,4 @@ const Login=()=>{
         </Grid>
     )
 }
-export default Login
+export default SignUp
