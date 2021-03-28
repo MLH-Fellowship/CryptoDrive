@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Button, TextField } from "@material-ui/core";
+import React from "react";
+import { TextField } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
 const Login = (props) => {
 
@@ -24,9 +24,6 @@ const Login = (props) => {
         />
 
       </Grid>
-          <Grid item xs={12} sm={12} md={12} lg={12}>
-          <center>{props.message && <span style={{color:'red'}}>{props.message}</span>}</center><br/><br/>
-          </Grid>
     </Grid>
   );
 };
