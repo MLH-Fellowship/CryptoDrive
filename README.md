@@ -1,7 +1,7 @@
 <p align="center">
 <img src="./docs/assets/logo.png" height="250px"  />
   <br/><br/>
-"A Decentralised Encrypted File Storing and Sharing App which is back-boned by Ethereum Smart Contracts and is preparing its launch to the moon rocket 🚀"
+"A Decentralised Encrypted File Storing and Sharing App which is back-boned by Ethereum Smart Contracts and is preparing its launch to the moon 🚀"
 </p>
 <br/><br/>
 
