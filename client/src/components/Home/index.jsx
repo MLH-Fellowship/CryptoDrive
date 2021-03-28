@@ -4,23 +4,24 @@ import Typist from "react-text-typist";
 import "./home.css";
 const Login = () => {
   return (
-    <div>
-      <div className="top-container">
-        <Typist
-          className="typist-custom"
-          cursorSmooth={true}
-          cursorDelay={100000}
-          sentences={["Secure", "Fast", "Private"]}
-        />
-        <div>
-          Welcome to CrytpoDrive, your one stop solution to fast secure storage.
-        </div>
+    <div className="top-container">
+      <Typist
+        className="typist-custom"
+        cursorSmooth={true}
+        cursorDelay={100000}
+        sentences={["Secure", "Fast", "Private"]}
+      />
+      <div>
+        Welcome to CrytpoDrive, your one stop solution to fast secure storage.
+      </div>
+      <div className="button-container">
         <Button
           style={{
             borderRadius: 25,
             backgroundColor: "#2b3b4e",
             color: "white",
           }}
+          href="/signin"
         >
           Get Started
         </Button>

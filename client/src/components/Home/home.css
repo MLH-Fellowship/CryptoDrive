@@ -11,5 +11,6 @@
 }
 
 .button-container {
-  align-self: flex-end;
+  padding-top: 5em;
+  align-self: center;
 }
