@@ -1,14 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { DragAndDrop, Header, Home, Footer } from "./components";
 import { LoginUI, SignUpUI } from "./components/AuthUIs";
 import * as ROUTES from "./constants/routes";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  useParams,
-  useLocation,
-} from "react-router-dom";
+import { Route, Switch, useLocation } from "react-router-dom";
 import { Container } from "@material-ui/core";
 
 export default function App() {
@@ -19,15 +13,11 @@ export default function App() {
       {console.log(location.pathname)}
       <Header />
       <Switch>
-        <Route exact path='/'>
+        <Route exact path="/">
           <Container>
             <Home />
           </Container>
-          <Footer
-            label="Crypto Drive"
-            link='/'
-            linkText="You are at Home"
-          />
+          <Footer label="Crypto Drive" link="/" linkText="You are at Home" />
         </Route>
         <Route exact path={ROUTES.SIGN_IN}>
           <Container>
