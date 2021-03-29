@@ -1,10 +1,10 @@
 import { publicEncrypt } from "crypto";
 
-const encrptPublicKey = (text, public_key) => {
+const EncrptPublicKey = (text, public_key) => {
   var buffer = Buffer.from(text);
   const encrypted = publicEncrypt(public_key, buffer);
   const encrypted_encoded = encrypted.toString("base64");
   return encrypted_encoded;
 };
 
-export default encrptPublicKey;
+export default EncrptPublicKey;

@@ -1,11 +1,4 @@
-import IPFS from "ipfs-api";
-
-const ipfs = new IPFS({
-  host: "ipfs.infura.io",
-  port: 5001,
-  protocol: "https",
-});
-
+import ipfs from "../ipfs";
 const StringRetrive = (hash) => {
   const data = ipfs.get(hash);
   const content = data[0].content;

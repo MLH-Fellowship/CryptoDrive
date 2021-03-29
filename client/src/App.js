@@ -1,6 +1,7 @@
 import React from "react";
 import { DragAndDrop, Header, Home, Footer } from "./components";
-import { LoginUI, SignUpUI } from "./components/AuthUIs";
+import LoginUI from "./pages/Login/";
+import SignUpUI from "./pages/SignUp";
 import * as ROUTES from "./constants/routes";
 import { Route, Switch, useLocation } from "react-router-dom";
 import { Container } from "@material-ui/core";
