@@ -1,9 +1,9 @@
 import React from "react";
 import { TextField, Grid, Button } from "@material-ui/core";
-import loadWeb3 from "./../../../Web3/LoadWeb3";
-import ContractConnect from "./../../../Web3/ContractConnect";
-import EncrptPublicKey from "./../../Cryptography/Encryption";
-import DecryptPrivateKey from "./../../Cryptography/Decryption";
+import loadWeb3 from "../../Web3/LoadWeb3";
+import ContractConnect from "../../Web3/ContractConnect";
+import EncrptPublicKey from "../../cryptography/Encryption";
+import DecryptPrivateKey from "../../cryptography/Decryption";
 import StringUpload from "./../../Ipfs/StringUpload";
 import StringRetrive from "./../../Ipfs/StringRetrive";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -16,11 +16,15 @@ const SignUp = () => {
   const [contract, setContract] = React.useState("");
   const [error, setError] = React.useState("");
   const [loader, setLoader] = React.useState(false);
-  React.useEffect(async () => {
-    await loadWeb3();
-    console.log("Web3 Loaded");
-    const Contract = await ContractConnect();
-    setContract(Contract);
+
+  React.useEffect(() => {
+    async function setup() {
+      await loadWeb3();
+      console.log("Web3 Loaded");
+      const Contract = await ContractConnect();
+      setContract(Contract);
+    }
+    setup();
     // await generateKeyPair(); //This will make the site slow
   }, []);
 
@@ -44,7 +48,6 @@ const SignUp = () => {
         private_key
       );
       console.log(decrypted_text === username);
-   
     } else {
       setLoader(false);
       setError("Enter a valid username");

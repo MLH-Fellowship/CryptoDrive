@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid, Button } from "@material-ui/core";
 import Typist from "react-text-typist";
-import "./home.css";
+import "./landing.css";
 const Login = () => {
   return (
     <div className="top-container">
