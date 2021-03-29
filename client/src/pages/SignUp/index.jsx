@@ -1,7 +1,7 @@
 import React from "react";
 import { TextField, Grid, Button } from "@material-ui/core";
-import loadWeb3 from "./../../../Web3/LoadWeb3";
-import ContractConnect from "./../../../Web3/ContractConnect";
+import loadWeb3 from "../../Web3/LoadWeb3";
+import ContractConnect from "../../Web3/ContractConnect";
 import EncrptPublicKey from "./../../Cryptography/Encryption";
 import DecryptPrivateKey from "./../../Cryptography/Decryption";
 import StringUpload from "./../../Ipfs/StringUpload";
