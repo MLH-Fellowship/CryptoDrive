@@ -2,6 +2,9 @@ import React from "react";
 import { TextField, Grid, Button } from "@material-ui/core";
 import loadWeb3 from "../../Web3/LoadWeb3";
 import ContractConnect from "../../Web3/ContractConnect";
+import signup from "../../Web3/SignUp";
+import GetPublic from "../../Web3/GetPublicHash";
+import GetPassHash from "../../Web3/GetPassHash";
 import EncrptPublicKey from "../../cryptography/Encryption";
 import DecryptPrivateKey from "../../cryptography/Decryption";
 import StringUpload from "./../../Ipfs/StringUpload";
@@ -11,11 +14,13 @@ const NodeRSA = require("node-rsa");
 
 const SignUp = () => {
   const [username, setUsername] = React.useState("");
-  const [pubKey, setPubKey] = React.useState("");
+  const [pubKey, setPubKey] = React.useState(false);
   const [privateKey, setPrivate] = React.useState("");
   const [contract, setContract] = React.useState("");
   const [error, setError] = React.useState("");
   const [loader, setLoader] = React.useState(false);
+  const [hash,setHash]=React.useState("")
+  const [publichash,SetPublicHash]=React.useState("")
 
   React.useEffect(() => {
     async function setup() {
@@ -31,23 +36,40 @@ const SignUp = () => {
   const generateKeyPair = async () => {
     if (username) {
       setLoader(true);
+      setPubKey(false);
       setError(false);
       setPrivate(false);
-      setPubKey(false);
+     
+      setHash(false);
+      SetPublicHash(false);
       const key = new NodeRSA({ b: 512 });
       const public_key = key.exportKey("public");
       const private_key = key.exportKey("private");
       setPrivate(private_key);
       setPubKey(public_key);
       const encrypted_text = await EncrptPublicKey(username, public_key);
-
       const hash = await StringUpload(encrypted_text);
-      const encrypted_retrived_string = await StringRetrive(hash);
-      const decrypted_text = await DecryptPrivateKey(
-        encrypted_retrived_string,
-        private_key
-      );
-      console.log(decrypted_text === username);
+      const public_hash=await StringUpload(public_key);
+      console.log(public_hash);
+      const result=await signup(contract,username,hash,public_hash);
+      // console.log(result);
+      // const result1 = await GetPublic(contract,username);
+      // console.log(result1);
+      // const result2 = await GetPassHash(contract,username);
+      // console.log(result2);
+      if(result)
+      {
+        setLoader(false);
+      }
+      // console.log(hash)
+      // const encrypted_retrived_string = await StringRetrive(hash);
+      // const decrypted_text = await DecryptPrivateKey(
+      //   encrypted_retrived_string,
+      //   private_key
+      // );
+      // console.log(decrypted_text === username);
+      setHash(hash);
+      SetPublicHash(public_hash);
     } else {
       setLoader(false);
       setError("Enter a valid username");
@@ -90,8 +112,8 @@ const SignUp = () => {
         </Button>
       </Grid>
       <Grid item xs={12} sm={12} md={12} lg={12}>
-        {!pubKey && !privateKey && loader && <CircularProgress />}
-        {pubKey && (
+        {loader && <CircularProgress />}
+        {pubKey && hash && publichash && (
           <h3>
             Public Key
             <br />
@@ -108,7 +130,7 @@ const SignUp = () => {
         )}
         <br />
         <br />
-        {privateKey && (
+        {privateKey && hash && publichash && (
           <h3>
             Private Key
             <br />
