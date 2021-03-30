@@ -21,7 +21,7 @@ const Login = () => {
             backgroundColor: "#2b3b4e",
             color: "white",
           }}
-          href="/signin"
+          href="/signup"
         >
           Get Started
         </Button>
