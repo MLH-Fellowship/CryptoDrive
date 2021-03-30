@@ -10,6 +10,8 @@ import DecryptPrivateKey from "../../cryptography/Decryption";
 import StringUpload from "./../../Ipfs/StringUpload";
 import StringRetrive from "./../../Ipfs/StringRetrive";
 import CircularProgress from "./../../components/loader";
+import * as ROUTES from './../../constants/routes'
+import {Redirect} from 'react-router-dom'
 const NodeRSA = require("node-rsa");
 
 const SignUp = () => {
@@ -21,7 +23,11 @@ const SignUp = () => {
   const [loader, setLoader] = React.useState(false);
   const [hash, setHash] = React.useState("");
   const [publichash, SetPublicHash] = React.useState("");
-
+  function getPassHash() {
+    const tokenString = localStorage.getItem("public_hash");
+    const userToken = JSON.parse(tokenString);
+    return userToken;
+  }
   React.useEffect(() => {
     async function setup() {
       await loadWeb3();
@@ -52,14 +58,17 @@ const SignUp = () => {
       const public_hash = await StringUpload(public_key);
       console.log(public_hash);
       const result = await signup(contract, username, hash, public_hash);
+
       // console.log(result);
       // const result1 = await GetPublic(contract,username);
       // console.log(result1);
       // const result2 = await GetPassHash(contract,username);
       // console.log(result2);
+
       if (result) {
         setLoader(false);
       }
+
       // console.log(hash)
       // const encrypted_retrived_string = await StringRetrive(hash);
       // const decrypted_text = await DecryptPrivateKey(
@@ -67,6 +76,7 @@ const SignUp = () => {
       //   private_key
       // );
       // console.log(decrypted_text === username);
+
       setHash(hash);
       SetPublicHash(public_hash);
     } else {
@@ -80,6 +90,11 @@ const SignUp = () => {
   //   const userEncryption = await EncrptPublicKey(username, pubKey)
   // }
 
+  const token = getPassHash();
+
+  if (token) {
+    return <Redirect to={ROUTES.DASHBOARD} />;
+  }
   return (
     <Grid container spacing={4}>
       <Grid item xs={12} sm={12} md={4} lg={4}>
@@ -122,7 +137,6 @@ const SignUp = () => {
               Once you confirm, you may need to wait for a while.<br/>
               After that, we will be showing you your private and public key
               </center>
-              
               </Grid>
             </Grid>
           </>
