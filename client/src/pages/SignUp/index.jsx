@@ -10,6 +10,8 @@ import DecryptPrivateKey from "../../cryptography/Decryption";
 import StringUpload from "./../../Ipfs/StringUpload";
 import StringRetrive from "./../../Ipfs/StringRetrive";
 import CircularProgress from "./../../components/loader";
+import * as ROUTES from './../../constants/routes'
+import {Redirect} from 'react-router-dom'
 const NodeRSA = require("node-rsa");
 
 const SignUp = () => {
@@ -21,7 +23,11 @@ const SignUp = () => {
   const [loader, setLoader] = React.useState(false);
   const [hash, setHash] = React.useState("");
   const [publichash, SetPublicHash] = React.useState("");
-
+  function getPassHash() {
+    const tokenString = localStorage.getItem("public_hash");
+    const userToken = JSON.parse(tokenString);
+    return userToken;
+  }
   React.useEffect(() => {
     async function setup() {
       await loadWeb3();
@@ -84,6 +90,11 @@ const SignUp = () => {
   //   const userEncryption = await EncrptPublicKey(username, pubKey)
   // }
 
+  const token = getPassHash();
+
+  if (token) {
+    return <Redirect to={ROUTES.DASHBOARD} />;
+  }
   return (
     <Grid container spacing={4}>
       <Grid item xs={12} sm={12} md={4} lg={4}>

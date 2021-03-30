@@ -6,12 +6,19 @@ import loadWeb3 from "../../Web3/LoadWeb3";
 import StringRetrive from "../../Ipfs/StringRetrive";
 import ContractConnect from "../../Web3/ContractConnect";
 import DefaultDecryptPrivateKey from "../../cryptography/Decryption";
+import {Redirect} from "react-router-dom"
+import * as ROUTES from './../../constants/routes'
 import { Grid } from "@material-ui/core";
 const Login = (props) => {
   const [username, setUsername] = React.useState("");
   const [privateKey, setPrivateKey] = React.useState("");
   const [contract, setContract] = React.useState("");
-
+  const [publicHash,setPublicHash] =React.useState("");
+  function getPassHash() {
+    const tokenString = localStorage.getItem("public_hash");
+    const userToken = JSON.parse(tokenString);
+    return userToken;
+  }
   React.useEffect(() => {
     async function setup() {
       await loadWeb3();
@@ -20,9 +27,13 @@ const Login = (props) => {
       setContract(Contract);
     }
     setup();
-    const json = JSON.stringify(privateKey);
-    sessionStorage.setItem("token", json);
-  }, [privateKey]);
+  }, []);
+
+  React.useEffect(()=>{
+    if(publicHash){
+      const json = JSON.stringify(publicHash);
+    localStorage.setItem('public_hash', json);}
+  },[publicHash])
 
   const buttonInlineStyle = {
     paddingTop: "3em",
@@ -38,13 +49,30 @@ const Login = (props) => {
         console.log(encrypted_pass);
         const decrypted_pass = await DefaultDecryptPrivateKey(encrypted_pass,privateKey);
         console.log(decrypted_pass);
-        console.log(decrypted_pass==username);
+
+        if(decrypted_pass===username);
+        {
+           console.log(true)
+          setPublicHash(public_hash);
+          
+        }
 
     } else {
     }
   }
+  const token = getPassHash();
 
+  if (token) {
+    return <Redirect to={ROUTES.DASHBOARD} />;
+  }
+
+
+if(publicHash!=="")
+{
+  return <Redirect to={ROUTES.DASHBOARD}/>
+}
   return (
+   
     <Grid container spacing={4}>
       <Grid item xs={12} sm={10} md={6} lg={6} style={{ paddingLeft: "20em" }}>
         <br />
@@ -63,7 +91,7 @@ const Login = (props) => {
 
         <TextField
           fullWidth
-          label="Enter public key"
+          label="Enter private key"
           value={privateKey}
           onChange={(e) => {
             setPrivateKey(e.target.value);
