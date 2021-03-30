@@ -3,12 +3,12 @@ import { TextField, Button } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
 const Login = (props) => {
   const [username, setUsername] = React.useState("");
-  const [publicKey, setPublicKey] = React.useState("");
+  const [privateKey, setPrivateKey] = React.useState("");
 
   React.useEffect(() => {
-    const json = JSON.stringify(publicKey);
+    const json = JSON.stringify(privateKey);
     sessionStorage.setItem("token", json);
-  }, [publicKey]);
+  }, [privateKey]);
 
   const buttonInlineStyle = {
     paddingTop: "3em",
@@ -34,9 +34,9 @@ const Login = (props) => {
         <TextField
           fullWidth
           label="Enter public key"
-          value={publicKey}
+          value={privateKey}
           onChange={(e) => {
-            setPublicKey(e.target.value);
+            setPrivateKey(e.target.value);
           }}
         />
 

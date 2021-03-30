@@ -52,14 +52,17 @@ const SignUp = () => {
       const public_hash = await StringUpload(public_key);
       console.log(public_hash);
       const result = await signup(contract, username, hash, public_hash);
+
       // console.log(result);
       // const result1 = await GetPublic(contract,username);
       // console.log(result1);
       // const result2 = await GetPassHash(contract,username);
       // console.log(result2);
+
       if (result) {
         setLoader(false);
       }
+
       // console.log(hash)
       // const encrypted_retrived_string = await StringRetrive(hash);
       // const decrypted_text = await DecryptPrivateKey(
@@ -67,6 +70,7 @@ const SignUp = () => {
       //   private_key
       // );
       // console.log(decrypted_text === username);
+
       setHash(hash);
       SetPublicHash(public_hash);
     } else {
@@ -122,7 +126,6 @@ const SignUp = () => {
               Once you confirm, you may need to wait for a while.<br/>
               After that, we will be showing you your private and public key
               </center>
-              
               </Grid>
             </Grid>
           </>
