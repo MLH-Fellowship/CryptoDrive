@@ -1,10 +1,18 @@
 import React from "react";
-import { TextField } from "@material-ui/core";
+import { TextField, Button } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
 const Login = (props) => {
-
   const [username, setUsername] = React.useState("");
+  const [publicKey, setPublicKey] = React.useState("");
 
+  React.useEffect(() => {
+    const json = JSON.stringify(publicKey);
+    sessionStorage.setItem("token", json);
+  }, [publicKey]);
+
+  const buttonInlineStyle = {
+    paddingTop: "3em",
+  };
 
   return (
     <Grid container spacing={4}>
@@ -23,6 +31,27 @@ const Login = (props) => {
           }}
         />
 
+        <TextField
+          fullWidth
+          label="Enter public key"
+          value={publicKey}
+          onChange={(e) => {
+            setPublicKey(e.target.value);
+          }}
+        />
+
+        <div style={buttonInlineStyle}>
+          <Button
+            style={{
+              borderRadius: 25,
+              backgroundColor: "#2b3b4e",
+              color: "white",
+            }}
+            href="/dashboard"
+          >
+            Enter
+          </Button>
+        </div>
       </Grid>
     </Grid>
   );
