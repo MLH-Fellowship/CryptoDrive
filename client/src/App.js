@@ -1,5 +1,6 @@
 import React from "react";
-import { DragAndDrop, Header, Home, Footer } from "./components";
+import { Header, Home, Footer } from "./components";
+import Dashboard from "./pages/Dashboard";
 import LoginUI from "./pages/Login/";
 import SignUpUI from "./pages/SignUp";
 import * as ROUTES from "./constants/routes";
@@ -51,7 +52,7 @@ export default function App() {
         <Route exact path={ROUTES.DASHBOARD}>
           <div className="MainContent">
             <Container>
-              <DragAndDrop />
+              <Dashboard />
             </Container>
           </div>
           <Footer
