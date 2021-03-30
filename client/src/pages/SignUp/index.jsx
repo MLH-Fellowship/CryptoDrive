@@ -9,7 +9,7 @@ import EncrptPublicKey from "../../cryptography/Encryption";
 import DecryptPrivateKey from "../../cryptography/Decryption";
 import StringUpload from "./../../Ipfs/StringUpload";
 import StringRetrive from "./../../Ipfs/StringRetrive";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import CircularProgress from "./../../components/loader";
 const NodeRSA = require("node-rsa");
 
 const SignUp = () => {
@@ -19,8 +19,8 @@ const SignUp = () => {
   const [contract, setContract] = React.useState("");
   const [error, setError] = React.useState("");
   const [loader, setLoader] = React.useState(false);
-  const [hash,setHash]=React.useState("")
-  const [publichash,SetPublicHash]=React.useState("")
+  const [hash, setHash] = React.useState("");
+  const [publichash, SetPublicHash] = React.useState("");
 
   React.useEffect(() => {
     async function setup() {
@@ -39,7 +39,7 @@ const SignUp = () => {
       setPubKey(false);
       setError(false);
       setPrivate(false);
-     
+
       setHash(false);
       SetPublicHash(false);
       const key = new NodeRSA({ b: 512 });
@@ -49,16 +49,15 @@ const SignUp = () => {
       setPubKey(public_key);
       const encrypted_text = await EncrptPublicKey(username, public_key);
       const hash = await StringUpload(encrypted_text);
-      const public_hash=await StringUpload(public_key);
+      const public_hash = await StringUpload(public_key);
       console.log(public_hash);
-      const result=await signup(contract,username,hash,public_hash);
+      const result = await signup(contract, username, hash, public_hash);
       // console.log(result);
       // const result1 = await GetPublic(contract,username);
       // console.log(result1);
       // const result2 = await GetPassHash(contract,username);
       // console.log(result2);
-      if(result)
-      {
+      if (result) {
         setLoader(false);
       }
       // console.log(hash)
@@ -112,7 +111,22 @@ const SignUp = () => {
         </Button>
       </Grid>
       <Grid item xs={12} sm={12} md={12} lg={12}>
-        {loader && <CircularProgress />}
+        {loader && (
+          <>
+            <Grid container>
+              <Grid item xs={12} sm={12} md={12} lg={12}>
+              <center><CircularProgress /><br/>
+              Please Confirm the Metamask Transaction.
+              <br/>
+              You are not going to be charged.
+              Once you confirm, you may need to wait for a while.<br/>
+              After that, we will be showing you your private and public key
+              </center>
+              
+              </Grid>
+            </Grid>
+          </>
+        )}
         {pubKey && hash && publichash && (
           <h3>
             Public Key
