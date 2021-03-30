@@ -1,11 +1,25 @@
 import React from "react";
 import { TextField, Button } from "@material-ui/core";
+import GetPassHash from "../../Web3/GetPassHash";
+import GetPublic from "../../Web3/GetPublicHash";
+import loadWeb3 from "../../Web3/LoadWeb3";
+import StringRetrive from "../../Ipfs/StringRetrive";
+import ContractConnect from "../../Web3/ContractConnect";
+import DefaultDecryptPrivateKey from "../../cryptography/Decryption";
 import { Grid } from "@material-ui/core";
 const Login = (props) => {
   const [username, setUsername] = React.useState("");
   const [privateKey, setPrivateKey] = React.useState("");
+  const [contract, setContract] = React.useState("");
 
   React.useEffect(() => {
+    async function setup() {
+      await loadWeb3();
+      console.log("Web3 Loaded");
+      const Contract = await ContractConnect();
+      setContract(Contract);
+    }
+    setup();
     const json = JSON.stringify(privateKey);
     sessionStorage.setItem("token", json);
   }, [privateKey]);
@@ -13,6 +27,22 @@ const Login = (props) => {
   const buttonInlineStyle = {
     paddingTop: "3em",
   };
+
+  const Signin=async()=>{
+    if (username && privateKey) {
+        const public_hash= await GetPublic(contract,username);
+        const pass_hash= await GetPassHash(contract,username);
+        const public_key = await StringRetrive(public_hash);
+        console.log(public_key);
+        const encrypted_pass= await StringRetrive(pass_hash);
+        console.log(encrypted_pass);
+        const decrypted_pass = await DefaultDecryptPrivateKey(encrypted_pass,privateKey);
+        console.log(decrypted_pass);
+        console.log(decrypted_pass==username);
+
+    } else {
+    }
+  }
 
   return (
     <Grid container spacing={4}>
@@ -47,7 +77,7 @@ const Login = (props) => {
               backgroundColor: "#2b3b4e",
               color: "white",
             }}
-            href="/dashboard"
+            onClick={Signin}
           >
             Enter
           </Button>
