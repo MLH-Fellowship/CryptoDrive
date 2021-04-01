@@ -19,20 +19,19 @@ function TabPanel(props) {
   }
   function getUsername() {
     const tokenString = localStorage.getItem("user_name");
-    let userToken=null;
+    let userToken = null;
 
-    if(tokenString)
-    userToken = JSON.parse(tokenString);
+    if (tokenString) userToken = JSON.parse(tokenString);
 
     console.log(userToken);
-    
+
     if (userToken) return userToken;
     else return false;
   }
 
   const token = getPassHash();
   const username = getUsername();
-  if (token==null && username==null) {
+  if (token == null && username == null) {
     console.log(token);
     console.log(username);
     return <Redirect to={ROUTES.SIGN_IN} />;
@@ -87,8 +86,6 @@ export default function VerticalTabs() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
-  const [gen, setGen] = useState("heloooo");
 
   return (
     <div className={classes.root}>

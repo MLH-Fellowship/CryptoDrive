@@ -27,7 +27,7 @@ export const SaveFile = ({ text, fileName, buttonText }) => {
   return (
     <a
       // this attribute sets the filename
-      download={`${fileName}.txt`}
+      download={`${fileName}.pem`}
       // link to the download URL
       href={downloadLink}
     >
