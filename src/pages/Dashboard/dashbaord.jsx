@@ -2,6 +2,7 @@ import React, { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import StringUpload from "../../Ipfs/StringUpload";
 import ipfs from "../../Ipfs/ipfs";
+// import styles from "./index.module.css";
 import EncrptPublicKeyFile from "../../cryptography/EncryptionFile";
 import GetPassHash from "../../Web3/GetPassHash";
 import GetPublic from "../../Web3/GetPublicHash";
@@ -14,6 +15,7 @@ import { Button } from "@material-ui/core";
 import * as ROUTES from "../../constants/routes";
 import { Redirect } from "react-router-dom";
 import { FileDrop } from "react-file-drop";
+import Loader from './../../components/loader'
 const DashBoard = (props) => {
   const [uploadFiles, setUploadFiles] = useState([]);
   const [bufferState, setBufferState] = useState([]);
@@ -21,7 +23,8 @@ const DashBoard = (props) => {
   const [hash, setHash] = useState([]);
   const [passHash, setPassHash] = useState("");
   const [filename, setfilename] = useState("");
-
+  const [loader,setLoader] = useState(false)
+  const [message,setMessage] = useState("")
   function getPassHash() {
     const tokenString = localStorage.getItem("public_hash");
     const userToken = JSON.parse(tokenString);
@@ -37,8 +40,9 @@ const DashBoard = (props) => {
     setup();
   }, []);
 
-
   const captureFile = (files, event) => {
+    setLoader(true)
+    setMessage("Encrypting  your File")
     event.stopPropagation();
     event.preventDefault();
     const file = files[0];
@@ -47,31 +51,46 @@ const DashBoard = (props) => {
     let reader = new window.FileReader();
     reader.readAsArrayBuffer(file);
     reader.onloadend = () => convertToBuffer(reader);
+    setLoader(false)
+    setMessage("Encryption Successful. Click Upload")
   };
 
   const convertToBuffer = async (reader) => {
     //file is converted to a buffer for upload to IPFS
-    const buffer = await Buffer.from(reader.result);
+    // const buffer = await Buffer.from(reader.result);
     //set this buffer-using es6 syntax
-    setBufferState(buffer);
+    setBufferState(reader.result);
   };
   const onSubmit = async (event) => {
     event.preventDefault();
+    setLoader(true)
+    setMessage("Preparing to Upload to Blockchain")
+    event.stopPropagation();
     //save document to IPFS,return its hash#, and set hash# to state
-    const publicHASH=getPassHash();
-    const publicKey=StringRetrive(publicHASH);
+    const publicHASH = getPassHash();
+    const publicKey = StringRetrive(publicHASH);
     console.log(publicKey);
     console.log(bufferState);
-    const buffer_encrypted=await EncrptPublicKeyFile(bufferState,publicKey);
+    const buffer_encrypted = await EncrptPublicKeyFile(bufferState, publicKey);
+    setMessage("Converted to Buffer")
     console.log(buffer_encrypted);
-    const hash=await StringUpload(buffer_encrypted);
+    const hash = await StringUpload(buffer_encrypted);
     setHash(hash);
     console.log(hash);
-    const username="kkkk";
-    const result=await AddFile(contract,username,hash,filename);
+    const username = "kkkk";
+
+    const result = await AddFile(contract, username, hash, filename);
+    setMessage("Upload Request Sent to Blockchain")
     console.log(result);
-
-
+    if(result.status===true){
+      setMessage("Uploaded to Blockchain.")
+      setUploadFiles([])
+      setLoader(false);
+    }
+    else{
+      setMessage("Upload failed, Please Try again")
+      setLoader(false);
+    }
   };
   // React.useEffect(() => {
   //   if (passHash == "") {
@@ -145,9 +164,16 @@ const DashBoard = (props) => {
           )}
         </FileDrop>
       </div>
+
+
+
       <Button type="submit" onClick={onSubmit}>
-        Send it
-      </Button>
+        Upload 
+     </Button>
+<br/>
+{loader && <><Loader width="50px"/><br/></>}
+
+{message}
       {/* <Button onClick={Logout}>Logout</Button> */}
     </>
   );

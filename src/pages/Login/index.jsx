@@ -19,6 +19,7 @@ const Login = (props) => {
     const userToken = JSON.parse(tokenString);
     return userToken;
   }
+
   React.useEffect(() => {
     async function setup() {
       await loadWeb3();
@@ -31,20 +32,41 @@ const Login = (props) => {
 
   React.useEffect(()=>{
     if(publicHash){
-      const json = JSON.stringify(publicHash);
+    const json = JSON.stringify(publicHash);
     localStorage.setItem('public_hash', json);}
+    
   },[publicHash])
+
+  
+  React.useEffect(()=>{
+    if(username){
+    const json = JSON.stringify(username);
+    localStorage.setItem('user_name', json);}
+    
+  },[username])
+
+  
 
   const buttonInlineStyle = {
     paddingTop: "3em",
   };
-
+  function getUserName() {
+    const tokenString = localStorage.getItem("user_name");
+    if(tokenString){
+    const userToken = JSON.parse(tokenString);
+    return userToken;}
+    else{
+      return false;
+    }
+  }
   const Signin=async()=>{
     if (username && privateKey) {
         const public_hash= await GetPublic(contract,username);
         const pass_hash= await GetPassHash(contract,username);
         const public_key = await StringRetrive(public_hash);
         console.log(public_key);
+        console.log(pass_hash)
+        console.log(public_hash)
         const encrypted_pass= await StringRetrive(pass_hash);
         console.log(encrypted_pass);
         const decrypted_pass = await DefaultDecryptPrivateKey(encrypted_pass,privateKey);
@@ -54,21 +76,25 @@ const Login = (props) => {
         {
            console.log(true)
           setPublicHash(public_hash);
-          
         }
 
     } else {
     }
+    
   }
-  const token = getPassHash();
 
-  if (token) {
+  const token = getPassHash();
+  const LoginUser = getUserName();
+  console.log(LoginUser)
+  if (token && LoginUser) {
     return <Redirect to={ROUTES.DASHBOARD} />;
   }
+  
 
 
 if(publicHash!=="")
 {
+ 
   return <Redirect to={ROUTES.DASHBOARD}/>
 }
   return (

@@ -1,11 +1,12 @@
-import { publicEncrypt } from "crypto";
+const NodeRSA = require('node-rsa');
 
-const EncrptPublicKey = (text, public_key) => {
-  var buffer = Buffer.from(text);
+const EncrptPublicKey =async (text, public_key) => {
+  var buffer = await Buffer.from(text);
   console.log(buffer);
-  const encrypted = publicEncrypt(public_key, buffer);
-  const encrypted_encoded = encrypted.toString("base64");
-  return encrypted_encoded;
+  public_key = await new NodeRSA(public_key);
+  const encrypted_data = await public_key.encrypt(buffer, 'base64');
+  return encrypted_data
+    
 };
 
 export default EncrptPublicKey;
