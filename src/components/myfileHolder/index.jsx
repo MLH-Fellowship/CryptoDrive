@@ -2,7 +2,7 @@ import React from "react";
 import { TextField } from "@material-ui/core";
 
 const MyFile = (props) => {
-  return (
+  return (<>
     <div
       style={{
         height: "55px",
@@ -13,19 +13,18 @@ const MyFile = (props) => {
       }}
     >
       <span style={{ flexBasis: 3 }}>
-        <b>Filename</b>
-        <br />
-        {props.filename}
+        {props.name}
       </span>
       <br />
 
       <TextField
+      variant="outlined"
         value={props.hash}
         InputProps={{
           readOnly: true,
         }}
       />
-    </div>
+    </div><br/></>
   );
 };
 
