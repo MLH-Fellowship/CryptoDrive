@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
@@ -6,6 +6,8 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Dashboard from "./dashbaord";
+import { Button } from "@material-ui/core";
+import SaveFile from "../../components/save_file/index";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -60,6 +62,8 @@ export default function VerticalTabs() {
     setValue(newValue);
   };
 
+  const [gen, setGen] = useState("heloooo");
+
   return (
     <div className={classes.root}>
       <Tabs
@@ -78,9 +82,7 @@ export default function VerticalTabs() {
       <TabPanel value={value} index={1}>
         <Dashboard />
       </TabPanel>
-      <TabPanel value={value} index={2}>
-        Share Files
-      </TabPanel>
+      <TabPanel value={value} index={2}></TabPanel>
     </div>
   );
 }
