@@ -16,6 +16,8 @@ import * as ROUTES from "../../constants/routes";
 import { Redirect } from "react-router-dom";
 import { FileDrop } from "react-file-drop";
 import Loader from './../../components/loader'
+import Validator from './../../utility/validator'
+
 const DashBoard = (props) => {
   const [uploadFiles, setUploadFiles] = useState([]);
   const [bufferState, setBufferState] = useState([]);
@@ -25,11 +27,7 @@ const DashBoard = (props) => {
   const [filename, setfilename] = useState("");
   const [loader,setLoader] = useState(false)
   const [message,setMessage] = useState("")
-  function getPassHash() {
-    const tokenString = localStorage.getItem("public_hash");
-    const userToken = JSON.parse(tokenString);
-    return userToken;
-  }
+
   React.useEffect(() => {
     async function setup() {
       await loadWeb3();
@@ -55,15 +53,7 @@ const DashBoard = (props) => {
     setMessage("Encryption Successful. Click Upload")
   };
 
-  function getUserName() {
-    const tokenString = localStorage.getItem("user_name");
-    if(tokenString){
-    const userToken = JSON.parse(tokenString);
-    return userToken;}
-    else{
-      return false;
-    }
-  }
+  
   
 
   const convertToBuffer = async (reader) => {
@@ -78,7 +68,7 @@ const DashBoard = (props) => {
     setMessage("Preparing to Upload to Blockchain")
     event.stopPropagation();
     //save document to IPFS,return its hash#, and set hash# to state
-    const publicHASH =await getPassHash();
+    const publicHASH =await Validator('publicHash');
     const publicKey = await StringRetrive(publicHASH);
     console.log(publicKey);
     console.log(bufferState);
@@ -88,7 +78,7 @@ const DashBoard = (props) => {
     const hash = await StringUpload(buffer_encrypted);
     setHash(hash);
     console.log(hash);
-    const username = getUserName();
+    const username = Validator('username')
 
     const result = await AddFile(contract, username, hash, filename);
     setMessage("Upload Request Sent to Blockchain")
@@ -113,9 +103,9 @@ const DashBoard = (props) => {
   //   localStorage.removeItem("public_hash");
   // };
 
-  const token = getPassHash();
-
-  if (!token) {
+  const token = Validator('publicHash')
+  const loginUser = Validator('username')
+  if (!token || !loginUser) {
     return <Redirect to={ROUTES.SIGN_IN} />;
   }
   const styles = {
