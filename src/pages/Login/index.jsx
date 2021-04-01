@@ -37,6 +37,16 @@ const Login = (props) => {
     
   },[publicHash])
 
+  
+  React.useEffect(()=>{
+    if(username){
+    const json = JSON.stringify(username);
+    localStorage.setItem('user_name', json);}
+    
+  },[username])
+
+  
+
   const buttonInlineStyle = {
     paddingTop: "3em",
   };
@@ -55,6 +65,8 @@ const Login = (props) => {
         const pass_hash= await GetPassHash(contract,username);
         const public_key = await StringRetrive(public_hash);
         console.log(public_key);
+        console.log(pass_hash)
+        console.log(public_hash)
         const encrypted_pass= await StringRetrive(pass_hash);
         console.log(encrypted_pass);
         const decrypted_pass = await DefaultDecryptPrivateKey(encrypted_pass,privateKey);
@@ -64,17 +76,20 @@ const Login = (props) => {
         {
            console.log(true)
           setPublicHash(public_hash);
-          localStorage.setItem('user_name', username);
         }
 
     } else {
     }
+    
   }
+
   const token = getPassHash();
   const LoginUser = getUserName();
+  console.log(LoginUser)
   if (token && LoginUser) {
     return <Redirect to={ROUTES.DASHBOARD} />;
   }
+  
 
 
 if(publicHash!=="")

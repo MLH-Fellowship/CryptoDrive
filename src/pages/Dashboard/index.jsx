@@ -32,7 +32,7 @@ function TabPanel(props) {
 
   const token = getPassHash();
   const username = getUsername();
-  if (token!=null && username!=null) {
+  if (token==null && username==null) {
     console.log(token);
     console.log(username);
     return <Redirect to={ROUTES.SIGN_IN} />;
