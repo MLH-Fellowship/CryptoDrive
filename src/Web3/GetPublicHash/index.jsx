@@ -5,4 +5,4 @@ const GetPublic=async(contract,username)=>{
     return result;
 }
 
-module.exports = GetPublic;
+export default GetPublic;
