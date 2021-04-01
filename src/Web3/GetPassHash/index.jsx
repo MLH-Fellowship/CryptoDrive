@@ -5,4 +5,4 @@ const GetPassHash=async(contract,username)=>{
     return result;
 }
 
-module.exports = GetPassHash;
+export default GetPassHash;

@@ -6,4 +6,4 @@ const GetFileHash=async(contract,username)=>{
     return result;
 }
 
-module.exports = GetFileHash;
+export default GetFileHash;
