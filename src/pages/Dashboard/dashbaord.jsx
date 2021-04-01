@@ -11,10 +11,11 @@ import AddFile from "../../Web3/AddFileHash";
 import loadWeb3 from "../../Web3/LoadWeb3";
 import ContractConnect from "../../Web3/ContractConnect";
 import StringRetrive from "../../Ipfs/StringRetrive";
+import FileBar from "../../components/FileBar";
 import { Button } from "@material-ui/core";
-import * as ROUTES from "./../../constants/routes";
+import * as ROUTES from "../../constants/routes";
 import { Redirect } from "react-router-dom";
-import { FileDrop } from 'react-file-drop';
+import { FileDrop } from "react-file-drop";
 const DashBoard = (props) => {
   const [uploadFiles, setUploadFiles] = useState([]);
   const [bufferState, setBufferState] = useState([]);
@@ -39,7 +40,7 @@ const DashBoard = (props) => {
   }, []);
 
 
-  const captureFile = (files,event) => {
+  const captureFile = (files, event) => {
     event.stopPropagation();
     event.preventDefault();
     const file = files[0];
@@ -89,7 +90,12 @@ const DashBoard = (props) => {
   if (!token) {
     return <Redirect to={ROUTES.SIGN_IN} />;
   }
-  const styles = { border: '1px solid black', width: 600, color: 'black', padding: 20 };
+  const styles = {
+    border: "1px solid black",
+    width: 600,
+    color: "black",
+    padding: 20,
+  };
   return (
     <>
       {/* <div
@@ -116,7 +122,7 @@ const DashBoard = (props) => {
         <input type="file" onChange={captureFile} />
         <Button type="submit">Send it</Button>
       </form> */}
-       <div style={styles}>
+      <div style={styles}>
         <FileDrop
           // onFrameDragEnter={(event) => console.log('onFrameDragEnter', event)}
           // onFrameDragLeave={(event) => console.log('onFrameDragLeave', event)}
@@ -124,19 +130,26 @@ const DashBoard = (props) => {
           // onDragOver={(event) => console.log('onDragOver', event)}
           // onDragLeave={(event) => console.log('onDragLeave', event)}
           onDrop={(files, event) => {
-            captureFile(files,event)
+            captureFile(files, event);
             setUploadFiles(files);
             console.log("Files ", files);
-            console.log(typeof(uploadFiles))
-            }}
+            console.log(typeof uploadFiles);
+          }}
         >
           Drop some files here!
-          <hr/>
+          <hr />
           {uploadFiles && console.log(uploadFiles)}
-          {uploadFiles.length > 0 && (<FileBar filename={uploadFiles[0].name} filesize={uploadFiles[0].size} />)}
-        </FileDrop></div>
-        <Button type="submit" onClick={onSubmit}>Send it</Button>   
-            
+          {uploadFiles.length > 0 && (
+            <FileBar
+              filename={uploadFiles[0].name}
+              filesize={uploadFiles[0].size}
+            />
+          )}
+        </FileDrop>
+      </div>
+      <Button type="submit" onClick={onSubmit}>
+        Send it
+      </Button>
       {/* <Button onClick={Logout}>Logout</Button> */}
     </>
   );
