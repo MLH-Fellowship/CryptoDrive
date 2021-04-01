@@ -72,7 +72,7 @@ export default function VerticalTabs() {
       >
         <Tab label="My Files" {...a11yProps(0)} />
         <Tab label="Upload" {...a11yProps(1)} />
-        <Tab label="Share" {...a11yProps(2)} />
+        <Tab label="Shared Files" {...a11yProps(2)} />
       </Tabs>
       <TabPanel value={value} index={0}></TabPanel>
       <TabPanel value={value} index={1}>

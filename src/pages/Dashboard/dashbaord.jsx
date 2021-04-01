@@ -2,8 +2,6 @@ import React, { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import StringUpload from "../../Ipfs/StringUpload";
 import ipfs from "../../Ipfs/ipfs";
-import FileBar from './../../components/FileBar'
-import styles from "./index.module.css";
 import EncrptPublicKeyFile from "../../cryptography/EncryptionFile";
 import GetPassHash from "../../Web3/GetPassHash";
 import GetPublic from "../../Web3/GetPublicHash";
