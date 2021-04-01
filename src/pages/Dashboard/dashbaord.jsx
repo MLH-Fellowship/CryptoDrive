@@ -55,6 +55,17 @@ const DashBoard = (props) => {
     setMessage("Encryption Successful. Click Upload")
   };
 
+  function getUserName() {
+    const tokenString = localStorage.getItem("user_name");
+    if(tokenString){
+    const userToken = JSON.parse(tokenString);
+    return userToken;}
+    else{
+      return false;
+    }
+  }
+  
+
   const convertToBuffer = async (reader) => {
     //file is converted to a buffer for upload to IPFS
     // const buffer = await Buffer.from(reader.result);
@@ -67,8 +78,8 @@ const DashBoard = (props) => {
     setMessage("Preparing to Upload to Blockchain")
     event.stopPropagation();
     //save document to IPFS,return its hash#, and set hash# to state
-    const publicHASH = getPassHash();
-    const publicKey = StringRetrive(publicHASH);
+    const publicHASH =await getPassHash();
+    const publicKey = await StringRetrive(publicHASH);
     console.log(publicKey);
     console.log(bufferState);
     const buffer_encrypted = await EncrptPublicKeyFile(bufferState, publicKey);
@@ -77,7 +88,7 @@ const DashBoard = (props) => {
     const hash = await StringUpload(buffer_encrypted);
     setHash(hash);
     console.log(hash);
-    const username = "kkkk";
+    const username = getUserName();
 
     const result = await AddFile(contract, username, hash, filename);
     setMessage("Upload Request Sent to Blockchain")

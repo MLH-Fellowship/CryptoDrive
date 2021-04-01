@@ -5,6 +5,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import MyFiles from "./myfiles";
 import Dashboard from "./dashbaord";
 import { Button } from "@material-ui/core";
 import SaveFile from "../../components/save_file/index";
@@ -31,7 +32,7 @@ function TabPanel(props) {
 
   const token = getPassHash();
   const username = getUsername();
-  if (token == null && username == null) {
+  if (token==null || username==null) {
     console.log(token);
     console.log(username);
     return <Redirect to={ROUTES.SIGN_IN} />;
@@ -101,7 +102,9 @@ export default function VerticalTabs() {
         <Tab label="Upload" {...a11yProps(1)} />
         <Tab label="Shared Files" {...a11yProps(2)} />
       </Tabs>
-      <TabPanel value={value} index={0}></TabPanel>
+      <TabPanel value={value} index={0}>
+        <MyFiles />
+      </TabPanel>
       <TabPanel value={value} index={1}>
         <Dashboard />
       </TabPanel>
