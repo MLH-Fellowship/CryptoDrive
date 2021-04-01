@@ -4,6 +4,13 @@ import StringUpload from "../../Ipfs/StringUpload";
 import ipfs from "../../Ipfs/ipfs";
 import FileBar from './../../components/FileBar'
 import styles from "./index.module.css";
+import EncrptPublicKeyFile from "../../cryptography/EncryptionFile";
+import GetPassHash from "../../Web3/GetPassHash";
+import GetPublic from "../../Web3/GetPublicHash";
+import AddFile from "../../Web3/AddFileHash";
+import loadWeb3 from "../../Web3/LoadWeb3";
+import ContractConnect from "../../Web3/ContractConnect";
+import StringRetrive from "../../Ipfs/StringRetrive";
 import { Button } from "@material-ui/core";
 import * as ROUTES from "./../../constants/routes";
 import { Redirect } from "react-router-dom";
@@ -11,19 +18,33 @@ import { FileDrop } from 'react-file-drop';
 const DashBoard = (props) => {
   const [uploadFiles, setUploadFiles] = useState([]);
   const [bufferState, setBufferState] = useState([]);
+  const [contract, setContract] = React.useState("");
   const [hash, setHash] = useState([]);
   const [passHash, setPassHash] = useState("");
+  const [filename, setfilename] = useState("");
+
   function getPassHash() {
     const tokenString = localStorage.getItem("public_hash");
     const userToken = JSON.parse(tokenString);
     return userToken;
   }
+  React.useEffect(() => {
+    async function setup() {
+      await loadWeb3();
+      console.log("Web3 Loaded");
+      const Contract = await ContractConnect();
+      setContract(Contract);
+    }
+    setup();
+  }, []);
+
 
   const captureFile = (files,event) => {
     event.stopPropagation();
     event.preventDefault();
     const file = files[0];
-
+    console.log(file);
+    setfilename(file.name);
     let reader = new window.FileReader();
     reader.readAsArrayBuffer(file);
     reader.onloadend = () => convertToBuffer(reader);
@@ -38,11 +59,20 @@ const DashBoard = (props) => {
   const onSubmit = async (event) => {
     event.preventDefault();
     //save document to IPFS,return its hash#, and set hash# to state
-    await ipfs.add(bufferState, (err, ipfsHash) => {
-      console.log(ipfsHash);
-      //setState by setting ipfsHash to ipfsHash[0].hash
-      setHash(ipfsHash[0].hash);
-    });
+    const publicHASH=getPassHash();
+    const publicKey=StringRetrive(publicHASH);
+    console.log(publicKey);
+    console.log(bufferState);
+    const buffer_encrypted=await EncrptPublicKeyFile(bufferState,publicKey);
+    console.log(buffer_encrypted);
+    const hash=await StringUpload(buffer_encrypted);
+    setHash(hash);
+    console.log(hash);
+    const username="kkkk";
+    const result=await AddFile(contract,username,hash,filename);
+    console.log(result);
+
+
   };
   // React.useEffect(() => {
   //   if (passHash == "") {
