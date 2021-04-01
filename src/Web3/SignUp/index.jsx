@@ -5,4 +5,4 @@ const signup=async(contract,username,passhash,publichash)=>{
     return result;
 }
 
-module.exports = signup;
+export default signup;
