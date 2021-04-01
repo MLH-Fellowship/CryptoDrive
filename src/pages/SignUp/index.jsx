@@ -10,8 +10,10 @@ import DecryptPrivateKey from "../../cryptography/Decryption";
 import StringUpload from "./../../Ipfs/StringUpload";
 import StringRetrive from "./../../Ipfs/StringRetrive";
 import CircularProgress from "./../../components/loader";
-import * as ROUTES from './../../constants/routes'
-import {Redirect} from 'react-router-dom'
+import * as ROUTES from "./../../constants/routes";
+import { Redirect } from "react-router-dom";
+import { SaveFile } from "../../components";
+import { flexbox } from "@material-ui/system";
 const NodeRSA = require("node-rsa");
 
 const SignUp = () => {
@@ -130,58 +132,76 @@ const SignUp = () => {
           <>
             <Grid container>
               <Grid item xs={12} sm={12} md={12} lg={12}>
-              <center><CircularProgress /><br/>
-              Please Confirm the Metamask Transaction.
-              <br/>
-              You are not going to be charged.
-              Once you confirm, you may need to wait for a while.<br/>
-              After that, we will be showing you your private and public key
-              </center>
+                <center>
+                  <CircularProgress />
+                  <br />
+                  Please Confirm the Metamask Transaction.
+                  <br />
+                  You are not going to be charged. Once you confirm, you may
+                  need to wait for a while.
+                  <br />
+                  After that, we will be showing you your private and public key
+                </center>
               </Grid>
             </Grid>
           </>
         )}
-        {pubKey && hash && publichash && (
-          <h3>
-            Public Key
-            <br />
-            <TextField
-              InputProps={{
-                readOnly: true,
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center"
+          }}
+        >
+          {pubKey && hash && publichash && (
+            <Button
+              style={{
+                width: "200px",
+                paddingLeft: "5px",
+                paddingRight: "5px",
+                borderRadius: 25,
+                backgroundColor: "#2b3b4e",
+                color: "white",
               }}
-              fullWidth
-              value={pubKey}
+              href="/signup"
             >
-              <span style={{ color: "red" }}>{pubKey}</span>
-            </TextField>
-          </h3>
-        )}
-        <br />
-        <br />
-        {privateKey && hash && publichash && (
-          <h3>
-            Private Key
-            <br />
-            <TextField
-              InputProps={{
-                readOnly: true,
+              <SaveFile
+                text={pubKey}
+                fileName={"publickey"}
+                buttonText={"Get Public Key"}
+              ></SaveFile>
+            </Button>
+          )}
+          <br />
+          <br />
+          {privateKey && hash && publichash && (
+            <Button
+              style={{
+                width: "200px",
+                paddingLeft: "5px",
+                paddingRight: "5px",
+                borderRadius: 25,
+                backgroundColor: "#2b3b4e",
+                color: "white",
               }}
-              fullWidth
-              value={privateKey}
             >
-              <span style={{ color: "red" }}>{privateKey}</span>
-            </TextField>
-          </h3>
-        )}
-        <br />
-        <br />
-        {error && (
-          <span style={{ color: "red" }}>
-            <center>
-              <h2>{error}</h2>
-            </center>
-          </span>
-        )}
+              <SaveFile
+                text={privateKey}
+                fileName={"privateKey"}
+                buttonText={"Get Private Key"}
+              ></SaveFile>
+            </Button>
+          )}
+          <br />
+          <br />
+          {error && (
+            <span style={{ color: "red" }}>
+              <center>
+                <h2>{error}</h2>
+              </center>
+            </span>
+          )}
+        </div>
       </Grid>
     </Grid>
   );
