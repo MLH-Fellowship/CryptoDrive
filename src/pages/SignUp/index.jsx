@@ -30,6 +30,15 @@ const SignUp = () => {
     const userToken = JSON.parse(tokenString);
     return userToken;
   }
+  function getUserName() {
+    const tokenString = localStorage.getItem("user_name");
+    if(tokenString){
+    const userToken = JSON.parse(tokenString);
+    return userToken;}
+    else{
+      return false;
+    }
+  }
   React.useEffect(() => {
     async function setup() {
       await loadWeb3();
@@ -86,15 +95,19 @@ const SignUp = () => {
       setError("Enter a valid username");
     }
   };
-
+  function getUsername() {
+    const tokenString = localStorage.getItem("user_name");
+    const userToken = JSON.parse(tokenString);
+    return userToken;
+  }
   // const EncryptData=()=>{
   //   if()
   //   const userEncryption = await EncrptPublicKey(username, pubKey)
   // }
 
   const token = getPassHash();
-
-  if (token) {
+  const loginUser = getUserName();
+  if (token && loginUser) {
     return <Redirect to={ROUTES.DASHBOARD} />;
   }
   return (

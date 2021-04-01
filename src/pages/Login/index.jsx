@@ -19,6 +19,7 @@ const Login = (props) => {
     const userToken = JSON.parse(tokenString);
     return userToken;
   }
+
   React.useEffect(() => {
     async function setup() {
       await loadWeb3();
@@ -31,14 +32,23 @@ const Login = (props) => {
 
   React.useEffect(()=>{
     if(publicHash){
-      const json = JSON.stringify(publicHash);
+    const json = JSON.stringify(publicHash);
     localStorage.setItem('public_hash', json);}
+    
   },[publicHash])
 
   const buttonInlineStyle = {
     paddingTop: "3em",
   };
-
+  function getUserName() {
+    const tokenString = localStorage.getItem("user_name");
+    if(tokenString){
+    const userToken = JSON.parse(tokenString);
+    return userToken;}
+    else{
+      return false;
+    }
+  }
   const Signin=async()=>{
     if (username && privateKey) {
         const public_hash= await GetPublic(contract,username);
@@ -54,21 +64,22 @@ const Login = (props) => {
         {
            console.log(true)
           setPublicHash(public_hash);
-          
+          localStorage.setItem('user_name', username);
         }
 
     } else {
     }
   }
   const token = getPassHash();
-
-  if (token) {
+  const LoginUser = getUserName();
+  if (token && LoginUser) {
     return <Redirect to={ROUTES.DASHBOARD} />;
   }
 
 
 if(publicHash!=="")
 {
+ 
   return <Redirect to={ROUTES.DASHBOARD}/>
 }
   return (

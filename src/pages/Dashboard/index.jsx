@@ -8,9 +8,35 @@ import Box from "@material-ui/core/Box";
 import Dashboard from "./dashbaord";
 import { Button } from "@material-ui/core";
 import SaveFile from "../../components/save_file/index";
-
+import * as ROUTES from "./../../constants/routes";
+import { Redirect } from "react-router-dom";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
+  function getPassHash() {
+    const tokenString = localStorage.getItem("public_hash");
+    const userToken = JSON.parse(tokenString);
+    return userToken;
+  }
+  function getUsername() {
+    const tokenString = localStorage.getItem("user_name");
+    let userToken=null;
+
+    if(tokenString)
+    userToken = JSON.parse(tokenString);
+
+    console.log(userToken);
+    
+    if (userToken) return userToken;
+    else return false;
+  }
+
+  const token = getPassHash();
+  const username = getUsername();
+  if (token!=null && username!=null) {
+    console.log(token);
+    console.log(username);
+    return <Redirect to={ROUTES.SIGN_IN} />;
+  }
 
   return (
     <div
