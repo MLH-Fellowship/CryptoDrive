@@ -10,12 +10,22 @@ contract CryptoDrive{
         string filename;
     }
     
+    // Structure for storing the filehash,filename,sender user_id as ShareFile 
+    
+    struct ShareFile{
+        string filehash;
+        string filename;
+        string sender;
+    }
+    
+    
     // Mapping for Storing user id as string and File Structure array as value
     // Mapping is private
     
     mapping(string=>File[]) private FileHashes;
     mapping(string=>string) private PassHash;
     mapping(string=>string) private PublicKeys;
+    mapping(string=>ShareFile[]) private SharedData;
     
     // Function AddFileHash which takes user id , filehash , filename
     // It is pushes the structure in Filehash Mapping
@@ -48,6 +58,13 @@ contract CryptoDrive{
     
     function getPublicKey(string memory user_id) public view returns (string memory){
         return PublicKeys[user_id];
+    }
+    
+    // Function to save the shared data with respective of the receiver 
+    // The input parameters are user id of receiver , filehash , filename , sender username
+    
+    function AddShareFile(string memory user_id,string memory filehash,string memory filename,string memory sender) public {
+        SharedData[user_id].push(ShareFile(filehash,filename,sender));
     }
     
     
