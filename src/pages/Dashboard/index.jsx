@@ -11,6 +11,7 @@ import { Button } from "@material-ui/core";
 import SaveFile from "../../components/save_file/index";
 import * as ROUTES from "./../../constants/routes";
 import { Redirect } from "react-router-dom";
+import Logout from './logout'
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
   function getPassHash() {
@@ -101,6 +102,7 @@ export default function VerticalTabs() {
         <Tab label="My Files" {...a11yProps(0)} />
         <Tab label="Upload" {...a11yProps(1)} />
         <Tab label="Shared Files" {...a11yProps(2)} />
+        <Tab label="Logout" {...a11yProps(3)} />
       </Tabs>
       <TabPanel value={value} index={0}>
         <MyFiles />
@@ -109,6 +111,9 @@ export default function VerticalTabs() {
         <Dashboard />
       </TabPanel>
       <TabPanel value={value} index={2}></TabPanel>
+      <TabPanel value={value} index={3}>
+        <Logout/>
+      </TabPanel>
     </div>
   );
 }
