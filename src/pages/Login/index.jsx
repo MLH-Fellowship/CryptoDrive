@@ -10,6 +10,7 @@ import { Redirect } from "react-router-dom";
 import * as ROUTES from "./../../constants/routes";
 import { Grid } from "@material-ui/core";
 import { Checkmark } from "../../components/checkmark/checkmark";
+import Validator from './../../utility/validator'
 
 const Login = () => {
   const [username, setUsername] = React.useState("");
@@ -17,12 +18,6 @@ const Login = () => {
   const [contract, setContract] = React.useState("");
   const [publicHash, setPublicHash] = React.useState("");
   const [keyFile, setKeyFile] = React.useState("");
-
-  function getPassHash() {
-    const tokenString = localStorage.getItem("public_hash");
-    const userToken = JSON.parse(tokenString);
-    return userToken;
-  }
 
   function readkeyFile(file) {
     var reader = new FileReader();
@@ -61,15 +56,7 @@ const Login = () => {
   const buttonInlineStyle = {
     paddingTop: "3em",
   };
-  function getUserName() {
-    const tokenString = localStorage.getItem("user_name");
-    if (tokenString) {
-      const userToken = JSON.parse(tokenString);
-      return userToken;
-    } else {
-      return false;
-    }
-  }
+
   const Signin = async () => {
     if (username && privateKey) {
       const public_hash = await GetPublic(contract, username);
@@ -95,8 +82,8 @@ const Login = () => {
     }
   };
 
-  const token = getPassHash();
-  const LoginUser = getUserName();
+  const token = Validator('publicHash')
+  const LoginUser = Validator('username')
   console.log(LoginUser);
   if (token && LoginUser) {
     return <Redirect to={ROUTES.DASHBOARD} />;

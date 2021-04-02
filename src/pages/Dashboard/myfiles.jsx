@@ -4,6 +4,10 @@ import loadWeb3 from "../../Web3/LoadWeb3";
 import StringRetrive from "../../Ipfs/StringRetrive";
 import ContractConnect from "../../Web3/ContractConnect";
 import GetFileHash from "../../Web3/GetFileHashes";
+import Validator from './../../utility/validator'
+import { Redirect } from "react-router-dom";
+import * as ROUTES from "./../../constants/routes";
+
 const MyFiles = () => {
      const [myFiles, setMyFiles]=React.useState([]) // Use this when you set up the IPFS thing.
   const [contract, setContract] = React.useState("");
@@ -51,6 +55,14 @@ const MyFiles = () => {
   },[contract])
   
 
+  const token = Validator('publicHash')
+  const loginuser = Validator('username')
+  if (!token || !loginuser) {
+    console.log(token);
+    console.log(loginuser);
+    return <Redirect to={ROUTES.SIGN_IN} />;
+  }
+
   const styles = {
     border: "1px solid black",
     width: 900,
@@ -76,6 +88,7 @@ const MyFiles = () => {
       <div style={styles}>
       
         {myFiles && myFiles.map((file)=><FileHolder name={file.filename} hash={file.filehash}/ >)}
+        {myFiles=="" && <><center><h3>No Files yet by <span>{Validator('username')}</span></h3></center></> }
       </div>
     </>
   );
