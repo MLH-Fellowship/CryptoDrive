@@ -67,6 +67,21 @@ contract('CryptoDrive', (accounts) => {
       const result_2=await cryptodrive.getPublicKey(user_id_2);
       asserted.equal(public_key_2,result_2,"Public Key not Retrived Successfully");
   });
+
+  // Sender u1 and receiver u2
+
+  it('User u1 shares a file with User u2 successfully',async()=>{
+    const result_final=await cryptodrive.AddShareFile(user_id_2,filehash,filename,user_id);
+  });
+
+  it('Retrived the file sent by user id u1 to user id u2 successfully',async()=>{
+    const result_final=await cryptodrive.GetShareDetails(user_id_2);
+    // console.log(result_final);
+    asserted.equal(filehash,result_final[0].filehash,"FileHash which is shared by u1 not retrived successfully");
+    asserted.equal(filename,result_final[0].filename,"FileName which is shared by u1 not retrived successfully");
+    asserted.equal('u1',result_final[0].sender,"Sender not retrived successfully");
+
+  })
     
 
 
