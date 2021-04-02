@@ -68,6 +68,13 @@ contract CryptoDrive{
     }
     
     
+    // function to get the details of shared files for given receiver user id
+    
+    function GetShareDetails(string memory user_id) public view returns (ShareFile[] memory){
+        return SharedData[user_id];
+    }
+    
+    
     
 }
 
