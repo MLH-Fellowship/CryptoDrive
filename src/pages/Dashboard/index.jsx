@@ -11,9 +11,10 @@ import { Button } from "@material-ui/core";
 import SaveFile from "../../components/save_file/index";
 import * as ROUTES from "./../../constants/routes";
 import { Redirect } from "react-router-dom";
-import Logout from './logout'
+import Logout from "./logout";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
+
   function getPassHash() {
     const tokenString = localStorage.getItem("public_hash");
     const userToken = JSON.parse(tokenString);
@@ -33,7 +34,7 @@ function TabPanel(props) {
 
   const token = getPassHash();
   const username = getUsername();
-  if (token==null || username==null) {
+  if (token == null || username == null) {
     console.log(token);
     console.log(username);
     return <Redirect to={ROUTES.SIGN_IN} />;
@@ -84,6 +85,7 @@ const useStyles = makeStyles((theme) => ({
 export default function VerticalTabs() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
+  const [privateKey, setPrivateKey] = React.useState("");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -105,14 +107,14 @@ export default function VerticalTabs() {
         <Tab label="Logout" {...a11yProps(3)} />
       </Tabs>
       <TabPanel value={value} index={0}>
-        <MyFiles />
+        <MyFiles privateKey={privateKey} setPrivateKey={setPrivateKey} />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <Dashboard />
+        <Dashboard  />
       </TabPanel>
       <TabPanel value={value} index={2}></TabPanel>
       <TabPanel value={value} index={3}>
-        <Logout/>
+        <Logout />
       </TabPanel>
     </div>
   );

@@ -11,15 +11,20 @@ import Checkbox from "@material-ui/core/Checkbox";
 import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
 import ScreenShareIcon from "@material-ui/icons/ScreenShare";
 import { Button } from "@material-ui/core";
-
+import AlertDialogSlide from "../../components/alert_dailog_slide";
+import { Checkmark } from "../../components/checkmark/checkmark";
+import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import _ from "lodash";
 
-const MyFiles = () => {
+const MyFiles = ({ privateKey, setPrivateKey }) => {
   const [myFiles, setMyFiles] = React.useState([]); // Use this when you set up the IPFS thing.
   const [contract, setContract] = React.useState("");
   const [username, setUsername] = React.useState("");
   const [checked_index, setindex] = React.useState([]);
   const [checked, setChecked] = React.useState([]);
+
+  const [modalVisible, setModalVisible] = React.useState(false);
+  const [keyFile, setKeyFile] = React.useState();
 
   // for testing, IPFS not in use
   // const [myFiles, setMyFiles] = React.useState([
@@ -82,6 +87,16 @@ const MyFiles = () => {
     }
   }
 
+  function readkeyFile(file) {
+    var reader = new FileReader();
+    reader.readAsText(file, "UTF-8");
+    reader.onload = (evt) => {
+      setPrivateKey(evt.target.result);
+      console.log(evt.target.result);
+    };
+    reader.onerror = () => console.log("error");
+  }
+
   function handleDownloadFiles() {}
 
   function handleShareFiles() {}
@@ -110,8 +125,60 @@ const MyFiles = () => {
   };
   return (
     <>
-      {" "}
+      <AlertDialogSlide
+        open={modalVisible}
+        handleClose={() => setModalVisible(false)}
+      >
+        <div
+          style={{
+            paddingTop: "3em",
+            display: "flex",
+          }}
+        >
+          <input
+            type="file"
+            id="fileupload"
+            style={{ display: "none" }}
+            onChange={(event) => {
+              setKeyFile(event.target.files[0]);
+              readkeyFile(event.target.files[0]);
+              console.log(keyFile);
+            }}
+          />
+          <label
+            htmlFor="fileupload"
+            style={{
+              paddingLeft: 25,
+              paddingRight: 25,
+              paddingTop: 10,
+              paddingBottom: 10,
+              width: "150px",
+              borderRadius: 25,
+
+              backgroundColor: "#2b3b4e",
+              color: "white",
+            }}
+          >
+            Add Private Key
+          </label>
+          {keyFile && (
+            <div
+              style={{
+                paddingTop: "15px",
+                paddingLeft: "30px",
+              }}
+            >
+              <Checkmark size="medium" />
+            </div>
+          )}
+        </div>
+      </AlertDialogSlide>{" "}
       <h2>My Files</h2>
+      {privateKey && (
+        <div style={{ display: "flex", justifyContent: "flex-start" }}>
+          <VpnKeyIcon />
+        </div>
+      )}
       <div
         style={{
           display: "flex",
@@ -126,7 +193,15 @@ const MyFiles = () => {
             backgroundColor: "#2b3b4e",
             color: "white",
           }}
-          onClick={() => handleDownloadFiles()}
+          onClick={() => {
+            if (checked_index.length <= 0) {
+              window.alert("please select a file before downloading");
+              return;
+            }
+            if (!privateKey) setModalVisible(true);
+
+            handleDownloadFiles();
+          }}
         >
           <CloudDownloadIcon />
         </Button>
@@ -137,7 +212,15 @@ const MyFiles = () => {
             backgroundColor: "#2b3b4e",
             color: "white",
           }}
-          onClick={() => handleShareFiles()}
+          onClick={() => {
+            if (checked_index.length <= 0) {
+              window.alert("please select a file before sharing");
+              return;
+            }
+            if (!privateKey) setModalVisible(true);
+
+            handleShareFiles();
+          }}
         >
           <ScreenShareIcon />
         </Button>

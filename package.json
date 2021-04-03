@@ -24,6 +24,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-text-typist": "^1.0.5",
+    "rodal": "^1.8.1",
     "web-vitals": "^1.0.1",
     "web3": "^1.3.4"
   },
