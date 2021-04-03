@@ -14,7 +14,7 @@ import * as ROUTES from "./../../constants/routes";
 import { Redirect } from "react-router-dom";
 import { SaveFile } from "../../components";
 import { flexbox } from "@material-ui/system";
-import Validator from './../../utility/validator'
+import Validator from "./../../utility/validator";
 const NodeRSA = require("node-rsa");
 
 const SignUp = () => {
@@ -87,10 +87,10 @@ const SignUp = () => {
   // const EncryptData=()=>{
   //   if()
   //   const userEncryption = await EncrptPublicKey(username, pubKey)
-    // }
+  // }
 
-  const token = Validator('publicHash')
-  const loginUser = Validator('username')
+  const token = Validator("publicHash");
+  const loginUser = Validator("username");
   if (token && loginUser) {
     return <Redirect to={ROUTES.DASHBOARD} />;
   }
@@ -148,7 +148,7 @@ const SignUp = () => {
           style={{
             display: "flex",
             flexDirection: "column",
-            alignItems: "center"
+            alignItems: "center",
           }}
         >
           {pubKey && hash && publichash && (
@@ -161,7 +161,6 @@ const SignUp = () => {
                 backgroundColor: "#2b3b4e",
                 color: "white",
               }}
-              href="/signup"
             >
               <SaveFile
                 text={pubKey}
