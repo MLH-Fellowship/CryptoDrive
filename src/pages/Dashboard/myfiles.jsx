@@ -7,16 +7,19 @@ import GetFileHash from "../../Web3/GetFileHashes";
 import Validator from "./../../utility/validator";
 import { Redirect } from "react-router-dom";
 import * as ROUTES from "./../../constants/routes";
-import Checkbox from '@material-ui/core/Checkbox';
-import _ from 'lodash'
+import Checkbox from "@material-ui/core/Checkbox";
+import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
+import ScreenShareIcon from "@material-ui/icons/ScreenShare";
+import { Button } from "@material-ui/core";
+
+import _ from "lodash";
 
 const MyFiles = () => {
   const [myFiles, setMyFiles] = React.useState([]); // Use this when you set up the IPFS thing.
   const [contract, setContract] = React.useState("");
   const [username, setUsername] = React.useState("");
-  const [checked_index, setindex] = React.useState([])
-  const [checked, setChecked] =React.useState([]);
-
+  const [checked_index, setindex] = React.useState([]);
+  const [checked, setChecked] = React.useState([]);
 
   // for testing, IPFS not in use
   // const [myFiles, setMyFiles] = React.useState([
@@ -34,39 +37,31 @@ const MyFiles = () => {
     }
   }
 
-  const handleChange=(index)=>{
-    const check_dummy=checked;
-    check_dummy[index]=!check_dummy[index]
-    setChecked(check_dummy)
-    console.log("working handle")
-    console.log(checked)
-    if(checked[index])
-    {
-      const checked_index_dummmy=checked_index;
+  const handleChange = (index) => {
+    const check_dummy = checked;
+    check_dummy[index] = !check_dummy[index];
+    setChecked(check_dummy);
+    if (checked[index]) {
+      const checked_index_dummmy = checked_index;
       checked_index_dummmy.push(index);
-      setindex(checked_index_dummmy)
+      setindex(checked_index_dummmy);
     }
-    if(!checked[index])
-    {
-      const checked_index_dummmy=checked_index;
+    if (!checked[index]) {
+      const checked_index_dummmy = checked_index;
       const i = checked_index_dummmy.indexOf(index);
       if (i !== -1) {
         checked_index_dummmy.splice(i, 1);
       }
-    setindex(checked_index_dummmy)
+      setindex(checked_index_dummmy);
     }
-    console.log(checked_index);
-  }
-  
+  };
+
   async function setup() {
     await loadWeb3();
     console.log("Web3 Loaded");
     const Contract = await ContractConnect();
     setContract(Contract);
   }
-  React.useEffect(() => {
-    setup();
-  }, []);
 
   async function setupMyFiles() {
     const user = getUserName();
@@ -80,12 +75,20 @@ const MyFiles = () => {
 
       if (filehashes) {
         setMyFiles(filehashes);
-        console.log(myFiles.length)
-        setChecked(Array(myFiles.length).fill(false))
+        console.log(myFiles.length);
+        setChecked(Array(myFiles.length).fill(false));
         console.log(checked);
       }
     }
   }
+
+  function handleDownloadFiles() {}
+
+  function handleShareFiles() {}
+
+  React.useEffect(() => {
+    setup();
+  }, []);
 
   React.useEffect(() => {
     setupMyFiles();
@@ -109,6 +112,36 @@ const MyFiles = () => {
     <>
       {" "}
       <h2>My Files</h2>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "flex-end",
+        }}
+      >
+        <Button
+          style={{
+            marginLeft: "10px",
+            borderRadius: 25,
+            backgroundColor: "#2b3b4e",
+            color: "white",
+          }}
+          onClick={() => handleDownloadFiles()}
+        >
+          <CloudDownloadIcon />
+        </Button>
+        <Button
+          style={{
+            marginLeft: "10px",
+            borderRadius: 25,
+            backgroundColor: "#2b3b4e",
+            color: "white",
+          }}
+          onClick={() => handleShareFiles()}
+        >
+          <ScreenShareIcon />
+        </Button>
+      </div>
       <br />
       <span
         style={{
@@ -128,19 +161,20 @@ const MyFiles = () => {
       <hr />
       <div style={styles}>
         {myFiles &&
-          myFiles.map((file,index) => (<>
-          <Checkbox
-            checked={checked[index]}
-            onChange={() => handleChange(index)}
-            name="checkedB"
-            color="primary"
-          />
-          
-            <FileHolder name={file.filename} hash={file.filehash} />
-         </> ))}
+          myFiles.map((file, index) => (
+            <>
+              <Checkbox
+                checked={checked[index]}
+                onChange={() => handleChange(index)}
+                name="checkedB"
+                color="primary"
+              />
+
+              <FileHolder name={file.filename} hash={file.filehash} />
+            </>
+          ))}
         {myFiles == "" && (
           <>
-          
             <center>
               <h3>
                 No Files yet by <span>{Validator("username")}</span>
