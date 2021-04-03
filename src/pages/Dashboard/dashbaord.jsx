@@ -27,6 +27,7 @@ const DashBoard = (props) => {
   const [filename, setfilename] = useState("");
   const [loader,setLoader] = useState(false)
   const [message,setMessage] = useState("")
+  var jsscompress = require("js-string-compression");
 
   React.useEffect(() => {
     async function setup() {
@@ -58,9 +59,8 @@ const DashBoard = (props) => {
 
   const convertToBuffer = async (reader) => {
     //file is converted to a buffer for upload to IPFS
-    // const buffer = await Buffer.from(reader.result);
-    //set this buffer-using es6 syntax
-    setBufferState(reader.result);
+    const buffer = await Buffer.from(reader.result);
+    setBufferState(buffer);
   };
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -74,8 +74,12 @@ const DashBoard = (props) => {
     console.log(bufferState);
     const buffer_encrypted = await EncrptPublicKeyFile(bufferState, publicKey);
     setMessage("Converted to Buffer")
-    console.log(buffer_encrypted);
-    const hash = await StringUpload(buffer_encrypted);
+    console.log(buffer_encrypted.length);
+    
+var hm = new jsscompress.Hauffman();
+var compressed = hm.compress(buffer_encrypted);
+console.log(compressed.length)
+    const hash = await StringUpload(compressed);
     setHash(hash);
     console.log(hash);
     const username = Validator('username')
