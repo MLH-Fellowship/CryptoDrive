@@ -2,6 +2,7 @@ import React from "react";
 import FileHolder from "./../../components/myfileHolder";
 import loadWeb3 from "../../Web3/LoadWeb3";
 import FileRetrive from "../../Ipfs/FileRetrive";
+import StringRetrive from "../../Ipfs/StringRetrive";
 import ContractConnect from "../../Web3/ContractConnect";
 import GetFileHash from "../../Web3/GetFileHashes";
 import Validator from "./../../utility/validator";
@@ -17,6 +18,10 @@ import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import _ from "lodash";
 import FileSaver from "file-saver";
 import mime from "mime-types";
+import GetPublic from "../../Web3/GetPublicHash";
+import EncrptPrivateKeyFile from "../../cryptography/EncryptionPrivateFile";
+import EncrptPublicKey from "../../cryptography/Encryption";
+import StringUpload from "../../Ipfs/StringUpload";
 import DefaultDecryptPrivateKeyFile from "../../cryptography/DecryptionFile";
 const MyFiles = ({ privateKey, setPrivateKey }) => {
   const [myFiles, setMyFiles] = React.useState([]); // Use this when you set up the IPFS thing.
@@ -43,6 +48,17 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
       return false;
     }
   }
+
+  React.useEffect(() => {
+    async function setup() {
+      await loadWeb3();
+      console.log("Web3 Loaded");
+      const Contract = await ContractConnect();
+      setContract(Contract);
+    }
+    setup();
+  }, []);
+
 
   const handleChange = (index) => {
     const check_dummy = checked;
@@ -143,6 +159,18 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
           await hm.decompress(encryted_file),
           privateKey
         );
+        const receiver='uzumaki';
+        const public_receiver=await GetPublic(contract,receiver);
+        console.log(public_receiver);
+        const public_key_receiver=await StringRetrive(public_receiver);
+        console.log(public_key_receiver)
+        const encrypted_sender=await EncrptPrivateKeyFile(decr,privateKey);
+        console.log(encrypted_sender);
+        const encrypted_receiver=await EncrptPublicKey(encrypted_sender,public_key_receiver);
+        console.log(encrypted_receiver);
+        const encrypted_receiver_sender_hash=await StringUpload(encrypted_receiver);
+        console.log(encrypted_receiver_sender_hash)
+
         console.log(decr);
       });
     }
