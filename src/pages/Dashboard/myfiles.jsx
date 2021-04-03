@@ -15,7 +15,9 @@ import AlertDialogSlide from "../../components/alert_dailog_slide";
 import { Checkmark } from "../../components/checkmark/checkmark";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import _ from "lodash";
-import DefaultDecryptPrivateKeyFile from "../../cryptography/DecryptionFile"
+import FileSaver from "file-saver";
+import mime from "mime-types";
+import DefaultDecryptPrivateKeyFile from "../../cryptography/DecryptionFile";
 const MyFiles = ({ privateKey, setPrivateKey }) => {
   const [myFiles, setMyFiles] = React.useState([]); // Use this when you set up the IPFS thing.
   const [contract, setContract] = React.useState("");
@@ -97,29 +99,54 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
     reader.onerror = () => console.log("error");
   }
 
-  function handleDownloadFiles() {}
-
-  async function handleShareFiles() {
-    if(keyFile && checked_index.length>=0){
-      checked_index.map(async(value,j)=>{
+  async function handleDownloadFiles() {
+    if (keyFile && checked_index.length >= 0) {
+      checked_index.map(async (value, j) => {
         console.log(myFiles[checked_index[j]]);
-        const file_n=myFiles[checked_index[j]].filename;
-        const file_h=myFiles[checked_index[j]].filehash;
-        console.log(file_h)
-        const encryted_file=await FileRetrive(file_h);
+        const file_n = myFiles[checked_index[j]].filename;
+        const file_h = myFiles[checked_index[j]].filehash;
+        console.log(file_h);
+        const encryted_file = await FileRetrive(file_h);
         console.log(encryted_file);
-        console.log(privateKey)
+        console.log(privateKey);
         var jsscompress = require("js-string-compression");
         var hm = new jsscompress.Hauffman();
-        const decr=await DefaultDecryptPrivateKeyFile(await hm.decompress(encryted_file),privateKey);
-        console.log(decr)
+        const decr = await DefaultDecryptPrivateKeyFile(
+          await hm.decompress(encryted_file),
+          privateKey
+        );
 
-      })
-        
-      }
-      
+        const type = mime.lookup(file_n);
+        console.log(type);
+        var blob = new Blob([decr], {
+          type: type,
+        });
+        FileSaver.saveAs(blob, file_n);
+        console.log(decr);
+      });
     }
-  
+  }
+
+  async function handleShareFiles() {
+    if (keyFile && checked_index.length >= 0) {
+      checked_index.map(async (value, j) => {
+        console.log(myFiles[checked_index[j]]);
+        const file_n = myFiles[checked_index[j]].filename;
+        const file_h = myFiles[checked_index[j]].filehash;
+        console.log(file_h);
+        const encryted_file = await FileRetrive(file_h);
+        console.log(encryted_file);
+        console.log(privateKey);
+        var jsscompress = require("js-string-compression");
+        var hm = new jsscompress.Hauffman();
+        const decr = await DefaultDecryptPrivateKeyFile(
+          await hm.decompress(encryted_file),
+          privateKey
+        );
+        console.log(decr);
+      });
+    }
+  }
 
   React.useEffect(() => {
     setup();
@@ -213,14 +240,14 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
             backgroundColor: "#2b3b4e",
             color: "white",
           }}
-          onClick={() => {
+          onClick={async () => {
             if (checked_index.length <= 0) {
               window.alert("please select a file before downloading");
               return;
             }
             if (!privateKey) setModalVisible(true);
 
-            handleDownloadFiles();
+            await handleDownloadFiles();
           }}
         >
           <CloudDownloadIcon />
@@ -232,13 +259,14 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
             backgroundColor: "#2b3b4e",
             color: "white",
           }}
-          onClick={async() => {
+          onClick={async () => {
             if (checked_index.length <= 0) {
               window.alert("please select a file before sharing");
               return;
             }
             if (!privateKey) {
-            setModalVisible(true);}
+              setModalVisible(true);
+            }
             await handleShareFiles();
           }}
         >
