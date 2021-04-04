@@ -145,6 +145,7 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
 
   async function handleShareFiles() {
     if (keyFile && checked_index.length >= 0) {
+      var hashfile_share_array=[];
       checked_index.map(async (value, j) => {
         console.log(myFiles[checked_index[j]]);
         const file_n = myFiles[checked_index[j]].filename;
@@ -170,9 +171,18 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
         console.log(encrypted_receiver);
         const encrypted_receiver_sender_hash=await StringUpload(encrypted_receiver);
         console.log(encrypted_receiver_sender_hash)
-
+        const fileshare={
+          'filehash':encrypted_receiver_sender_hash,
+          'filename':file_n,
+          'sender':username
+        }
+        console.log(fileshare)
+        hashfile_share_array.push(fileshare)
+        console.log(hashfile_share_array);
         console.log(decr);
-      });
+      }
+      );
+
     }
   }
 

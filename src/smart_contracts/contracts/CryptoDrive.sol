@@ -63,8 +63,10 @@ contract CryptoDrive{
     // Function to save the shared data with respective of the receiver 
     // The input parameters are user id of receiver , filehash , filename , sender username
     
-    function AddShareFile(string memory user_id,string memory filehash,string memory filename,string memory sender) public {
-        SharedData[user_id].push(ShareFile(filehash,filename,sender));
+    function AddShareFile(string memory user_id,ShareFile[] memory shareFiles) public {
+        for(uint i =0; i< shareFiles.length ; i=i+1){
+        SharedData[user_id].push(ShareFile(shareFiles[i].filehash,shareFiles[i].filename,shareFiles[i].sender));
+        }
     }
     
     
@@ -77,4 +79,3 @@ contract CryptoDrive{
     
     
 }
-
