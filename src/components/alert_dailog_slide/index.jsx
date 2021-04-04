@@ -11,7 +11,13 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function AlertDialogSlide({ open, handleClose, children }) {
+export default function AlertDialogSlide({
+  title,
+  subtitle,
+  open,
+  handleClose,
+  children,
+}) {
   return (
     <div>
       <Dialog
@@ -23,11 +29,11 @@ export default function AlertDialogSlide({ open, handleClose, children }) {
         aria-describedby="alert-dialog-slide-description"
       >
         <DialogTitle id="alert-dialog-slide-title">
-          {" Add your private to conitnue to download or share"}
+          {title}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            Your private key will stay in your browser.
+            {subtitle}
           </DialogContentText>
           {children}
         </DialogContent>
