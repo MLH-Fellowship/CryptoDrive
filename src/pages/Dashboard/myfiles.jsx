@@ -163,7 +163,7 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
   async function handleShareFiles() {
     if (privateKey && checked_index.length >= 0) {
       setLoader(true)
-      setMessage(`We are sharing the file with ${receiverName}`)
+      setMessage(`We are sharing the file with ${receiverName}. The Browser may prompt with a option of wait, please click on wait.`)
       var hashfile_share_array = [];
       checked_index.map(async (value, j) => {
         console.log(myFiles[checked_index[j]]);
@@ -253,10 +253,10 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
         title={"Enter a username to share"}
         subtitle={"Please make sure the username is valid "}
         open={nameDialog}
-        handleClose={(e) => {
+        handleClose={async (e) => {
           
          setUnameDialog(false) 
-       
+         if (receiverName) await handleShareFiles(); 
         }}
       >
         <form noValidate autoComplete="off">
@@ -264,13 +264,14 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
             id="outlined-basic"
             label="UserName"
             variant="outlined"
-            onChange={(e) => {
+            onChange={async (e) => {
               setReceiverName(e.target.value);
             }}
-            onKeyPress={(e)=>{
+            onKeyPress={async (e)=>{
               if(e.key === 'Enter'){
                 e.preventDefault();
                 setUnameDialog(false);
+                if (receiverName) await handleShareFiles();
               }
             }}
           />
@@ -375,7 +376,6 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
               setModalVisible(true);
             }
             setUnameDialog(true);
-            if (receiverName) await handleShareFiles();
           }}
         >
           <ScreenShareIcon />
