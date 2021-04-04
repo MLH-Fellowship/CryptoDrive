@@ -2,6 +2,7 @@ import React from "react";
 import FileHolder from "./../../components/myfileHolder";
 import loadWeb3 from "../../Web3/LoadWeb3";
 import FileRetrive from "../../Ipfs/FileRetrive";
+import StringRetrive from "../../Ipfs/StringRetrive";
 import ContractConnect from "../../Web3/ContractConnect";
 import GetFileHash from "../../Web3/GetFileHashes";
 import Validator from "./../../utility/validator";
@@ -17,7 +18,14 @@ import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import _ from "lodash";
 import FileSaver from "file-saver";
 import mime from "mime-types";
+import GetPublic from "../../Web3/GetPublicHash";
+import EncrptPrivateKeyFile from "../../cryptography/EncryptionPrivateFile";
+import EncrptPublicKey from "../../cryptography/Encryption";
+import StringUpload from "../../Ipfs/StringUpload";
 import DefaultDecryptPrivateKeyFile from "../../cryptography/DecryptionFile";
+import AddShareFile from "../../Web3/AddShareData";
+import TextField from "@material-ui/core/TextField";
+
 const MyFiles = ({ privateKey, setPrivateKey }) => {
   const [myFiles, setMyFiles] = React.useState([]); // Use this when you set up the IPFS thing.
   const [contract, setContract] = React.useState("");
@@ -27,6 +35,8 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
 
   const [modalVisible, setModalVisible] = React.useState(false);
   const [keyFile, setKeyFile] = React.useState();
+  const [receiverName, setReceiverName] = React.useState();
+  const [nameDialog, setUnameDialog] = React.useState(false);
 
   // for testing, IPFS not in use
   // const [myFiles, setMyFiles] = React.useState([
@@ -43,6 +53,16 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
       return false;
     }
   }
+
+  React.useEffect(() => {
+    async function setup() {
+      await loadWeb3();
+      console.log("Web3 Loaded");
+      const Contract = await ContractConnect();
+      setContract(Contract);
+    }
+    setup();
+  }, []);
 
   const handleChange = (index) => {
     const check_dummy = checked;
@@ -129,6 +149,7 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
 
   async function handleShareFiles() {
     if (keyFile && checked_index.length >= 0) {
+      var hashfile_share_array = [];
       checked_index.map(async (value, j) => {
         console.log(myFiles[checked_index[j]]);
         const file_n = myFiles[checked_index[j]].filename;
@@ -143,7 +164,39 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
           await hm.decompress(encryted_file),
           privateKey
         );
+        const receiver = receiverName;
+        const public_receiver = await GetPublic(contract, receiver);
+        console.log(public_receiver);
+        const public_key_receiver = await StringRetrive(public_receiver);
+        console.log(public_key_receiver);
+        const encrypted_sender = await EncrptPrivateKeyFile(decr, privateKey);
+        console.log(encrypted_sender);
+        const encrypted_receiver = await EncrptPublicKey(
+          encrypted_sender,
+          public_key_receiver
+        );
+        console.log(encrypted_receiver);
+        const encrypted_receiver_sender_hash = await StringUpload(
+          encrypted_receiver
+        );
+        console.log(encrypted_receiver_sender_hash);
+        const fileshare = {
+          filehash: encrypted_receiver_sender_hash,
+          filename: file_n,
+          sender: username,
+        };
+        console.log(fileshare);
+        hashfile_share_array.push(fileshare);
+        console.log(hashfile_share_array);
         console.log(decr);
+        if (j === checked_index.length - 1) {
+          const result = await AddShareFile(
+            contract,
+            receiver,
+            hashfile_share_array
+          );
+          console.log(result);
+        }
       });
     }
   }
@@ -173,6 +226,25 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
   return (
     <>
       <AlertDialogSlide
+        title={"Enter a username to share"}
+        subtitle={"Please make sure the username is valid "}
+        open={nameDialog}
+        handleClose={() => setUnameDialog(false)}
+      >
+        <form noValidate autoComplete="off">
+          <TextField
+            id="outlined-basic"
+            label="UserName"
+            variant="outlined"
+            onChange={(e) => {
+              setReceiverName(e.target.value);
+            }}
+          />
+        </form>
+      </AlertDialogSlide>
+      <AlertDialogSlide
+        title={" Add your private key to conitnue to download or share"}
+        subtitle={"Your private key will not leave your browser"}
         open={modalVisible}
         handleClose={() => setModalVisible(false)}
       >
@@ -267,7 +339,8 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
             if (!privateKey) {
               setModalVisible(true);
             }
-            await handleShareFiles();
+            setUnameDialog(true);
+            if (receiverName) await handleShareFiles();
           }}
         >
           <ScreenShareIcon />
