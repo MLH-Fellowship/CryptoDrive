@@ -12,6 +12,7 @@ import SaveFile from "../../components/save_file/index";
 import * as ROUTES from "./../../constants/routes";
 import { Redirect } from "react-router-dom";
 import Logout from "./logout";
+import SharedFiles from "./sharedfiles";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -111,7 +112,9 @@ export default function VerticalTabs() {
       <TabPanel value={value} index={1}>
         <Dashboard  />
       </TabPanel>
-      <TabPanel value={value} index={2}></TabPanel>
+      <TabPanel value={value} index={2}>
+      <SharedFiles privateKey={privateKey} setPrivateKey={setPrivateKey} />
+      </TabPanel>
       <TabPanel value={value} index={3}>
         <Logout />
       </TabPanel>
