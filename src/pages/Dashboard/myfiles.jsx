@@ -162,6 +162,8 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
 
   async function handleShareFiles() {
     if (privateKey && checked_index.length >= 0) {
+      setLoader(true)
+      setMessage(`We are sharing the file with ${receiverName}`)
       var hashfile_share_array = [];
       checked_index.map(async (value, j) => {
         console.log(myFiles[checked_index[j]]);
@@ -209,6 +211,15 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
             hashfile_share_array
           );
           console.log(result);
+          if(result.status)
+          {
+            setLoader(false);
+            setMessage(`File shared with, ${receiverName}`)
+          }
+          else{
+            setLoader(false)
+            setMessage(`Unable to share the file with ${receiverName}. Please try again. Make sure, you are entering correct username.`)
+          }
         }
       });
     }
@@ -242,7 +253,11 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
         title={"Enter a username to share"}
         subtitle={"Please make sure the username is valid "}
         open={nameDialog}
-        handleClose={() => setUnameDialog(false)}
+        handleClose={(e) => {
+          
+         setUnameDialog(false) 
+       
+        }}
       >
         <form noValidate autoComplete="off">
           <TextField
@@ -252,7 +267,14 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
             onChange={(e) => {
               setReceiverName(e.target.value);
             }}
+            onKeyPress={(e)=>{
+              if(e.key === 'Enter'){
+                e.preventDefault();
+                setUnameDialog(false);
+              }
+            }}
           />
+      
         </form>
       </AlertDialogSlide>
       <AlertDialogSlide
