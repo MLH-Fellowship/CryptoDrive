@@ -23,6 +23,7 @@ import EncrptPrivateKeyFile from "../../cryptography/EncryptionPrivateFile";
 import EncrptPublicKey from "../../cryptography/Encryption";
 import StringUpload from "../../Ipfs/StringUpload";
 import DefaultDecryptPrivateKeyFile from "../../cryptography/DecryptionFile";
+import AddShareFile from "../../Web3/AddShareData";
 const MyFiles = ({ privateKey, setPrivateKey }) => {
   const [myFiles, setMyFiles] = React.useState([]); // Use this when you set up the IPFS thing.
   const [contract, setContract] = React.useState("");
@@ -180,6 +181,10 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
         hashfile_share_array.push(fileshare)
         console.log(hashfile_share_array);
         console.log(decr);
+        if(j===checked_index.length-1){
+          const result=await AddShareFile(contract,receiver,hashfile_share_array);
+          console.log(result);
+        }
       }
       );
 
