@@ -11,7 +11,7 @@ import * as ROUTES from "./../../constants/routes";
 import Checkbox from "@material-ui/core/Checkbox";
 import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
 import ScreenShareIcon from "@material-ui/icons/ScreenShare";
-import { Button } from "@material-ui/core";
+import { Button, Grid } from "@material-ui/core";
 import AlertDialogSlide from "../../components/alert_dailog_slide";
 import { Checkmark } from "../../components/checkmark/checkmark";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
@@ -25,6 +25,7 @@ import StringUpload from "../../Ipfs/StringUpload";
 import DefaultDecryptPrivateKeyFile from "../../cryptography/DecryptionFile";
 import AddShareFile from "../../Web3/AddShareData";
 import TextField from "@material-ui/core/TextField";
+import Loader from './../../components/loader'
 
 const MyFiles = ({ privateKey, setPrivateKey }) => {
   const [myFiles, setMyFiles] = React.useState([]); // Use this when you set up the IPFS thing.
@@ -32,12 +33,13 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
   const [username, setUsername] = React.useState("");
   const [checked_index, setindex] = React.useState([]);
   const [checked, setChecked] = React.useState([]);
-
+  const [checkedstyle, setCheckedStyle] = React.useState({});
   const [modalVisible, setModalVisible] = React.useState(false);
   const [keyFile, setKeyFile] = React.useState();
   const [receiverName, setReceiverName] = React.useState();
   const [nameDialog, setUnameDialog] = React.useState(false);
-
+  const [message,setMessage] = React.useState("")
+  const [loader,setLoader] = React.useState(false);
   // for testing, IPFS not in use
   // const [myFiles, setMyFiles] = React.useState([
   //   { hash: "23y129839122323321321312", name: "HelloWorld.jpg" },
@@ -66,12 +68,15 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
 
   const handleChange = (index) => {
     const check_dummy = checked;
+    let selectionStyle = {background:'orange', opacity:'0.7'}
     check_dummy[index] = !check_dummy[index];
     setChecked(check_dummy);
+    
     if (checked[index]) {
       const checked_index_dummmy = checked_index;
       checked_index_dummmy.push(index);
       setindex(checked_index_dummmy);
+      setCheckedStyle(selectionStyle)
     }
     if (!checked[index]) {
       const checked_index_dummmy = checked_index;
@@ -80,6 +85,7 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
         checked_index_dummmy.splice(i, 1);
       }
       setindex(checked_index_dummmy);
+      setCheckedStyle({})
     }
   };
 
@@ -120,7 +126,9 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
   }
 
   async function handleDownloadFiles() {
-    if (keyFile && checked_index.length >= 0) {
+    if (privateKey && checked_index.length >= 0) {
+      setLoader(true)
+      setMessage("We are de-compressing the file. It may take a while, please click on wait if prompted in your browser.")
       checked_index.map(async (value, j) => {
         console.log(myFiles[checked_index[j]]);
         const file_n = myFiles[checked_index[j]].filename;
@@ -129,6 +137,7 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
         const encryted_file = await FileRetrive(file_h);
         console.log(encryted_file);
         console.log(privateKey);
+       
         var jsscompress = require("js-string-compression");
         var hm = new jsscompress.Hauffman();
         const decr = await DefaultDecryptPrivateKeyFile(
@@ -141,14 +150,18 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
         var blob = new Blob([decr], {
           type: type,
         });
+        
         FileSaver.saveAs(blob, file_n);
+        setMessage("Decompression Successful. Please Check Browser Downloads")
+        setLoader(false)
         console.log(decr);
+      
       });
     }
   }
 
   async function handleShareFiles() {
-    if (keyFile && checked_index.length >= 0) {
+    if (privateKey && checked_index.length >= 0) {
       var hashfile_share_array = [];
       checked_index.map(async (value, j) => {
         console.log(myFiles[checked_index[j]]);
@@ -295,7 +308,7 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
       <h2>My Files</h2>
       {privateKey && (
         <div style={{ display: "flex", justifyContent: "flex-start" }}>
-          <VpnKeyIcon />
+          <VpnKeyIcon /> &nbsp;&nbsp;&nbsp;<b>Private Key Initialized</b> 
         </div>
       )}
       <div
@@ -347,6 +360,11 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
         </Button>
       </div>
       <br />
+      <div style={{display:'flex',flexDirection:'column', justifyContent:'center', width:'100%', height:'100px', transition:'all 1s ease' }}>
+      <center>{message}<br/>
+       {loader && (<Loader width="50px"/>)}</center>
+      
+      </div>
       <span
         style={{
           width: "100%",
@@ -366,16 +384,19 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
       <div style={styles}>
         {myFiles &&
           myFiles.map((file, index) => (
-            <>
-              <Checkbox
-                checked={checked[index]}
-                onChange={() => handleChange(index)}
-                name="checkedB"
-                color="primary"
-              />
-
-              <FileHolder name={file.filename} hash={file.filehash} />
-            </>
+            <Grid style={checkedstyle} container>
+              <Grid  item xs={2} sm={2} md={2} lg={2}>
+                <Checkbox
+                  checked={checked[index]}
+                  onChange={() => handleChange(index)}
+                  name="checkedB"
+                  color="primary"
+                />
+              </Grid>
+              <Grid item xs={10} sm={10} md={10} lg={10}>
+                <FileHolder name={file.filename} hash={file.filehash} />
+              </Grid>
+            </Grid>
           ))}
         {myFiles == "" && (
           <>
