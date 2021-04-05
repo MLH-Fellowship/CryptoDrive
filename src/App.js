@@ -7,22 +7,16 @@ import * as ROUTES from "./constants/routes";
 import { Route, Switch, useLocation } from "react-router-dom";
 import { Container } from "@material-ui/core";
 import VerticalTabs from "./pages/Dashboard/index";
-
+import Landing from "../src/pages/Landing";
 export default function App() {
   const location = useLocation();
 
   return (
     <>
       {console.log(location.pathname)}
-      <Header />
       <Switch>
         <Route exact path="/">
-          <div className="MainContent">
-            <Container>
-              <Home />
-            </Container>
-          </div>
-          <Footer label="Crypto Drive" link="/" linkText="You are at Home" />
+          <Landing />
         </Route>
         <Route exact path={ROUTES.SIGN_IN}>
           <div className="MainContent">
