@@ -2,6 +2,7 @@ import React from "react";
 import { TextField } from "@material-ui/core";
 
 const MyFile = (props) => {
+
   return (<>
     <div
       style={{
@@ -24,6 +25,10 @@ const MyFile = (props) => {
           readOnly: true,
         }}
       />
+     { props.sender &&(
+      <span style={{ flexBasis: 3 }}>
+        {props.sender}
+      </span>)}
     </div><br/></>
   );
 };

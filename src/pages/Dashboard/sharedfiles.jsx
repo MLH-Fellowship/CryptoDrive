@@ -14,7 +14,7 @@ import DefaultDecryptPublicKeyFile from "../../cryptography/DecryptionPublicFile
 import Checkbox from "@material-ui/core/Checkbox";
 import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
 import ScreenShareIcon from "@material-ui/icons/ScreenShare";
-import { Button } from "@material-ui/core";
+import { Button, Grid } from "@material-ui/core";
 import AlertDialogSlide from "../../components/alert_dailog_slide";
 import { Checkmark } from "../../components/checkmark/checkmark";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
@@ -28,6 +28,7 @@ import StringUpload from "../../Ipfs/StringUpload";
 import DefaultDecryptPrivateKeyFile from "../../cryptography/DecryptionFile";
 import AddShareFile from "../../Web3/AddShareData";
 import TextField from "@material-ui/core/TextField";
+import Loader from "../../components/loader";
 
 const SharedFiles = ({ privateKey, setPrivateKey }) => {
   const [SharedFiles, setSharedFiles] = React.useState([]); // Use this when you set up the IPFS thing.
@@ -39,6 +40,9 @@ const SharedFiles = ({ privateKey, setPrivateKey }) => {
   const [modalVisible, setModalVisible] = React.useState(false);
   const [keyFile, setKeyFile] = React.useState();
   const [nameDialog, setUnameDialog] = React.useState(false);
+  const [checkedstyle, setCheckedStyle] = React.useState({});
+  const [message,setMessage] = React.useState("")
+  const [loader,setLoader] = React.useState(false);
 
   // for testing, IPFS not in use
   // const [SharedFiles, setSharedFiles] = React.useState([
@@ -69,11 +73,14 @@ const SharedFiles = ({ privateKey, setPrivateKey }) => {
   const handleChange = (index) => {
     const check_dummy = checked;
     check_dummy[index] = !check_dummy[index];
+    let selectionStyle ={index: index, style: {background:'orange', opacity:'0.7'}}
+    let unselectionStyle ={index: index, style: {}}
     setChecked(check_dummy);
     if (checked[index]) {
       const checked_index_dummmy = checked_index;
       checked_index_dummmy.push(index);
       setindex(checked_index_dummmy);
+      setCheckedStyle(selectionStyle)
     }
     if (!checked[index]) {
       const checked_index_dummmy = checked_index;
@@ -82,6 +89,7 @@ const SharedFiles = ({ privateKey, setPrivateKey }) => {
         checked_index_dummmy.splice(i, 1);
       }
       setindex(checked_index_dummmy);
+      setCheckedStyle(unselectionStyle)
     }
   };
 
@@ -122,7 +130,9 @@ const SharedFiles = ({ privateKey, setPrivateKey }) => {
   }
 
   async function handleDownloadFiles() {
-    if (keyFile && checked_index.length >= 0) {
+    if (privateKey && checked_index.length >= 0) {
+      setLoader(true)
+      setMessage("We are processing your download files. Please wait for a while. If browser prompts, click on wait.")
       checked_index.map(async (value, j) => {
         console.log(SharedFiles[checked_index[j]]);
         const file_n = SharedFiles[checked_index[j]].filename;
@@ -141,6 +151,8 @@ const SharedFiles = ({ privateKey, setPrivateKey }) => {
           type: type,
         });
         FileSaver.saveAs(blob, file_n);
+        setLoader(false);
+        setMessage("Files Decrypted and saved. Please check downloads.")
       });
     }
   }
@@ -174,7 +186,10 @@ const SharedFiles = ({ privateKey, setPrivateKey }) => {
         title={" Add your private key to conitnue to download or share"}
         subtitle={"Your private key will not leave your browser"}
         open={modalVisible}
-        handleClose={() => setModalVisible(false)}
+        handleClose={async() => {
+          setModalVisible(false)
+          await handleDownloadFiles();
+        }}
       >
         <div
           style={{
@@ -220,10 +235,10 @@ const SharedFiles = ({ privateKey, setPrivateKey }) => {
           )}
         </div>
       </AlertDialogSlide>{" "}
-      <h2>My Files</h2>
+      <h2>Shared Files</h2>
       {privateKey && (
         <div style={{ display: "flex", justifyContent: "flex-start" }}>
-          <VpnKeyIcon />
+          <VpnKeyIcon /> Private Key Initialized
         </div>
       )}
       <div
@@ -255,6 +270,16 @@ const SharedFiles = ({ privateKey, setPrivateKey }) => {
         
       </div>
       <br />
+
+      <div style={{height:'170px', width:'100%'}}>
+      <center> 
+        {loader &&(<Loader/>)}
+        <br/>
+        {message}
+
+      </center>
+      </div>
+
       <span
         style={{
           width: "100%",
@@ -276,46 +301,32 @@ const SharedFiles = ({ privateKey, setPrivateKey }) => {
       <hr />
       <div style={styles}>
         {SharedFiles &&
-          SharedFiles.map((file, index) => (
-            <>
-
-              {/* <FileHolder name={file.filename} hash={file.filehash} /> */}
-              
-      <span
-        style={{
-          width: "100%",
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-around",
-        }}
-      >
-          
-        <span>
-            
-        <Checkbox
-                checked={checked[index]}
-                onChange={() => handleChange(index)}
-                name="checkedB"
-                color="primary"
-              />
-        </span>
-        <span>
-          <b>{file.filename}</b>
-        </span>
-        <span>
-          <b>{file.filehash}</b>
-        </span>
-        <span>
-          <b>{file.sender}</b>
-        </span>
-      </span>
-            </>
-          ))}
+          SharedFiles.map((file, index) => {
+           
+            let validStyle;
+            if(checkedstyle.index===index) 
+             validStyle=checkedstyle.style
+        
+          return(
+          <Grid style={validStyle} container>
+              <Grid  item xs={2} sm={2} md={2} lg={2}>
+                  <Checkbox
+                    checked={checked[index]}
+                    onChange={() => handleChange(index)}
+                    name="checkedB"
+                    color="primary"
+                  />
+              </Grid>
+              <Grid item xs={10} sm={10} md={10} lg={10}>
+                <FileHolder name={file.filename} hash={file.filehash} sender={file.sender}/>
+              </Grid>
+          </Grid>
+          )})}
         {SharedFiles == "" && (
           <>
             <center>
               <h3>
-                No Files yet by <span>{Validator("username")}</span>
+                No Shared Files for <span>{Validator("username")}</span>
               </h3>
             </center>
           </>
