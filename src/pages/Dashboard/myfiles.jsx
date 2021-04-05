@@ -282,7 +282,7 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
         title={" Add your private key to conitnue to download or share"}
         subtitle={"Your private key will not leave your browser"}
         open={modalVisible}
-        handleClose={() => {
+        handleClose={async() => {
           setModalVisible(false)
           await handleDownloadFiles();
         }}
