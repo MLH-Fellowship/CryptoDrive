@@ -46,9 +46,9 @@ export default function App() {
         </Route>
         <Route exact path={ROUTES.DASHBOARD}>
           <div className="MainContent">
-            <Container>
+          
               <VerticalTabs />
-            </Container>
+           
           </div>
           <Footer
             label="We save you from getting hijacked by Big Techies"
