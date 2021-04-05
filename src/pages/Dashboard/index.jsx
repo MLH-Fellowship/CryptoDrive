@@ -104,7 +104,6 @@ const useStyles = makeStyles((theme) => ({
   rightPanel: {
     marginLeft: "calc(100% - 80%)",
     padding: "20px",
-
   },
   menu: {
     marginTop: "10px",
@@ -120,7 +119,6 @@ const useStyles = makeStyles((theme) => ({
     },
     paddingBottom: "10px",
   },
-
 }));
 
 export default function VerticalTabs() {
@@ -128,7 +126,7 @@ export default function VerticalTabs() {
   const [value, setValue] = React.useState(0);
   const [view, setView] = React.useState(0);
   const [privateKey, setPrivateKey] = React.useState("");
-  const [Component, setComponent ] = React.useState(<Dashboard/>)
+  const [Component, setComponent] = React.useState(<Dashboard />);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -137,32 +135,22 @@ export default function VerticalTabs() {
   const menuItems = [
     {
       name: "My Files",
-      path:'/dashboard/myfiles',
       index: 0,
-      component: ()=><MyFiles privateKey={privateKey} setPrivateKey={setPrivateKey} />,
-      exact:true,
     },
     {
       name: "Upload",
-      path:'/dashboard/upload',
       index: 1,
-      component: ()=><Dashboard />,
-      exact:true,
     },
     {
       name: "Shared Files",
-      path:'/dashboard/shared',
       index: 2,
-      component: ()=> <SharedFiles privateKey={privateKey} setPrivateKey={setPrivateKey} />,
-      exact:true,
     },
   ];
 
   const handleClick = (index) => {
     setView(index);
-   
   };
-  
+
   return (
     <div className={classes.root}>
       <div className={classes.leftPanel}>
@@ -211,14 +199,27 @@ export default function VerticalTabs() {
       </TabPanel> */}
       </div>
       <div className={classes.rightPanel}>
-      {
-      view===0 &&  ( <div className={classes.displayContent}> <MyFiles privateKey={privateKey} setPrivateKey={setPrivateKey} /></div>) || 
-      view ===1 && (  <div className={classes.displayContent}> <Dashboard  /></div>) || 
-      view ===2 && ( <div className={classes.displayContent}><SharedFiles privateKey={privateKey} setPrivateKey={setPrivateKey} /></div>)
-      }
-
+        {(view === 0 && (
+          <div className={classes.displayContent}>
+            {" "}
+            <MyFiles privateKey={privateKey} setPrivateKey={setPrivateKey} />
+          </div>
+        )) ||
+          (view === 1 && (
+            <div className={classes.displayContent}>
+              {" "}
+              <Dashboard />
+            </div>
+          )) ||
+          (view === 2 && (
+            <div className={classes.displayContent}>
+              <SharedFiles
+                privateKey={privateKey}
+                setPrivateKey={setPrivateKey}
+              />
+            </div>
+          ))}
       </div>
-      
     </div>
   );
 }
