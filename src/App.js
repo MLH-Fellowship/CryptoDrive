@@ -19,36 +19,14 @@ export default function App() {
           <Landing />
         </Route>
         <Route exact path={ROUTES.SIGN_IN}>
-          {/* <div className="MainContent"> */}
-            {/* {" "} */}
-            {/* <Container> */}
-              <LoginUI />
-            {/* </Container> */}
-          {/* </div> */}
-
-          {/* <Footer
-            label="Dont Have an Account?"
-            link={ROUTES.SIGN_UP}
-            linkText="Sign Up"
-          /> */}
+          <LoginUI />
         </Route>
         <Route exact path={ROUTES.SIGN_UP}>
-          <div className="MainContent">
-            <Container>
-              <SignUpUI />
-            </Container>
-          </div>
-          <Footer
-            label="Already Have an Account?"
-            link={ROUTES.SIGN_IN}
-            linkText="Sign in"
-          />
+          <SignUpUI />
         </Route>
         <Route exact path={ROUTES.DASHBOARD}>
           <div className="MainContent">
-          
-              <VerticalTabs />
-           
+            <VerticalTabs />
           </div>
         </Route>
       </Switch>
