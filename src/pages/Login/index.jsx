@@ -180,6 +180,7 @@ const Login = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          flexDirection: "column",
           // height: "500px",
         }}
       >
@@ -270,6 +271,12 @@ const Login = () => {
             Enter
           </Button>
         </Card>
+        {/* <div style={{ flexGrow: 1 }} /> */}
+        <div style={{ paddingTop: "2rem" }}>
+          <p>
+            Don't have an account? <a href="/signup"> Sign Up </a>
+          </p>
+        </div>
       </div>
     </div>
   );
