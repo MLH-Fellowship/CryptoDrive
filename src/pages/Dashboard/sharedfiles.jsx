@@ -22,6 +22,7 @@ import _ from "lodash";
 import FileSaver from "file-saver";
 import mime from "mime-types";
 import GetPublic from "../../Web3/GetPublicHash";
+import {Snackbar} from "@material-ui/core"
 import EncrptPrivateKeyFile from "../../cryptography/EncryptionPrivateFile";
 import EncrptPublicKey from "../../cryptography/Encryption";
 import StringUpload from "../../Ipfs/StringUpload";
@@ -259,22 +260,18 @@ const SharedFiles = ({ privateKey, setPrivateKey }) => {
           )}
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={6}
-        style={{ display: "flex", justifyContent: "center" }}
+        style={{ display: "flex", justifyContent: "center",  }}
         >
           <div>
             <Button
               style={{
                 textAlign:'right',
-                borderRadius: 25,
+                borderRadius: 100,
                 backgroundColor: "#6163FF",
                 color: "#ECEDED",
                 position:'fixed',
-                boxShadow:'-2px 2px 2px red',
                 zIndex:5,
                 transition:'ease 0.7s all',
-                "&:hover":{
-                  backgroundColor:'red'
-                }
               }}
               onClick={async () => {
                 if (checked_index.length <= 0) {
@@ -282,7 +279,6 @@ const SharedFiles = ({ privateKey, setPrivateKey }) => {
                   return;
                 }
                 if (!privateKey) setModalVisible(true);
-
                 await handleDownloadFiles();
               }}
             >
@@ -293,13 +289,23 @@ const SharedFiles = ({ privateKey, setPrivateKey }) => {
 
         <br />
       </Grid>
-      {/* <div style={{ height: "170px", width: "100%" }}>
-        <center>
-          {loader && <Loader />}
-          <br />
-          {message}
-        </center>
-      </div> */}
+      {message && (
+                <Snackbar
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "right",
+                  }}
+        
+                  ContentProps={{
+                    style:{background: "#6163FF", width:"200px", padding:"20px" }
+                  }}
+                  open={true}
+                  autoHideDuration={3000}
+                  action={
+                    <div style={{ background: "#6163FF" }}>{message}</div>
+                  }
+                />
+      )}
       <hr />
       <div style={styles}>
 
@@ -340,7 +346,7 @@ const SharedFiles = ({ privateKey, setPrivateKey }) => {
               </Grid>
             );
           })}
-        {SharedFiles === [] && (
+        {SharedFiles.length == 0 && (
           <>
             <center>
               <h3>
@@ -348,13 +354,14 @@ const SharedFiles = ({ privateKey, setPrivateKey }) => {
               </h3>
             </center>
           </>
-        ) ||
-        SharedFiles !== [] &&(
+        )}
+
+        {
+          SharedFiles == [] &&(
           <>
           <h2>Loading...</h2>
           </>
         )
-        
         }
 
       </div>
