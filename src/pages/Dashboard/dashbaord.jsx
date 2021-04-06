@@ -11,7 +11,7 @@ import loadWeb3 from "../../Web3/LoadWeb3";
 import ContractConnect from "../../Web3/ContractConnect";
 import StringRetrive from "../../Ipfs/StringRetrive";
 import FileBar from "../../components/FileBar";
-import { Button } from "@material-ui/core";
+import { Button, Grid, Snackbar } from "@material-ui/core";
 import * as ROUTES from "../../constants/routes";
 import { Redirect } from "react-router-dom";
 import { FileDrop } from "react-file-drop";
@@ -73,7 +73,7 @@ const DashBoard = (props) => {
     console.log(publicKey);
     console.log(bufferState);
     const buffer_encrypted = await EncrptPublicKeyFile(bufferState, publicKey);
-    setMessage("Converted to Buffer")
+    setMessage("Converted to Buffer. Uploading to Blockchain! ")
     console.log(buffer_encrypted.length);
     
 var hm = new jsscompress.Hauffman();
@@ -113,13 +113,70 @@ console.log(compressed.length)
     return <Redirect to={ROUTES.SIGN_IN} />;
   }
   const styles = {
-    border: "1px solid black",
-    width: 600,
-    color: "black",
-    padding: 20,
+    border: "2px solid #6163FF",
+    color: "#6163FF",
+    padding: '20px',
+    marginBottom:"10px",
+    width:"100%",
+    transition:'ease 2s all'
   };
   return (
     <>
+    <Grid container>
+      <Grid item xs={12} sm={12} md={12} lg={12}> <h3> Choose file to send to IPFS </h3></Grid>
+      <Grid item xs={12} sm={12} md={12} lg={12}>
+      <div  style={styles} >
+        <FileDrop
+       
+          // onFrameDragEnter={(event) => console.log('onFrameDragEnter', event)}
+          // onFrameDragLeave={(event) => console.log('onFrameDragLeave', event)}
+          // onFrameDrop={(event) => console.log('onFrameDrop', event)}
+          onDragOver={(event) => {console.log('onDragOver', event.currentTarget)
+      
+        event.currentTarget.style.color="#ECEDED"
+        event.currentTarget.style.opacity="0.8"
+        event.currentTarget.style.transition='ease 1s all'
+        event.currentTarget.style.border="2px dashed #6163FF"
+        
+        }}
+       onDragLeave={(event) => {console.log('onDragOver', event.currentTarget)
+       event.currentTarget.style.background=""
+       event.currentTarget.style.color=""
+       event.currentTarget.style.opacity=""
+       event.currentTarget.style.border=""
+       }}
+          onDrop={(files, event) => {
+            event.currentTarget.style.background="yellowgreen"
+            event.currentTarget.style.color="black"
+            event.currentTarget.style.opacity=""
+            event.currentTarget.style.border=""
+            event.currentTarget.style.padding="25px"
+            captureFile(files, event);
+            setUploadFiles(files);
+            console.log("Files ", files);
+            console.log(typeof uploadFiles);
+          }}
+        >
+          Drop a file here!
+          <hr />
+          {uploadFiles && console.log(uploadFiles)}
+          {uploadFiles.length > 0 && (
+            <FileBar
+              filename={uploadFiles[0].name}
+              filesize={uploadFiles[0].size}
+            />
+          )}
+        </FileDrop>
+      </div>
+
+
+
+      <Button   style={{ background: "#6163FF", color: "#ECEDED" }}type="submit" onClick={onSubmit}>
+        Upload 
+     </Button>
+      </Grid>
+      <Grid></Grid>
+    </Grid>
       {/* <div
         {...getRootProps()}
         className={`${styles.dropzone} ${isDragActive ? styles.active : null}`}
@@ -139,46 +196,30 @@ console.log(compressed.length)
         Upload Files
       </Button> */}
 
-      <h3> Choose file to send to IPFS </h3>
+     
       {/* <form onSubmit={onSubmit}>
         <input type="file" onChange={captureFile} />
         <Button type="submit">Send it</Button>
       </form> */}
-      <div style={styles}>
-        <FileDrop
-          // onFrameDragEnter={(event) => console.log('onFrameDragEnter', event)}
-          // onFrameDragLeave={(event) => console.log('onFrameDragLeave', event)}
-          // onFrameDrop={(event) => console.log('onFrameDrop', event)}
-          // onDragOver={(event) => console.log('onDragOver', event)}
-          // onDragLeave={(event) => console.log('onDragLeave', event)}
-          onDrop={(files, event) => {
-            captureFile(files, event);
-            setUploadFiles(files);
-            console.log("Files ", files);
-            console.log(typeof uploadFiles);
-          }}
-        >
-          Drop some files here!
-          <hr />
-          {uploadFiles && console.log(uploadFiles)}
-          {uploadFiles.length > 0 && (
-            <FileBar
-              filename={uploadFiles[0].name}
-              filesize={uploadFiles[0].size}
-            />
-          )}
-        </FileDrop>
-      </div>
-
-
-
-      <Button type="submit" onClick={onSubmit}>
-        Upload 
-     </Button>
+  
 <br/>
-{loader && <><Loader width="50px"/><br/></>}
+{message && <Snackbar
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "right",
+                  }}
+        
+                  ContentProps={{
+                    style:{background: "#6163FF", width:"200px", padding:"20px" }
+                  }}
+                  open={true}
+                  autoHideDuration={3000}
+                  action={
+                    <div style={{ background: "#6163FF" }}>{message}</div>
+                  }
+                />}
 
-{message}
+
       {/* <Button onClick={Logout}>Logout</Button> */}
     </>
   );

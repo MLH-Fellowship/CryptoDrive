@@ -19,8 +19,9 @@ export default function AlertDialogSlide({
   children,
 }) {
   return (
-    <div>
+    <div >
       <Dialog
+        
         open={open}
         TransitionComponent={Transition}
         keepMounted
@@ -28,17 +29,17 @@ export default function AlertDialogSlide({
         aria-labelledby="alert-dialog-slide-title"
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle id="alert-dialog-slide-title">
+        <DialogTitle  style={{background: "#6163FF", color: "#ECEDED",}} id="alert-dialog-slide-title">
           {title}
         </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-slide-description">
+        <DialogContent style={{background: "#6163FF", color: "#ECEDED",}}>
+          <DialogContentText style={{background: "#6163FF", color: "#ECEDED",}} id="alert-dialog-slide-description">
             {subtitle}
           </DialogContentText>
           {children}
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
+        <DialogActions style={{background: "#6163FF", color: "#ECEDED",}}>
+          <Button style={{background:'#ECEDED',color:'#6163FF'}} onClick={handleClose} color="primary">
             Okay
           </Button>
         </DialogActions>

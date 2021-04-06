@@ -13,9 +13,7 @@ const Logout = () => {
           setLogout(true)
       }
   }
-
-
-
+  
   if(logout)
   {
       return <Redirect to={ROUTES.SIGN_IN}/>

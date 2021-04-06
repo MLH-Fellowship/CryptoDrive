@@ -48,14 +48,25 @@ html{
   box-sizing: border-box;
   margin:0;
   padding:0;
+  height: 100%;
+  width:100%;
 }
 body{
   margin:0;
   padding:0;
+  height: 100%;
+  width:100%;
       /* color:#443F3F;
       background:#F3F9FF; */
       
       /* font-family: 'Rajdhani', sans-serif; */
+}
+html, body, #root, #root>div {
+  height: 100%
+}
+
+#root{
+  height: 100%;
 }
 .MainContent{
   min-height: calc(100vh - 239px - 80px);
@@ -70,14 +81,7 @@ a{
   color:#E0DCDC;
   
 }
-.filepond--browser{
-  border:2px solid black;
-  border-radius: 25px;
-  background-color: black;
-}
-.filepond--drop-label{
-  background-color:#2B3B4E ;
-  color:#F4A200;
-  border-radius: 12px;
+.MuiSnackbar-root{
+  background: "#6163FF"
 }
 </style>
