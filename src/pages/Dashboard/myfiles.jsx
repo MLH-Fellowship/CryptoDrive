@@ -472,7 +472,7 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
                 </Grid>
               </Grid>
             ))}
-          {myFiles == "" && (
+          {myFiles ===[] && (
             <>
               <center>
                 <h3>
