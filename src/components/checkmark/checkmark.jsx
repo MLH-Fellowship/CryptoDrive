@@ -38,5 +38,5 @@ Checkmark.propTypes = {
 };
 
 Checkmark.defaultProps = {
-  size: 'large',
+  size: 'medium',
 };

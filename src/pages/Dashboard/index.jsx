@@ -108,6 +108,7 @@ const useStyles = makeStyles((theme) => ({
   rightPanel: {
     marginLeft: "calc(100% - 93%)",
     padding: "20px",
+    width:'100%'
   },
   menu: {
     marginTop: "10px",

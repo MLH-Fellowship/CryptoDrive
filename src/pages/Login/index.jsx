@@ -1,5 +1,5 @@
 import React from "react";
-import { TextField, Button } from "@material-ui/core";
+import { TextField, Button, Card, makeStyles, Fade } from "@material-ui/core";
 import GetPassHash from "../../Web3/GetPassHash";
 import GetPublic from "../../Web3/GetPublicHash";
 import loadWeb3 from "../../Web3/LoadWeb3";
@@ -10,7 +10,8 @@ import { Redirect } from "react-router-dom";
 import * as ROUTES from "./../../constants/routes";
 import { Grid } from "@material-ui/core";
 import { Checkmark } from "../../components/checkmark/checkmark";
-import Validator from './../../utility/validator'
+import Validator from "./../../utility/validator";
+import { Whisper, Tooltip, Input } from "rsuite";
 
 const Login = () => {
   const [username, setUsername] = React.useState("");
@@ -18,6 +19,17 @@ const Login = () => {
   const [contract, setContract] = React.useState("");
   const [publicHash, setPublicHash] = React.useState("");
   const [keyFile, setKeyFile] = React.useState("");
+
+  const hiddenFileInput = React.useRef(null);
+
+  const handleClick = (_event) => {
+    hiddenFileInput.current.click();
+  };
+  const handleChange = (event) => {
+    const fileUploaded = event.target.files[0];
+    setKeyFile(fileUploaded);
+    readkeyFile(fileUploaded);
+  };
 
   function readkeyFile(file) {
     var reader = new FileReader();
@@ -82,8 +94,47 @@ const Login = () => {
     }
   };
 
-  const token = Validator('publicHash')
-  const LoginUser = Validator('username')
+  const heading = {
+    alignSelf: "flex-end",
+    fontSize: "26px",
+    color: "#fff",
+    marginTop: "5rem",
+    marginBottom: "15rem",
+    paddingRight: "5rem",
+  };
+
+  const subHeading = {
+    alignSelf: "flex-end",
+    fontSize: "24px",
+    fontWeight: "bold",
+    color: "#fff",
+    marginTop: "5rem",
+    marginBottom: "1rem",
+    margin: "1rem",
+    paddingRight: "5rem",
+  };
+
+  const useStyles = makeStyles({
+    root: {
+      minWidth: 275,
+      height: "300px",
+    },
+    bullet: {
+      display: "inline-block",
+      margin: "0 2px",
+      transform: "scale(0.8)",
+    },
+    title: {
+      fontSize: 14,
+    },
+    pos: {
+      marginBottom: 12,
+    },
+  });
+  const classes = useStyles();
+
+  const token = Validator("publicHash");
+  const LoginUser = Validator("username");
   console.log(LoginUser);
   if (token && LoginUser) {
     return <Redirect to={ROUTES.DASHBOARD} />;
@@ -93,91 +144,220 @@ const Login = () => {
     return <Redirect to={ROUTES.DASHBOARD} />;
   }
   return (
-    <Grid container spacing={4}>
-      <Grid item xs={12} sm={10} md={6} lg={6} style={{ paddingLeft: "20em" }}>
-        <br />
-        <b>Please enter your user id</b>
-        <br />
-      </Grid>
-      <Grid item xs={12} sm={12} md={5} lg={5}>
-        <TextField
-          fullWidth
-          label="Enter your user id"
-          value={username}
-          onChange={(e) => {
-            setUsername(e.target.value);
-          }}
-        />
-        <div
+    <div style={{ display: "flex" }}>
+      <div
+        style={{
+          background: "#6163FF",
+          flex: 1,
+          height: "100vh",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "flex-start",
+          alignItems: "center",
+        }}
+      >
+        <h2 style={heading}>
+          Sign in to your account to upload, acess or share your files
+        </h2>
+        {username.length > 5 && (
+          <Fade in={true}>
+            <p style={subHeading}>
+              Please add your Private Key, this won't leave your browser
+              {/* <br />
+          <p style={{ fontSize: "16px" }}>(It won't be uploaded)</p> */}
+            </p>
+          </Fade>
+        )}
+        {privateKey && username.length > 5 && (
+          <Fade in={true}>
+            <p style={subHeading}>You can click on Enter to safely Login </p>
+          </Fade>
+        )}
+      </div>
+      <div
+        style={{
+          flex: 1,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          // height: "500px",
+        }}
+      >
+        <Card
+          // className={classes.root}
           style={{
-            paddingTop: "3em",
+            background: "#fff",
+            padding: "30px",
             display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            alignItems: "center",
           }}
         >
-          <input
-            type="file"
-            id="fileupload"
-            style={{ display: "none" }}
-            onChange={(event) => {
-              setKeyFile(event.target.files[0]);
-              readkeyFile(event.target.files[0]);
-              console.log(keyFile);
-            }}
-          />
-          <label
-            htmlFor="fileupload"
+          <p style={{ fontSize: "24px", fontWeight: "bold" }}>SigIn</p>
+          <div
             style={{
-              paddingLeft: 25,
-              paddingRight: 25,
-              paddingTop: 10,
-              paddingBottom: 10,
-              width: "150px",
-              borderRadius: 25,
-
-              backgroundColor: "#2b3b4e",
-              color: "white",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
             }}
           >
-            Add Private Key
-          </label>
-          {keyFile && (
-            <div
-              style={{
-                paddingTop: "15px",
-                paddingLeft: "30px",
+            <TextField
+              value={username}
+              onChange={(e) => {
+                setUsername(e.target.value);
               }}
-            >
-              <Checkmark size="medium" />
-            </div>
-          )}
-        </div>
-
-        {/* <TextField
-          fullWidth
-          label="Enter private key"
-          value={privateKey}
-          onChange={(e) => {
-            setPrivateKey(e.target.value);
-          }}
-        /> */}
-        {privateKey && (
-          <div style={buttonInlineStyle}>
-            <Button
+              id="filled-basic"
+              label="username"
+              variant="filled"
               style={{
-                paddingLeft: 25,
-                paddingRight: 25,
-                borderRadius: 25,
-                backgroundColor: "#2b3b4e",
-                color: "white",
+                width: 340,
+                marginTop: "2rem",
+                marginBottom: "2rem",
+                marginRight: "1rem",
+                marginLeft: "1rem",
               }}
-              onClick={Signin}
-            >
-              Enter
-            </Button>
+            />
+            {username.length <= 5 && <div style={{ width: 24 }} />}
+            {username.length > 5 && <Checkmark />}
           </div>
-        )}
-      </Grid>
-    </Grid>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Button
+              onClick={handleClick}
+              style={{
+                width: 340,
+                height: 40,
+                background: "#6163AB",
+                color: " white",
+                marginRight: "1rem",
+                marginLeft: "1rem",
+              }}
+            >
+              Add Private Key
+            </Button>
+            {privateKey.length == 0 && <div style={{ width: 24 }} />}
+            {privateKey && <Checkmark />}
+          </div>
+          <input
+            type="file"
+            ref={hiddenFileInput}
+            onChange={handleChange}
+            style={{ display: "none" }}
+          />
+
+          <Button
+            disabled={privateKey ? false : true}
+            style={{
+              width: 342,
+              height: 40,
+              background: "#6163AB",
+              color: " white",
+              marginTop: "2rem",
+              marginBottom: "1.5rem",
+              marginRight: "2.5rem",
+              marginLeft: "1rem",
+            }}
+            onClick={Signin}
+          >
+            Enter
+          </Button>
+        </Card>
+      </div>
+    </div>
+
+    // <Grid container spacing={4}>
+    //   <Grid item xs={12} sm={10} md={6} lg={6} style={{ paddingLeft: "20em" }}>
+    //     <br />
+    //     <b>Please enter your user id</b>
+    //     <br />
+    //   </Grid>
+    //   <Grid item xs={12} sm={12} md={5} lg={5}>
+    //     <TextField
+    //       fullWidth
+    //       label="Enter your user id"
+    //       value={username}
+    //       onChange={(e) => {
+    //         setUsername(e.target.value);
+    //       }}
+    //     />
+    //     <div
+    //       style={{
+    //         paddingTop: "3em",
+    //         display: "flex",
+    //       }}
+    //     >
+    //       <input
+    //         type="file"
+    //         id="fileupload"
+    //         style={{ display: "none" }}
+    //         onChange={(event) => {
+    //           setKeyFile(event.target.files[0]);
+    //           readkeyFile(event.target.files[0]);
+    //           console.log(keyFile);
+    //         }}
+    //       />
+    //       <label
+    //         htmlFor="fileupload"
+    //         style={{
+    //           paddingLeft: 25,
+    //           paddingRight: 25,
+    //           paddingTop: 10,
+    //           paddingBottom: 10,
+    //           width: "150px",
+    //           borderRadius: 25,
+
+    //           backgroundColor: "#2b3b4e",
+    //           color: "white",
+    //         }}
+    //       >
+    //         Add Private Key
+    //       </label>
+    //       {keyFile && (
+    //         <div
+    //           style={{
+    //             paddingTop: "15px",
+    //             paddingLeft: "30px",
+    //           }}
+    //         >
+    //           <Checkmark size="medium" />
+    //         </div>
+    //       )}
+    //     </div>
+
+    //     {/* <TextField
+    //       fullWidth
+    //       label="Enter private key"
+    //       value={privateKey}
+    //       onChange={(e) => {
+    //         setPrivateKey(e.target.value);
+    //       }}
+    //     /> */}
+    //     {privateKey && (
+    //       <div style={buttonInlineStyle}>
+    //         <Button
+    //           style={{
+    //             paddingLeft: 25,
+    //             paddingRight: 25,
+    //             borderRadius: 25,
+    //             backgroundColor: "#2b3b4e",
+    //             color: "white",
+    //           }}
+    //           onClick={Signin}
+    //         >
+    //           Enter
+    //         </Button>
+    //       </div>
+    //     )}
+    //   </Grid>
+    // </Grid>
   );
 };
 
