@@ -100,8 +100,8 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   rightPanel: {
-    marginLeft: "calc(100% - 93%)",
-    padding: "20px",
+    paddingLeft: "calc(100% - 93%)",
+    paddingTop:'22px',
     width:'100%'
   },
   menu: {
