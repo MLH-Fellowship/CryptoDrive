@@ -1,5 +1,13 @@
 import React from "react";
-import { TextField, Grid, Button } from "@material-ui/core";
+import {
+  TextField,
+  Button,
+  Fade,
+  Card,
+  Backdrop,
+  CircularProgress,
+} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import loadWeb3 from "../../Web3/LoadWeb3";
 import ContractConnect from "../../Web3/ContractConnect";
 import signup from "../../Web3/SignUp";
@@ -9,13 +17,23 @@ import EncrptPublicKey from "../../cryptography/Encryption";
 import DecryptPrivateKey from "../../cryptography/Decryption";
 import StringUpload from "./../../Ipfs/StringUpload";
 import StringRetrive from "./../../Ipfs/StringRetrive";
-import CircularProgress from "./../../components/loader";
+// import CircularProgress from "./../../components/loader";
 import * as ROUTES from "./../../constants/routes";
 import { Redirect } from "react-router-dom";
 import { SaveFile } from "../../components";
 import { flexbox } from "@material-ui/system";
 import Validator from "./../../utility/validator";
+import { Checkmark } from "../../components/checkmark/checkmark";
+import { Alert } from "rsuite";
+
 const NodeRSA = require("node-rsa");
+
+const useStyles = makeStyles((theme) => ({
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: "#fff",
+  },
+}));
 
 const SignUp = () => {
   const [username, setUsername] = React.useState("");
@@ -37,6 +55,8 @@ const SignUp = () => {
     setup();
     // await generateKeyPair(); //This will make the site slow
   }, []);
+
+  const classes = useStyles();
 
   const generateKeyPair = async () => {
     if (username) {
@@ -84,10 +104,26 @@ const SignUp = () => {
     }
   };
 
-  // const EncryptData=()=>{
-  //   if()
-  //   const userEncryption = await EncrptPublicKey(username, pubKey)
-  // }
+  const heading = {
+    alignSelf: "flex-end",
+    fontSize: "24px",
+    color: "#fff",
+    marginTop: "5rem",
+    marginBottom: "15rem",
+    paddingRight: "3rem",
+    paddingLeft: "5rem",
+  };
+
+  const subHeading = {
+    alignSelf: "flex-end",
+    fontSize: "24px",
+    fontWeight: "bold",
+    color: "#fff",
+    marginTop: "5rem",
+    marginBottom: "1rem",
+    margin: "1rem",
+    paddingRight: "5rem",
+  };
 
   const token = Validator("publicHash");
   const loginUser = Validator("username");
@@ -96,90 +132,133 @@ const SignUp = () => {
   }
 
   return (
-    <Grid container spacing={4}>
-      <Grid item xs={12} sm={12} md={4} lg={4}>
-        <br />
-        <b>
-          You will be recieving a Private Key, which you need to keep it safe,
-          in order to access the files.
-        </b>
-        <br />
-        <br />
-      </Grid>
-      <Grid item xs={12} sm={12} md={6} lg={6}>
-        <TextField
-          fullWidth
-          label="Enter A Username"
-          value={username}
-          onChange={(e) => {
-            setUsername(e.target.value);
-          }}
-        />
-      </Grid>
-      <Grid item xs={12} sm={12} md={2} lg={2}>
-        <Button
-          variant="outlined"
-          style={{ backgroundColor: "#2B3B4E", color: "#F4A200" }}
-          onClick={generateKeyPair}
-        >
-          Sign Up
-        </Button>
-      </Grid>
-      <Grid item xs={12} sm={12} md={12} lg={12}>
-        {loader && (
-          <>
-            <Grid container>
-              <Grid item xs={12} sm={12} md={12} lg={12}>
-                <center>
-                  <CircularProgress />
-                  <br />
-                  Please Confirm the Metamask Transaction.
-                  <br />
-                  You are not going to be charged. Once you confirm, you may
-                  need to wait for a while.
-                  <br />
-                  After that, we will be showing you your private and public key
-                </center>
-              </Grid>
-            </Grid>
-          </>
-        )}
+    <Fade in={true} timeout={1000}>
+      <div style={{ display: "flex" }}>
         <div
           style={{
+            background: "#6163FF",
+            flex: 1,
+            height: "100vh",
             display: "flex",
             flexDirection: "column",
+            justifyContent: "flex-start",
             alignItems: "center",
           }}
         >
-          {pubKey && hash && publichash && (
-            <Button
+          <h2 style={heading}>
+            Welcom to CryptoDrive, you can create an account to store, access
+            and share files securely.
+          </h2>
+          {username.length > 5 && (
+            <Fade in={true}>
+              <p style={subHeading}>
+                Please wait while we generate your keys. You'll be notified
+                soon.
+              </p>
+            </Fade>
+          )}
+          {/* {privateKey && username.length > 5 && (
+            <Fade in={true}>
+              <p style={subHeading}>You can click on Enter to safely Login </p>
+            </Fade>
+          )} */}
+        </div>
+        <div
+          style={{
+            flex: 1,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexDirection: "column",
+          }}
+        >
+          <Card
+            style={{
+              background: "#fff",
+              padding: "30px",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <p style={{ fontSize: "24px", fontWeight: "bold" }}>SigUp</p>
+            <div
               style={{
-                width: "200px",
-                paddingLeft: "5px",
-                paddingRight: "5px",
-                borderRadius: 25,
-                backgroundColor: "#2b3b4e",
-                color: "white",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
               }}
             >
-              <SaveFile
-                text={pubKey}
-                fileName={"publickey"}
-                buttonText={"Get Public Key"}
-              ></SaveFile>
-            </Button>
-          )}
-          <br />
-          <br />
-          {privateKey && hash && publichash && (
+              <TextField
+                value={username}
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                }}
+                id="filled-basic"
+                label="username"
+                variant="filled"
+                style={{
+                  width: 340,
+                  marginTop: "2rem",
+                  marginBottom: "2rem",
+                  marginRight: "1rem",
+                  marginLeft: "1rem",
+                }}
+              />
+              {username.length <= 5 && <div style={{ width: 24 }} />}
+              {username.length > 5 && <Checkmark />}
+            </div>
+
             <Button
+              disabled={username.length > 5 ? false : true}
               style={{
-                width: "200px",
-                paddingLeft: "5px",
-                paddingRight: "5px",
-                borderRadius: 25,
-                backgroundColor: "#2b3b4e",
-                color: "white",
+                width: 342,
+                height: 40,
+                background: "#6163AB",
+                color: " white",
+                marginBottom: "1.5rem",
+                marginRight: "2.5rem",
+                marginLeft: "1rem",
+              }}
+              onClick={generateKeyPair}
+            >
+              SignUp
+            </Button>
+          </Card>
+          <Backdrop
+            className={classes.backdrop}
+            open={loader}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <CircularProgress color="#fff" />
+            <p style={{ marginTop: "2rem" }}>Generating Keys</p>
+          </Backdrop>
+          <Card
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              padding: "30px",
+              paddingTop: "10px",
+              paddingBottom: "10px",
+              marginTop: "2rem",
+            }}
+          >
+            <Button
+              disabled={privateKey ? false : true}
+              style={{
+                width: 342,
+                height: 40,
+                background: "#6163AB",
+                color: " white",
+                marginTop: "2rem",
+                marginBottom: "1.5rem",
+                marginRight: "2.5rem",
+                marginLeft: "1rem",
               }}
             >
               <SaveFile
@@ -188,19 +267,34 @@ const SignUp = () => {
                 buttonText={"Get Private Key"}
               ></SaveFile>
             </Button>
-          )}
-          <br />
-          <br />
-          {error && (
-            <span style={{ color: "red" }}>
-              <center>
-                <h2>{error}</h2>
-              </center>
-            </span>
-          )}
+            <Button
+              disabled={pubKey ? false : true}
+              style={{
+                width: 342,
+                height: 40,
+                background: "#6163AB",
+                color: " white",
+                marginBottom: "1.5rem",
+                marginRight: "2.5rem",
+                marginLeft: "1rem",
+              }}
+            >
+              <SaveFile
+                text={pubKey}
+                fileName={"publickey"}
+                buttonText={"Get Public Key"}
+              ></SaveFile>
+            </Button>
+          </Card>
+          <div style={{ paddingTop: "2rem" }}>
+            <p>
+              Have an account? <a href="/signin"> Sign In </a>
+            </p>
+          </div>
+          {error && Alert.error(error)}
         </div>
-      </Grid>
-    </Grid>
+      </div>
+    </Fade>
   );
 };
 export default SignUp;
