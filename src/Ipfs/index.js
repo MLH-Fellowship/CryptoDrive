@@ -38,3 +38,8 @@ const FileRetrive = async (hash) => {
     return retrived_string;
   };
   
+export {
+    StringUpload,
+    StringRetrive,
+    FileRetrive
+};

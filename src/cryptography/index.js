@@ -45,3 +45,11 @@ const DefaultDecryptPublicKeyFile = async(text, public_key) => {
   };
   
 
+export {
+  EncrptPublicKey,
+  EncrptPublicKeyFile,
+  EncrptPrivateKeyFile,
+  DefaultDecryptPrivateKey,
+  DefaultDecryptPrivateKeyFile,
+  DefaultDecryptPublicKeyFile
+};

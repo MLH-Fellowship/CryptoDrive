@@ -1,19 +1,15 @@
 import React from "react";
 import FileHolder from "./../../components/myfileHolder";
 import loadWeb3 from "../../Web3/LoadWeb3";
-import FileRetrive from "../../Ipfs/FileRetrive";
-import StringRetrive from "../../Ipfs/StringRetrive";
+import {FileRetrive,StringRetrive} from "../../Ipfs";
 import ContractConnect from "../../Web3/ContractConnect";
-import GetFileHash from "../../Web3/GetFileHashes";
 import Validator from "./../../utility/validator";
 import { Redirect } from "react-router-dom";
 import * as ROUTES from "./../../constants/routes";
 import GetShareFiles from "../../Web3/GetShareDetails";
-import DefaultDecryptPrivateKey from "../../cryptography/Decryption"
-import DefaultDecryptPublicKeyFile from "../../cryptography/DecryptionPublicFile"
+import {DefaultDecryptPublicKeyFile,DefaultDecryptPrivateKey} from "../../cryptography";
 import Checkbox from "@material-ui/core/Checkbox";
 import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
-import ScreenShareIcon from "@material-ui/icons/ScreenShare";
 import { Button, Grid } from "@material-ui/core";
 import AlertDialogSlide from "../../components/alert_dailog_slide";
 import { Checkmark } from "../../components/checkmark/checkmark";
@@ -22,12 +18,6 @@ import _ from "lodash";
 import FileSaver from "file-saver";
 import mime from "mime-types";
 import GetPublic from "../../Web3/GetPublicHash";
-import EncrptPrivateKeyFile from "../../cryptography/EncryptionPrivateFile";
-import EncrptPublicKey from "../../cryptography/Encryption";
-import StringUpload from "../../Ipfs/StringUpload";
-import DefaultDecryptPrivateKeyFile from "../../cryptography/DecryptionFile";
-import AddShareFile from "../../Web3/AddShareData";
-import TextField from "@material-ui/core/TextField";
 import Loader from "../../components/loader";
 
 const SharedFiles = ({ privateKey, setPrivateKey }) => {
