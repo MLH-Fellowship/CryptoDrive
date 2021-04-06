@@ -14,7 +14,11 @@ import { Redirect } from "react-router-dom";
 import Logout from "./logout";
 import SharedFiles from "./sharedfiles";
 import { Switch, Route } from "react-router-dom";
-
+import FolderIcon from '@material-ui/icons/Folder';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import ShareIcon from '@material-ui/icons/Share';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import Validator from "../../utility/validator";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -86,8 +90,8 @@ const useStyles = makeStyles((theme) => ({
     borderRight: `1px solid ${theme.palette.divider}`,
   },
   leftPanel: {
-    width: "calc(100% - 80%)",
-    paddingLeft: "30px",
+    width: "calc(100% - 95%)",
+    paddingLeft: "20px",
     paddingTop: "20px",
     background: "#6163FF",
     color: "#ECEDED",
@@ -102,7 +106,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   rightPanel: {
-    marginLeft: "calc(100% - 80%)",
+    marginLeft: "calc(100% - 93%)",
     padding: "20px",
   },
   menu: {
@@ -119,6 +123,9 @@ const useStyles = makeStyles((theme) => ({
     },
     paddingBottom: "10px",
   },
+  logout:{
+    justifyContent:'right'
+  }
 }));
 
 export default function VerticalTabs() {
@@ -126,7 +133,7 @@ export default function VerticalTabs() {
   const [value, setValue] = React.useState(0);
   const [view, setView] = React.useState(0);
   const [privateKey, setPrivateKey] = React.useState("");
-  const [Component, setComponent] = React.useState(<Dashboard />);
+  const [logout,setLogout] = React.useState(false)
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -150,11 +157,14 @@ export default function VerticalTabs() {
   const handleClick = (index) => {
     setView(index);
   };
-
+  if(logout)
+  {
+      return <Redirect to={ROUTES.SIGN_IN}/>
+  }
   return (
     <div className={classes.root}>
       <div className={classes.leftPanel}>
-        <b className={classes.leftPanelHeading}>Dashboard</b>
+     
 
         <div className={classes.menu}>
           {menuItems.map((item, index) => (
@@ -164,12 +174,23 @@ export default function VerticalTabs() {
                 handleClick(index);
               }}
             >
-              <b>{item.name}</b>
+              {item.index===0 && <b><FolderIcon/></b>}
+              {item.index===1 && <b><CloudUploadIcon/></b>}
+              {item.index===2 && <b><ShareIcon/></b>}
             </div>
           ))}
         </div>
-        <div className={classes.menu}>
-          <div className={classes.navigationItem}>Logout</div>
+        <div >
+          <div
+          onClick={()=>{
+            localStorage.removeItem('public_hash');
+            localStorage.removeItem('user_name');
+            if(!Validator('publicHash') && !Validator('username')){
+                setLogout(true)
+            }
+
+          }}
+          className={classes.navigationItem}><ExitToAppIcon/></div>
         </div>
 
         {/* <Tabs

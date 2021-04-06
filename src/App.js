@@ -50,11 +50,6 @@ export default function App() {
               <VerticalTabs />
            
           </div>
-          <Footer
-            label="We save you from getting hijacked by Big Techies"
-            link="/"
-            linkText="Thank you For Using CryptoDrive"
-          />
         </Route>
       </Switch>
     </>
