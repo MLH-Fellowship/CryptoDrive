@@ -15,7 +15,6 @@ import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import _ from "lodash";
 import FileSaver from "file-saver";
 import mime from "mime-types";
-import Loader from "../../components/loader";
 
 const SharedFiles = ({ privateKey, setPrivateKey }) => {
   const [SharedFiles, setSharedFiles] = React.useState([]); // Use this when you set up the IPFS thing.
