@@ -50,30 +50,22 @@ const AddShareFile=async (contract,receiver,filehasharray)=>{
 };
 
 const GetFileHash=async(contract,username)=>{
-    const web3=window.web3;
-    const account = (await web3.eth.getAccounts())[0];
     const result= await contract.methods.GetFilehash(username).call();
     console.log(result)
     return result;
 };
 
 const GetPassHash=async(contract,username)=>{
-    const web3=window.web3;
-    const account = (await web3.eth.getAccounts())[0];
     const result= await contract.methods.GetPassHash(username).call();
     return result;
 };
 
 const GetPublic=async(contract,username)=>{
-    const web3=window.web3;
-    const account = (await web3.eth.getAccounts())[0];
     const result= await contract.methods.getPublicKey(username).call();
     return result;
 };
 
 const GetShareFiles=async(contract,username)=>{
-    const web3=window.web3;
-    const account = (await web3.eth.getAccounts())[0];
     const result= await contract.methods.GetShareDetails(username).call();
     console.log(result)
     return result;

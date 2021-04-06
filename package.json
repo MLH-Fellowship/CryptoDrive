@@ -12,7 +12,6 @@
     "classnames": "^2.2.6",
     "file-saver": "^2.0.5",
     "ipfs-api": "^26.1.2",
-    "ipfs-core": "^0.5.4",
     "js-string-compression": "^1.0.1",
     "lodash": "^4.17.15",
     "mime-types": "^2.1.30",
