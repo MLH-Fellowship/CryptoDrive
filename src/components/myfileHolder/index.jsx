@@ -1,26 +1,28 @@
 import React from "react";
-import { makeStyles, TextField,Grid } from "@material-ui/core";
+import { makeStyles, TextField, Grid } from "@material-ui/core";
 
-
-const useStyles = theme => makeStyles({
-  input: {
-      color: 'white',
-
-  }
-});
+const useStyles = (theme) =>
+  makeStyles({
+    input: {
+      color: "white",
+    },
+  });
 
 const MyFile = (props) => {
   const classes = useStyles();
-  return (<>
-  <Grid container>
-   
-    <Grid item xs={5} sm={5} md={5} lg={5}>
-    <span style={{color:"#ECEDED"}}>
-        {props.name}
-    </span>
-    </Grid>
-    <Grid item xs={5} sm={5} md={5} lg={5}>
-    {/* <TextField
+  return (
+    <>
+      <Grid container>
+        <Grid item xs={5} sm={5} md={5} lg={5}>
+          <span style={{ color: "#ECEDED" }}>{props.name}</span>
+        </Grid>
+        {props.sender && ( <Grid item xs={2} sm={2} md={2} lg={2}>
+         
+            <span style={{ color: "#ECEDED" }}>{props.sender}</span>
+        
+        </Grid>  )}
+        <Grid item xs={5} sm={5} md={5} lg={5}>
+          {/* <TextField
     fullWidth
       style={{color:"#ECEDED"}}
       variant="outlined"
@@ -29,32 +31,16 @@ const MyFile = (props) => {
           readOnly: true,
           style:{color:"#ECEDED",
           background:"transparent",
-         
+          
            "&:focus":
            {background:"#6163FF"}}
         }}
       /> */}
-     { props.hash}
-    </Grid>
-    <Grid item xs={5} sm={5} md={5} lg={5}>
-    { props.sender &&(
-      <span style={{color:"#ECEDED" }}>
-        {props.sender}
-      </span>)}
-    </Grid>
-  </Grid>
-    <div
-      style={{
-        height: "55px",
-        width: "100%",
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-around",
-      }}
-    >
-      
-      <br />   
-    </div><br/></>
+          <span style={{ color: "#ECEDED",opacity:'0.4' }}>{props.hash}</span>
+        </Grid>
+      </Grid>
+      <br />
+    </>
   );
 };
 

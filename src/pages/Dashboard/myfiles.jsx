@@ -1,7 +1,13 @@
 import React from "react";
 import FileHolder from "./../../components/myfileHolder";
-import {loadWeb3,ContractConnect,GetFileHash,GetPublic,AddShareFile} from "../../Web3/";
-import {FileRetrive,StringRetrive,StringUpload} from "../../Ipfs";
+import {
+  loadWeb3,
+  ContractConnect,
+  GetFileHash,
+  GetPublic,
+  AddShareFile,
+} from "../../Web3/";
+import { FileRetrive, StringRetrive, StringUpload } from "../../Ipfs";
 import Validator from "./../../utility/validator";
 import { Redirect } from "react-router-dom";
 import * as ROUTES from "./../../constants/routes";
@@ -15,7 +21,11 @@ import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import _ from "lodash";
 import FileSaver from "file-saver";
 import mime from "mime-types";
-import {EncrptPublicKey,EncrptPrivateKeyFile,DefaultDecryptPrivateKeyFile} from "../../cryptography";
+import {
+  EncrptPublicKey,
+  EncrptPrivateKeyFile,
+  DefaultDecryptPrivateKeyFile,
+} from "../../cryptography";
 import TextField from "@material-ui/core/TextField";
 
 const MyFiles = ({ privateKey, setPrivateKey }) => {
@@ -334,31 +344,30 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
         ></div>
       </AlertDialogSlide>{" "}
       <Grid container>
-        <Grid item xs sm md lg>
-          <h2>My Files</h2>
-        </Grid>
+        <Grid container item xs={12} sm={12} md={6} lg={6}>
+          <Grid item xs={12} sm={12} md={12} lg={12}>
+            <h2 style={{ margin: "0px" }}>My Files</h2>
+          </Grid>
 
-        <Grid item xs={12} sm={12} md={12} lg={12}>
-          {privateKey && (
-            <div style={{ display: "flex", justifyContent: "flex-start" }}>
-              <VpnKeyIcon /> &nbsp;&nbsp;&nbsp;<b>Private Key Initialized</b>
-            </div>
-          )}
+          <Grid item xs={12} sm={12} md={12} lg={12}>
+            {privateKey && (
+              <div style={{ display: "flex", justifyContent: "flex-start" }}>
+                <VpnKeyIcon /> &nbsp;&nbsp;&nbsp;<b>Private Key Initialized</b>
+              </div>
+            )}
+          </Grid>
         </Grid>
-        <Grid item xs={12} sm={12} md={12} lg={12}>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "flex-end",
-            }}
-          >
+        <Grid item xs={12} sm={12} md={6} lg={6}
+        style={{ display: "flex", justifyContent: "center",  }}
+        >
+          <div style={{position:'fixed',zIndex:5}}>
             <Button
               style={{
                 marginLeft: "10px",
                 borderRadius: 25,
                 backgroundColor: "#6163FF",
                 color: "white",
+                
               }}
               onClick={async () => {
                 setEntry(0);
@@ -377,7 +386,8 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
                 marginLeft: "10px",
                 borderRadius: 25,
                 backgroundColor: "#6163FF",
-                color: "white",
+                color: "#ECEDED",          
+                transition:'ease 0.7s all',
               }}
               onClick={async () => {
                 setEntry(1);
@@ -414,9 +424,12 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
                     vertical: "bottom",
                     horizontal: "right",
                   }}
-        
                   ContentProps={{
-                    style:{background: "#6163FF", width:"200px", padding:"20px" }
+                    style: {
+                      background: "#6163FF",
+                      width: "200px",
+                      padding: "20px",
+                    },
                   }}
                   open={true}
                   autoHideDuration={3000}
@@ -463,7 +476,7 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
                 </Grid>
               </Grid>
             ))}
-          {myFiles == "" && (
+          {myFiles === [] && (
             <>
               <center>
                 <h3>
