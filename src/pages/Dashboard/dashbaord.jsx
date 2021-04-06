@@ -1,21 +1,13 @@
 import React, { useState, useCallback } from "react";
-import { useDropzone } from "react-dropzone";
-import StringUpload from "../../Ipfs/StringUpload";
-import ipfs from "../../Ipfs/ipfs";
-// import styles from "./index.module.css";
-import EncrptPublicKeyFile from "../../cryptography/EncryptionFile";
-import GetPassHash from "../../Web3/GetPassHash";
-import GetPublic from "../../Web3/GetPublicHash";
-import AddFile from "../../Web3/AddFileHash";
-import loadWeb3 from "../../Web3/LoadWeb3";
-import ContractConnect from "../../Web3/ContractConnect";
-import StringRetrive from "../../Ipfs/StringRetrive";
+import {StringUpload} from "../../Ipfs";
+import {EncrptPublicKeyFile} from "../../cryptography";
+import {AddFile,ContractConnect,loadWeb3} from "../../Web3";
+import {StringRetrive} from "../../Ipfs";
 import FileBar from "../../components/FileBar";
 import { Button, Grid, Snackbar } from "@material-ui/core";
 import * as ROUTES from "../../constants/routes";
 import { Redirect } from "react-router-dom";
 import { FileDrop } from "react-file-drop";
-import Loader from './../../components/loader'
 import Validator from './../../utility/validator'
 
 const DashBoard = (props) => {

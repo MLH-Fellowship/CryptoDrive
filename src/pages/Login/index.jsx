@@ -1,17 +1,12 @@
 import React from "react";
 import { TextField, Button, Card, makeStyles, Fade } from "@material-ui/core";
-import GetPassHash from "../../Web3/GetPassHash";
-import GetPublic from "../../Web3/GetPublicHash";
-import loadWeb3 from "../../Web3/LoadWeb3";
-import StringRetrive from "../../Ipfs/StringRetrive";
-import ContractConnect from "../../Web3/ContractConnect";
-import DefaultDecryptPrivateKey from "../../cryptography/Decryption";
+import {GetPassHash,GetPublic,loadWeb3,ContractConnect} from "../../Web3/";
+import {StringRetrive} from "../../Ipfs";
+import {DefaultDecryptPrivateKey} from "../../cryptography";
 import { Redirect } from "react-router-dom";
 import * as ROUTES from "./../../constants/routes";
-import { Grid } from "@material-ui/core";
 import { Checkmark } from "../../components/checkmark/checkmark";
 import Validator from "./../../utility/validator";
-import { Whisper, Tooltip, Input } from "rsuite";
 
 const Login = () => {
   const [username, setUsername] = React.useState("");

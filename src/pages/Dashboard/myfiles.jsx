@@ -1,10 +1,7 @@
 import React from "react";
 import FileHolder from "./../../components/myfileHolder";
-import loadWeb3 from "../../Web3/LoadWeb3";
-import FileRetrive from "../../Ipfs/FileRetrive";
-import StringRetrive from "../../Ipfs/StringRetrive";
-import ContractConnect from "../../Web3/ContractConnect";
-import GetFileHash from "../../Web3/GetFileHashes";
+import {loadWeb3,ContractConnect,GetFileHash,GetPublic,AddShareFile} from "../../Web3/";
+import {FileRetrive,StringRetrive,StringUpload} from "../../Ipfs";
 import Validator from "./../../utility/validator";
 import { Redirect } from "react-router-dom";
 import * as ROUTES from "./../../constants/routes";
@@ -18,14 +15,8 @@ import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import _ from "lodash";
 import FileSaver from "file-saver";
 import mime from "mime-types";
-import GetPublic from "../../Web3/GetPublicHash";
-import EncrptPrivateKeyFile from "../../cryptography/EncryptionPrivateFile";
-import EncrptPublicKey from "../../cryptography/Encryption";
-import StringUpload from "../../Ipfs/StringUpload";
-import DefaultDecryptPrivateKeyFile from "../../cryptography/DecryptionFile";
-import AddShareFile from "../../Web3/AddShareData";
+import {EncrptPublicKey,EncrptPrivateKeyFile,DefaultDecryptPrivateKeyFile} from "../../cryptography";
 import TextField from "@material-ui/core/TextField";
-import Loader from "./../../components/loader";
 
 const MyFiles = ({ privateKey, setPrivateKey }) => {
   const [myFiles, setMyFiles] = React.useState([]); // Use this when you set up the IPFS thing.
