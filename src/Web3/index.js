@@ -1,5 +1,5 @@
 import Web3 from "web3";
-import data from "../smart_contracts/build/contracts/CryptoDrive";
+import data from "./contractABI";
 
 
 const loadWeb3=async ()=> {
