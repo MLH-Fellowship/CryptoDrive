@@ -1,9 +1,7 @@
 import React from "react";
 import FileHolder from "./../../components/myfileHolder";
-import loadWeb3 from "../../Web3/LoadWeb3";
+import {loadWeb3,ContractConnect,GetFileHash,GetPublic,AddShareFile} from "../../Web3/";
 import {FileRetrive,StringRetrive,StringUpload} from "../../Ipfs";
-import ContractConnect from "../../Web3/ContractConnect";
-import GetFileHash from "../../Web3/GetFileHashes";
 import Validator from "./../../utility/validator";
 import { Redirect } from "react-router-dom";
 import * as ROUTES from "./../../constants/routes";
@@ -17,9 +15,7 @@ import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import _ from "lodash";
 import FileSaver from "file-saver";
 import mime from "mime-types";
-import GetPublic from "../../Web3/GetPublicHash";
 import {EncrptPublicKey,EncrptPrivateKeyFile,DefaultDecryptPrivateKeyFile} from "../../cryptography";
-import AddShareFile from "../../Web3/AddShareData";
 import TextField from "@material-ui/core/TextField";
 
 const MyFiles = ({ privateKey, setPrivateKey }) => {

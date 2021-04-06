@@ -1,9 +1,7 @@
 import React, { useState, useCallback } from "react";
 import {StringUpload} from "../../Ipfs";
 import {EncrptPublicKeyFile} from "../../cryptography";
-import AddFile from "../../Web3/AddFileHash";
-import loadWeb3 from "../../Web3/LoadWeb3";
-import ContractConnect from "../../Web3/ContractConnect";
+import {AddFile,ContractConnect,loadWeb3} from "../../Web3";
 import {StringRetrive} from "../../Ipfs";
 import FileBar from "../../components/FileBar";
 import { Button, Grid, Snackbar } from "@material-ui/core";
