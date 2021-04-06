@@ -132,7 +132,7 @@ const SignUp = () => {
   }
 
   return (
-    <Fade in={true} timeout={1000}>
+    <Fade in={true} timeout={1200}>
       <div style={{ display: "flex" }}>
         <div
           style={{
