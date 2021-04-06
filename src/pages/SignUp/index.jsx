@@ -1,16 +1,7 @@
 import React from "react";
-import {
-  TextField,
-  Button,
-  Fade,
-  Card,
-  Backdrop,
-  CircularProgress,
-} from "@material-ui/core";
+import {TextField,Button,Fade,Card,Backdrop,CircularProgress} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import loadWeb3 from "../../Web3/LoadWeb3";
-import ContractConnect from "../../Web3/ContractConnect";
-import signup from "../../Web3/SignUp";
+import {loadWeb3,ContractConnect,signup} from "../../Web3";
 import {EncrptPublicKey} from "../../cryptography";
 import {StringUpload} from "./../../Ipfs";
 import * as ROUTES from "./../../constants/routes";

@@ -1,12 +1,10 @@
 import React from "react";
 import FileHolder from "./../../components/myfileHolder";
-import loadWeb3 from "../../Web3/LoadWeb3";
+import {loadWeb3,ContractConnect,GetShareFiles,GetPublic} from "../../Web3";
 import {FileRetrive,StringRetrive} from "../../Ipfs";
-import ContractConnect from "../../Web3/ContractConnect";
 import Validator from "./../../utility/validator";
 import { Redirect } from "react-router-dom";
 import * as ROUTES from "./../../constants/routes";
-import GetShareFiles from "../../Web3/GetShareDetails";
 import {DefaultDecryptPublicKeyFile,DefaultDecryptPrivateKey} from "../../cryptography";
 import Checkbox from "@material-ui/core/Checkbox";
 import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
@@ -17,7 +15,6 @@ import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import _ from "lodash";
 import FileSaver from "file-saver";
 import mime from "mime-types";
-import GetPublic from "../../Web3/GetPublicHash";
 import Loader from "../../components/loader";
 
 const SharedFiles = ({ privateKey, setPrivateKey }) => {
