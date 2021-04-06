@@ -43,7 +43,6 @@ const signup=async(contract,username,passhash,publichash)=>{
 const AddFile=async (contract,username,filehash,filename)=>{
     const web3=window.web3;
     const account = (await web3.eth.getAccounts())[0];
-    console.log(username,filehash,filename)
     const result= await contract.methods.AddFileHash(username,filehash,filename).send({from : account});
     return result;
 };
@@ -61,7 +60,6 @@ const AddShareFile=async (contract,receiver,filehasharray)=>{
 
 const GetFileHash=async(contract,username)=>{
     const result= await contract.methods.GetFilehash(username).call();
-    console.log(result)
     return result;
 };
 
@@ -82,7 +80,6 @@ const GetPublic=async(contract,username)=>{
 
 const GetShareFiles=async(contract,username)=>{
     const result= await contract.methods.GetShareDetails(username).call();
-    console.log(result)
     return result;
 };
 

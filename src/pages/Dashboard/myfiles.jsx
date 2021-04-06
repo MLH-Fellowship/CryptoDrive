@@ -61,7 +61,6 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
   React.useEffect(() => {
     async function setup() {
       await loadWeb3();
-      console.log("Web3 Loaded");
       const Contract = await ContractConnect();
       setContract(Contract);
     }
@@ -93,7 +92,6 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
 
   async function setup() {
     await loadWeb3();
-    console.log("Web3 Loaded");
     const Contract = await ContractConnect();
     setContract(Contract);
   }
@@ -103,16 +101,11 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
     setUsername(user);
 
     if (contract && username) {
-      console.log(contract);
-      console.log(username);
       const filehashes = await GetFileHash(contract, username);
-      console.log(filehashes);
 
       if (filehashes) {
         setMyFiles(filehashes);
-        console.log(myFiles.length);
         setChecked(Array(myFiles.length).fill(false));
-        console.log(checked);
       }
     }
   }
@@ -122,7 +115,6 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
     reader.readAsText(file, "UTF-8");
     reader.onload = (evt) => {
       setPrivateKey(evt.target.result);
-      console.log(evt.target.result);
     };
     reader.onerror = () => console.log("error");
   }
@@ -134,13 +126,9 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
         "We are de-compressing the file. It may take a while, please click on wait if prompted in your browser."
       );
       checked_index.map(async (value, j) => {
-        console.log(myFiles[checked_index[j]]);
         const file_n = myFiles[checked_index[j]].filename;
         const file_h = myFiles[checked_index[j]].filehash;
-        console.log(file_h);
         const encryted_file = await FileRetrive(file_h);
-        console.log(encryted_file);
-        console.log(privateKey);
 
         var jsscompress = require("js-string-compression");
         var hm = new jsscompress.Hauffman();
@@ -150,7 +138,6 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
         );
 
         const type = mime.lookup(file_n);
-        console.log(type);
         var blob = new Blob([decr], {
           type: type,
         });
@@ -158,7 +145,6 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
         FileSaver.saveAs(blob, file_n);
         setMessage("Decompression Successful. Please Check Browser Downloads");
         setLoader(false);
-        console.log(decr);
       });
     }
   }
@@ -171,13 +157,9 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
       );
       var hashfile_share_array = [];
       checked_index.map(async (value, j) => {
-        console.log(myFiles[checked_index[j]]);
         const file_n = myFiles[checked_index[j]].filename;
         const file_h = myFiles[checked_index[j]].filehash;
-        console.log(file_h);
         const encryted_file = await FileRetrive(file_h);
-        console.log(encryted_file);
-        console.log(privateKey);
         var jsscompress = require("js-string-compression");
         var hm = new jsscompress.Hauffman();
         const decr = await DefaultDecryptPrivateKeyFile(
@@ -186,36 +168,27 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
         );
         const receiver = receiverName;
         const public_receiver = await GetPublic(contract, receiver);
-        console.log(public_receiver);
         const public_key_receiver = await StringRetrive(public_receiver);
-        console.log(public_key_receiver);
         const encrypted_sender = await EncrptPrivateKeyFile(decr, privateKey);
-        console.log(encrypted_sender);
         const encrypted_receiver = await EncrptPublicKey(
           encrypted_sender,
           public_key_receiver
         );
-        console.log(encrypted_receiver);
         const encrypted_receiver_sender_hash = await StringUpload(
           encrypted_receiver
         );
-        console.log(encrypted_receiver_sender_hash);
         const fileshare = {
           filehash: encrypted_receiver_sender_hash,
           filename: file_n,
           sender: username,
         };
-        console.log(fileshare);
         hashfile_share_array.push(fileshare);
-        console.log(hashfile_share_array);
-        console.log(decr);
         if (j === checked_index.length - 1) {
           const result = await AddShareFile(
             contract,
             receiver,
             hashfile_share_array
           );
-          console.log(result);
           if (result.status) {
             setLoader(false);
             setMessage(`File shared with, ${receiverName}`);
@@ -241,8 +214,6 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
   const token = Validator("publicHash");
   const loginuser = Validator("username");
   if (!token || !loginuser) {
-    console.log(token);
-    console.log(loginuser);
     return <Redirect to={ROUTES.SIGN_IN} />;
   }
 
@@ -301,7 +272,6 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
               onChange={(event) => {
                 setKeyFile(event.target.files[0]);
                 readkeyFile(event.target.files[0]);
-                console.log(keyFile);
               }}
             />
             <label

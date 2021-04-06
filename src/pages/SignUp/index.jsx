@@ -33,7 +33,6 @@ const SignUp = () => {
   React.useEffect(() => {
     async function setup() {
       await loadWeb3();
-      console.log("Web3 Loaded");
       const Contract = await ContractConnect();
       setContract(Contract);
     }
@@ -60,26 +59,12 @@ const SignUp = () => {
       const encrypted_text = await EncrptPublicKey(username, public_key);
       const hash = await StringUpload(encrypted_text);
       const public_hash = await StringUpload(public_key);
-      console.log(public_hash);
       const result = await signup(contract, username, hash, public_hash);
-
-      // console.log(result);
-      // const result1 = await GetPublic(contract,username);
-      // console.log(result1);
-      // const result2 = await GetPassHash(contract,username);
-      // console.log(result2);
 
       if (result) {
         setLoader(false);
       }
 
-      // console.log(hash)
-      // const encrypted_retrived_string = await StringRetrive(hash);
-      // const decrypted_text = await DecryptPrivateKey(
-      //   encrypted_retrived_string,
-      //   private_key
-      // );
-      // console.log(decrypted_text === username);
 
       setHash(hash);
       SetPublicHash(public_hash);

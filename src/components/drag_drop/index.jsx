@@ -43,22 +43,6 @@ class ImageUploader extends React.Component {
     e.preventDefault();
     let file = e.dataTransfer.files[0];
 
-    // Validate file is of type Image
-    // let fileType = file.type.split("/")[0];
-    // if (fileType !== "image") {
-    //   console.log("Not an image file");
-    //   this.setState({
-    //     file: null,
-    //     errorNotification: "Not an image File",
-    //     dragOver: false,
-    //   });
-    //   return setTimeout(() => {
-    //     this.setState({
-    //       errorNotification: null,
-    //     });
-    //   }, 3000);
-    // }
-    // this.refs.image.files = e.dataTransfer.files;
     document.getElementById("upload-image-input").fileList =
       e.dataTransfer.files[0];
     this.setState({
@@ -74,21 +58,6 @@ class ImageUploader extends React.Component {
     e.preventDefault();
     let file = this.refs.image.files[0];
 
-    // Validate file is of type Image
-    // let fileType = this.refs.image.files[0].type.split("/")[0];
-    // if (fileType !== "image") {
-    //   console.log("Not an image file");
-    //   this.setState({
-    //     file: null,
-    //     errorNotification: "Not an image File",
-    //     dragOverClass: "",
-    //   });
-    //   return setTimeout(() => {
-    //     this.setState({
-    //       errorNotification: null,
-    //     });
-    //   }, 3000);
-    // }
 
     this.setState({
       file,
@@ -101,7 +70,6 @@ class ImageUploader extends React.Component {
   handleUploadImage(e) {
     e.preventDefault();
     if (this.refs.image.files[0]) {
-      console.log("Uploading Image " + this.refs.image.files[0].name + "");
 
      
       /**

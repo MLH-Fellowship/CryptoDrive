@@ -27,7 +27,6 @@ function TabPanel(props) {
 
     if (tokenString) userToken = JSON.parse(tokenString);
 
-    console.log(userToken);
 
     if (userToken) return userToken;
     else return false;
@@ -36,8 +35,6 @@ function TabPanel(props) {
   const token = getPassHash();
   const username = getUsername();
   if (token == null || username == null) {
-    console.log(token);
-    console.log(username);
     return <Redirect to={ROUTES.SIGN_IN} />;
   }
 
@@ -188,31 +185,6 @@ export default function VerticalTabs() {
           className={classes.navigationItem}><ExitToAppIcon/></div>
         </div>
 
-        {/* <Tabs
-        orientation="vertical"
-        variant="scrollable"
-        value={value}
-        onChange={handleChange}
-        aria-label="Vertical tabs example"
-        className={classes.tabs}
-      >
-        <Tab label="My Files" {...a11yProps(0)} />
-        <Tab label="Upload" {...a11yProps(1)} />
-        <Tab label="Shared Files" {...a11yProps(2)} />
-        <Tab label="Logout" {...a11yProps(3)} />
-      </Tabs>
-      <TabPanel value={value} index={0}>
-        <MyFiles privateKey={privateKey} setPrivateKey={setPrivateKey} />
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <Dashboard  />
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-      <SharedFiles privateKey={privateKey} setPrivateKey={setPrivateKey} />
-      </TabPanel>
-      <TabPanel value={value} index={3}>
-        <Logout />
-      </TabPanel> */}
       </div>
       <div className={classes.rightPanel}>
         {(view === 0 && (

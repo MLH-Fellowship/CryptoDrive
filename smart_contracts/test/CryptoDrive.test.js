@@ -104,10 +104,9 @@ contract('CryptoDrive', (accounts) => {
   });
 
   // Tests for checking the user 2 received the file from user 1 or not 
-  
+
   it('Retrived the file sent by user id u1 to user id u2 successfully',async()=>{
     const result_final=await cryptodrive.GetShareDetails(user_id_2);
-    // console.log(result_final);
     asserted.equal(filehash,result_final[0].filehash,"FileHash which is shared by u1 not retrived successfully");
     asserted.equal(filename,result_final[0].filename,"FileName which is shared by u1 not retrived successfully");
     asserted.equal('u1',result_final[0].sender,"Sender not retrived successfully");

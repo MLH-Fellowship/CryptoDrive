@@ -50,7 +50,6 @@ const SharedFiles = ({ privateKey, setPrivateKey }) => {
   React.useEffect(() => {
     async function setup() {
       await loadWeb3();
-      console.log("Web3 Loaded");
       const Contract = await ContractConnect();
       setContract(Contract);
     }
@@ -85,7 +84,6 @@ const SharedFiles = ({ privateKey, setPrivateKey }) => {
 
   async function setup() {
     await loadWeb3();
-    console.log("Web3 Loaded");
     const Contract = await ContractConnect();
     setContract(Contract);
   }
@@ -95,16 +93,11 @@ const SharedFiles = ({ privateKey, setPrivateKey }) => {
     setUsername(user);
 
     if (contract && username) {
-      console.log(contract);
-      console.log(username);
       const filehashes = await GetShareFiles(contract, username);
-      console.log(filehashes);
 
       if (filehashes) {
         setSharedFiles(filehashes);
-        console.log(SharedFiles.length);
         setChecked(Array(SharedFiles.length).fill(false));
-        console.log(checked);
       }
     }
   }
@@ -114,7 +107,6 @@ const SharedFiles = ({ privateKey, setPrivateKey }) => {
     reader.readAsText(file, "UTF-8");
     reader.onload = (evt) => {
       setPrivateKey(evt.target.result);
-      console.log(evt.target.result);
     };
     reader.onerror = () => console.log("error");
   }
@@ -126,14 +118,12 @@ const SharedFiles = ({ privateKey, setPrivateKey }) => {
         "We are processing your download files. Please wait for a while. If browser prompts, click on wait."
       );
       checked_index.map(async (value, j) => {
-        console.log(SharedFiles[checked_index[j]]);
         const file_n = SharedFiles[checked_index[j]].filename;
         const file_h = SharedFiles[checked_index[j]].filehash;
         const sender = SharedFiles[checked_index[j]].sender;
         const sender_public_hash = await GetPublic(contract, sender);
         const sender_public_key = await StringRetrive(sender_public_hash);
         const encrypted_file = await FileRetrive(file_h);
-        console.log(encrypted_file);
         const decrypt_receiver = await DefaultDecryptPrivateKey(
           encrypted_file,
           privateKey
@@ -142,9 +132,7 @@ const SharedFiles = ({ privateKey, setPrivateKey }) => {
           decrypt_receiver,
           sender_public_key
         );
-        console.log(decrypt_sender);
         const type = mime.lookup(file_n);
-        console.log(type);
         var blob = new Blob([decrypt_sender], {
           type: type,
         });
@@ -166,8 +154,6 @@ const SharedFiles = ({ privateKey, setPrivateKey }) => {
   const token = Validator("publicHash");
   const loginuser = Validator("username");
   if (!token || !loginuser) {
-    console.log(token);
-    console.log(loginuser);
     return <Redirect to={ROUTES.SIGN_IN} />;
   }
 
@@ -197,7 +183,6 @@ const SharedFiles = ({ privateKey, setPrivateKey }) => {
             onChange={(event) => {
               setKeyFile(event.target.files[0]);
               readkeyFile(event.target.files[0]);
-              console.log(keyFile);
             }}
           />
           <label

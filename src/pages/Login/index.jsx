@@ -31,7 +31,6 @@ const Login = () => {
     reader.readAsText(file, "UTF-8");
     reader.onload = (evt) => {
       setPrivateKey(evt.target.result);
-      console.log(evt.target.result);
     };
     reader.onerror = () => console.log("error");
   }
@@ -39,7 +38,6 @@ const Login = () => {
   React.useEffect(() => {
     async function setup() {
       await loadWeb3();
-      console.log("Web3 Loaded");
       const Contract = await ContractConnect();
       setContract(Contract);
     }
@@ -69,20 +67,14 @@ const Login = () => {
       const public_hash = await GetPublic(contract, username);
       const pass_hash = await GetPassHash(contract, username);
       const public_key = await StringRetrive(public_hash);
-      console.log(public_key);
-      console.log(pass_hash);
-      console.log(public_hash);
       const encrypted_pass = await StringRetrive(pass_hash);
-      console.log(encrypted_pass);
       const decrypted_pass = await DefaultDecryptPrivateKey(
         encrypted_pass,
         privateKey
       );
-      console.log(decrypted_pass);
 
       if (decrypted_pass === username);
       {
-        console.log(true);
         setPublicHash(public_hash);
       }
     } else {
@@ -93,7 +85,6 @@ const Login = () => {
     alignSelf: "flex-end",
     fontSize: "26px",
     color: "#fff",
-    marginTop: "5rem",
     marginBottom: "15rem",
     paddingRight: "5rem",
   };
@@ -130,7 +121,6 @@ const Login = () => {
 
   const token = Validator("publicHash");
   const LoginUser = Validator("username");
-  console.log(LoginUser);
   if (token && LoginUser) {
     return <Redirect to={ROUTES.DASHBOARD} />;
   }

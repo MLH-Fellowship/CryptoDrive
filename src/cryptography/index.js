@@ -3,7 +3,6 @@ const NodeRSA = require('node-rsa');
 // Function to encrypt the text with the public key by taking the text and public key as input
 const EncrptPublicKey =async (text, public_key) => {
     var buffer = await Buffer.from(text);
-    console.log(buffer);
     public_key = await new NodeRSA(public_key);
     const encrypted_data = await public_key.encrypt(buffer, 'base64');
     return encrypted_data
