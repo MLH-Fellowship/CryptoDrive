@@ -188,12 +188,8 @@ const SharedFiles = ({ privateKey, setPrivateKey }) => {
           await handleDownloadFiles();
         }}
       >
-        <div
-          style={{
-            paddingTop: "3em",
-            display: "flex",
-          }}
-        >
+        <Grid container>
+          <Grid item xs={12} sm={12} md={5} lg={5}>
           <input
             type="file"
             id="fileupload"
@@ -220,6 +216,8 @@ const SharedFiles = ({ privateKey, setPrivateKey }) => {
           >
             Add Private Key
           </label>
+          </Grid>
+          <Grid item xs={12} sm={12} md={3} lg={3}>
           {keyFile && (
             <div
               style={{
@@ -230,7 +228,8 @@ const SharedFiles = ({ privateKey, setPrivateKey }) => {
               <Checkmark size="medium" />
             </div>
           )}
-        </div>
+          </Grid>
+        </Grid>
       </AlertDialogSlide>{" "}
       <Grid container >
         <Grid container item xs={12} sm={12} md={6} lg={6}>
@@ -240,7 +239,7 @@ const SharedFiles = ({ privateKey, setPrivateKey }) => {
           {privateKey && (
             <Grid item xs={12} sm={12} md={12} lg={12}>
               <div style={{ display: "flex", justifyContent: "flex-start" }}>
-                <VpnKeyIcon /> Private Key Initialized
+                <VpnKeyIcon /> &nbsp;&nbsp;&nbsp;<b>Private Key Initialized</b>
               </div>
             </Grid>
           )}
