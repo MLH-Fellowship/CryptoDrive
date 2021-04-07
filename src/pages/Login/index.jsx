@@ -3,7 +3,7 @@ import { TextField, Button, Card, makeStyles, Fade } from "@material-ui/core";
 import {GetPassHash,GetPublic,loadWeb3,ContractConnect} from "../../Web3/";
 import {StringRetrive} from "../../Ipfs";
 import {DefaultDecryptPrivateKey} from "../../cryptography";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import * as ROUTES from "./../../constants/routes";
 import { Checkmark } from "../../components/checkmark/checkmark";
 import Validator from "./../../utility/validator";
@@ -266,7 +266,9 @@ const Login = () => {
           {/* <div style={{ flexGrow: 1 }} /> */}
           <div style={{ paddingTop: "2rem" }}>
             <p>
-              Don't have an account? <a href="/signup"> Sign Up </a>
+              Don't have an account?  <Link to={ROUTES.SIGN_UP}>
+                          Sign in
+                        </Link>
             </p>
           </div>
         </div>
