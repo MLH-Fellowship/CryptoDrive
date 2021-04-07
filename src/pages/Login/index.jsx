@@ -1,6 +1,6 @@
 import React from "react";
 import { TextField, Button, Card, makeStyles, Fade } from "@material-ui/core";
-import {GetPassHash,GetPublic,loadWeb3,ContractConnect} from "../../Web3/";
+import {GetPassHash,GetPublic,loadWeb3,ContractConnect,CheckUser} from "../../Web3/";
 import {StringRetrive} from "../../Ipfs";
 import {DefaultDecryptPrivateKey} from "../../cryptography";
 import { Redirect, Link } from "react-router-dom";
@@ -24,6 +24,7 @@ const Login = () => {
   // handling change in the file upload of privatekey
   const handleChange = (event) => {
     const fileUploaded = event.target.files[0];
+    console.log(fileUploaded);
     setKeyFile(fileUploaded);
     readkeyFile(fileUploaded);
   };
@@ -68,6 +69,11 @@ const Login = () => {
   const Signin = async () => {
     // if the username and private key are present then this will handle else it will throw an error
     if (username && privateKey) {
+      const userexist=await CheckUser(contract,username);
+      if(!userexist){
+        window.alert("Username not Found ! Kindly Check the Username you entered");
+        return;
+      }
       // getting the public hash for the username
       const public_hash = await GetPublic(contract, username);
       // getting the passhash  from the smart contract
