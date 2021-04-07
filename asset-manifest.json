@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/CryptoDrive/static/css/main.194e39b3.chunk.css",
-    "main.js": "/CryptoDrive/static/js/main.7fdb9cba.chunk.js",
-    "main.js.map": "/CryptoDrive/static/js/main.7fdb9cba.chunk.js.map",
+    "main.js": "/CryptoDrive/static/js/main.4c2eea97.chunk.js",
+    "main.js.map": "/CryptoDrive/static/js/main.4c2eea97.chunk.js.map",
     "runtime-main.js": "/CryptoDrive/static/js/runtime-main.6beaadfe.js",
     "runtime-main.js.map": "/CryptoDrive/static/js/runtime-main.6beaadfe.js.map",
-    "static/js/2.68c1913d.chunk.js": "/CryptoDrive/static/js/2.68c1913d.chunk.js",
-    "static/js/2.68c1913d.chunk.js.map": "/CryptoDrive/static/js/2.68c1913d.chunk.js.map",
+    "static/js/2.75956be4.chunk.js": "/CryptoDrive/static/js/2.75956be4.chunk.js",
+    "static/js/2.75956be4.chunk.js.map": "/CryptoDrive/static/js/2.75956be4.chunk.js.map",
     "index.html": "/CryptoDrive/index.html",
     "static/css/main.194e39b3.chunk.css.map": "/CryptoDrive/static/css/main.194e39b3.chunk.css.map",
-    "static/js/2.68c1913d.chunk.js.LICENSE.txt": "/CryptoDrive/static/js/2.68c1913d.chunk.js.LICENSE.txt",
+    "static/js/2.75956be4.chunk.js.LICENSE.txt": "/CryptoDrive/static/js/2.75956be4.chunk.js.LICENSE.txt",
     "static/media/style.scss": "/CryptoDrive/static/media/illustration-section-02.f11c21a9.svg",
     "static/media/ethpurple.4aa4d7e0.png": "/CryptoDrive/static/media/ethpurple.4aa4d7e0.png",
     "static/media/feature-tile-icon-01.e13cef8e.svg": "/CryptoDrive/static/media/feature-tile-icon-01.e13cef8e.svg",
@@ -24,8 +24,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.6beaadfe.js",
-    "static/js/2.68c1913d.chunk.js",
+    "static/js/2.75956be4.chunk.js",
     "static/css/main.194e39b3.chunk.css",
-    "static/js/main.7fdb9cba.chunk.js"
+    "static/js/main.4c2eea97.chunk.js"
   ]
 }
