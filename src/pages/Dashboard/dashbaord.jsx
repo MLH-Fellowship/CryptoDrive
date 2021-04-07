@@ -4,13 +4,29 @@ import { EncrptPublicKeyFile } from "../../cryptography";
 import { AddFile, ContractConnect, loadWeb3 } from "../../Web3";
 import { StringRetrive } from "../../Ipfs";
 import FileBar from "../../components/FileBar";
-import { Button, Grid, Snackbar } from "@material-ui/core";
+import {
+  Button,
+  Grid,
+  Snackbar,
+  Backdrop,
+  Card,
+  CircularProgress,
+} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+
 import * as ROUTES from "../../constants/routes";
 import { Redirect } from "react-router-dom";
 import { FileDrop } from "react-file-drop";
 import Validator from "./../../utility/validator";
+
+const useStyles = makeStyles((theme) => ({
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: "#fff",
+  },
+}));
 // This page defines the upload files components in the dashboard route
-const DashBoard = (props) => {
+const DashBoard = (_props) => {
   const [uploadFiles, setUploadFiles] = useState([]);
   const [bufferState, setBufferState] = useState([]);
   const [contract, setContract] = React.useState("");
@@ -19,7 +35,10 @@ const DashBoard = (props) => {
   const [filename, setfilename] = useState("");
   const [loader, setLoader] = useState(false);
   const [message, setMessage] = useState("");
+  const [showSnackBar, setSnackbar] = useState(false);
   var jsscompress = require("js-string-compression");
+
+  const classes = useStyles();
   // useeffect used to load the web3 and connect the contract
   React.useEffect(() => {
     async function setup() {
@@ -81,6 +100,7 @@ const DashBoard = (props) => {
       setMessage("Uploaded to Blockchain.");
       setUploadFiles([]);
       setLoader(false);
+      setSnackbar(true);
     }
     // If the file failed to upload, notify the message to user
     else {
@@ -162,7 +182,29 @@ const DashBoard = (props) => {
         <Grid></Grid>
       </Grid>
       <br />
-      {message && (
+      <Backdrop
+        className={classes.backdrop}
+        open={loader}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        <Card
+          style={{
+            width: "25rem",
+            height: "12rem",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <CircularProgress color="#fff" />
+          <p style={{ marginTop: "2rem" }}>{message}</p>
+        </Card>
+      </Backdrop>
+      {showSnackBar && (
         <Snackbar
           anchorOrigin={{
             vertical: "bottom",
@@ -171,9 +213,15 @@ const DashBoard = (props) => {
           ContentProps={{
             style: { background: "#6163FF", width: "200px", padding: "20px" },
           }}
+          onClose={() => setSnackbar(false)}
+          onExit={() => setSnackbar(false)}
           open={true}
           autoHideDuration={3000}
-          action={<div style={{ background: "#6163FF" }}>{message}</div>}
+          action={
+            <div style={{ background: "#6163FF" }}>
+              Upload Successful, head over to MyFiles to see the uploaded files
+            </div>
+          }
         />
       )}
     </>
