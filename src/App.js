@@ -11,7 +11,7 @@ export default function App() {
 
   return (
     <>
-    <Router basename={process.env.PUBLIC_URL}>
+    <Router>
       <Switch>
         <Route exact path="/">
           <Landing />
