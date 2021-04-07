@@ -153,7 +153,7 @@ const Login = () => {
           }}
         >
           <h2 style={heading}>
-            Sign in to your account to upload, acess or share your files
+            Sign in to your account to upload, access or share your files
           </h2>
           {username.length > 5 && (
             <Fade in={true}>
@@ -164,7 +164,7 @@ const Login = () => {
           )}
           {privateKey && username.length > 5 && (
             <Fade in={true}>
-              <p style={subHeading}>You can click on Enter to safely Login </p>
+              <p style={subHeading}>You can click on Enter to saftely Login </p>
             </Fade>
           )}
         </div>
