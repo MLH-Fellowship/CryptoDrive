@@ -76,7 +76,7 @@ Architecture and Figma need to be added here
 
 <!-- GETTING STARTED -->
 
-## Getting Started
+## Getting Started as Contributor
 
 To get a local copy up and running follow these simple steps.
 
