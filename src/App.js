@@ -11,8 +11,7 @@ export default function App() {
 
   return (
     <>
-    <Router>
-      <Switch>
+    <Router basename="/">
         <Route exact path="/">
           <Landing />
         </Route>
@@ -27,7 +26,6 @@ export default function App() {
             <VerticalTabs />
           </div>
         </Route>
-      </Switch>
       </Router>
     </>
   );
