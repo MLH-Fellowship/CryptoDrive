@@ -15,12 +15,13 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Validator from "../../utility/validator";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
-
+  // Function to get the public key pass hash 
   function getPassHash() {
     const tokenString = localStorage.getItem("public_hash");
     const userToken = JSON.parse(tokenString);
     return userToken;
   }
+  // Function to get the username from local storage
   function getUsername() {
     const tokenString = localStorage.getItem("user_name");
     let userToken = null;
@@ -34,6 +35,7 @@ function TabPanel(props) {
 
   const token = getPassHash();
   const username = getUsername();
+  // If the username or token is equal to null then it redirects to sign in
   if (token == null || username == null) {
     return <Redirect to={ROUTES.SIGN_IN} />;
   }
@@ -55,6 +57,8 @@ function TabPanel(props) {
   );
 }
 
+// Settings of the TabPanel
+
 TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.any.isRequired,
@@ -68,6 +72,7 @@ function a11yProps(index) {
   };
 }
 
+// Stylings CSS
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -120,6 +125,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+// exporting the vertical tabs main function
 export default function VerticalTabs() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
@@ -129,8 +135,7 @@ export default function VerticalTabs() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
-  // const menuItems = ["My Files", "Upload", "Shared Files"];
+  // Menu items list with index
   const menuItems = [
     {
       name: "My Files",
@@ -149,10 +154,12 @@ export default function VerticalTabs() {
   const handleClick = (index) => {
     setView(index);
   };
+  // If person clicks on log out the local storage will be deleted and returns the Page to Signin
   if(logout)
   {
       return <Redirect to={ROUTES.SIGN_IN}/>
   }
+  // else it will display the tab panel
   return (
     <div className={classes.root}>
       <div className={classes.leftPanel}>
@@ -175,6 +182,7 @@ export default function VerticalTabs() {
         <div >
           <div
           onClick={()=>{
+            // Removing the tokens from the local storage
             localStorage.removeItem('public_hash');
             localStorage.removeItem('user_name');
             if(!Validator('publicHash') && !Validator('username')){

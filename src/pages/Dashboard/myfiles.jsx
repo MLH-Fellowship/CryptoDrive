@@ -42,12 +42,7 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
   const [message, setMessage] = React.useState("");
   const [loader, setLoader] = React.useState(false);
   const [entry, setEntry] = React.useState(0);
-  // for testing, IPFS not in use
-  // const [myFiles, setMyFiles] = React.useState([
-  //   { hash: "23y129839122323321321312", name: "HelloWorld.jpg" },
-  //   { hash: "23y129839122323321321312", name: "HelloWorld.jpg" },
-  //   { hash: "23y129839122323321321312", name: "HelloWorld.jpg" },
-  // ]);
+  // function to retrieve the username from the local storage
   function getUserName() {
     const tokenString = localStorage.getItem("user_name");
     if (tokenString) {
@@ -57,7 +52,7 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
       return false;
     }
   }
-
+  // preloaded script to load the contract and initialise the web3
   React.useEffect(() => {
     async function setup() {
       await loadWeb3();
@@ -66,19 +61,23 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
     }
     setup();
   }, []);
-
+  // function used to handle the change in the check box when there is any change this fucntion will be executed
   const handleChange = (index) => {
+    // creating a dummy array equal to checked and changed the particular index to not of the current index value to show the change
     const check_dummy = checked;
     let selectionStyle = { background: "orange", opacity: "0.7" };
     check_dummy[index] = !check_dummy[index];
+    // Set the state of checked with the dummy index
     setChecked(check_dummy);
-
+    // if the checked index value is true then we will push the particular index in the dummy and set the final state of index array
     if (checked[index]) {
       const checked_index_dummmy = checked_index;
       checked_index_dummmy.push(index);
       setindex(checked_index_dummmy);
       setCheckedStyle(selectionStyle);
     }
+    // if the checked index value is false then that means the checkbox is unchecked then we need to remove the particular ndex from the array
+    // once the array is final it will be in the set state 
     if (!checked[index]) {
       const checked_index_dummmy = checked_index;
       const i = checked_index_dummmy.indexOf(index);
@@ -89,94 +88,121 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
       setCheckedStyle({});
     }
   };
-
-  async function setup() {
-    await loadWeb3();
-    const Contract = await ContractConnect();
-    setContract(Contract);
-  }
-
+  // function used for geting the my files list from web3
   async function setupMyFiles() {
+    // getting the username from the local storage
     const user = getUserName();
+    // setting the state of the username with value of user
     setUsername(user);
-
+    // if the username and contract are set with the value then this block will be executed
     if (contract && username) {
+      // getting the file hashes json array from the smart contract passing the contract and username
       const filehashes = await GetFileHash(contract, username);
-
+      // if the file hashes is not an empty array then we will set it to state
       if (filehashes) {
         setMyFiles(filehashes);
+        // setting the false value to the array with the length of the filehashes 
         setChecked(Array(myFiles.length).fill(false));
       }
     }
   }
-
+  // This function is used to read the file for setting the private key value in the state from the select file
   function readkeyFile(file) {
     var reader = new FileReader();
     reader.readAsText(file, "UTF-8");
     reader.onload = (evt) => {
+      // setting the private key state with the private key text in the file
       setPrivateKey(evt.target.result);
     };
+    // If it found error it prints the error in the console.log
     reader.onerror = () => console.log("error");
   }
-
+  // Function for handling the download files 
   async function handleDownloadFiles() {
+    // if the private eky is initialised and any atleast one item in checked then this block will be executed
     if (privateKey && checked_index.length >= 0) {
+      // we will start the loader
       setLoader(true);
+      // setting the status of the action 
       setMessage(
         "We are de-compressing the file. It may take a while, please click on wait if prompted in your browser."
       );
+      // looping the checked index and performing the whole download logic here
       checked_index.map(async (value, j) => {
+        // getting the file name from myfiles retrived from the smart contract
         const file_n = myFiles[checked_index[j]].filename;
+        // getting the filehash from the myfiles retrived from the smart contract
         const file_h = myFiles[checked_index[j]].filehash;
+        // getting the encrypted file from the filehash from ipfs
         const encryted_file = await FileRetrive(file_h);
-
+        // using js string compression library and huffman algorithm
         var jsscompress = require("js-string-compression");
         var hm = new jsscompress.Hauffman();
+        // decrypted the encrypted file with private key of the user and before that we need to decompress the encrypted file
         const decr = await DefaultDecryptPrivateKeyFile(
           await hm.decompress(encryted_file),
           privateKey
         );
-
+        // Getting the content type of the file
         const type = mime.lookup(file_n);
+        // Converting the file buffer to blob
         var blob = new Blob([decr], {
           type: type,
         });
-
+        // using the file saver library to download the blob
         FileSaver.saveAs(blob, file_n);
+        // setting the status message for successful downlaod
         setMessage("Decompression Successful. Please Check Browser Downloads");
         setLoader(false);
       });
     }
   }
-
+// function used for handling the shared files
   async function handleShareFiles() {
+    // if the private key is initialised and any atleast one item in checked then this block will be executed
     if (privateKey && checked_index.length >= 0) {
+      // we will start the loader
       setLoader(true);
+      // setting the status of the action 
       setMessage(
         `We are sharing the file with ${receiverName}. The Browser may prompt with a option of wait, please click on wait.`
       );
+      // Creating a empty array 
       var hashfile_share_array = [];
+      // Looping the checked index 
       checked_index.map(async (value, j) => {
+        // getting the file name from myfiles retrived from the smart contract
         const file_n = myFiles[checked_index[j]].filename;
+        // getting the filehash from the myfiles retrived from the smart contract
         const file_h = myFiles[checked_index[j]].filehash;
+        // getting the encrypted file from the hash of ipfs
         const encryted_file = await FileRetrive(file_h);
+        // using the js string compression library and huffman algorithm
         var jsscompress = require("js-string-compression");
         var hm = new jsscompress.Hauffman();
+        // Decompressing the encrpted file and decrypt with the private key
         const decr = await DefaultDecryptPrivateKeyFile(
           await hm.decompress(encryted_file),
           privateKey
         );
+        // get the reciver name
         const receiver = receiverName;
+        // getting the public key hash of the reciver from the smart contract
         const public_receiver = await GetPublic(contract, receiver);
+        // getting the public key from the hash from ipfs
         const public_key_receiver = await StringRetrive(public_receiver);
+        // encrpyting the file with the sender private key 
         const encrypted_sender = await EncrptPrivateKeyFile(decr, privateKey);
+        // encrypting the file with the receiver public key
         const encrypted_receiver = await EncrptPublicKey(
           encrypted_sender,
           public_key_receiver
         );
+        // sending the encrpyted string to ipfs for string upload
         const encrypted_receiver_sender_hash = await StringUpload(
           encrypted_receiver
         );
+        // storing the file upload meta data in a json 
         const fileshare = {
           filehash: encrypted_receiver_sender_hash,
           filename: file_n,
@@ -184,6 +210,7 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
         };
         hashfile_share_array.push(fileshare);
         if (j === checked_index.length - 1) {
+          // if the index of check array is last then we will send th json array to smart contract where we can save the details
           const result = await AddShareFile(
             contract,
             receiver,
@@ -203,10 +230,7 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
     }
   }
 
-  React.useEffect(() => {
-    setup();
-  }, []);
-
+  // Preload script to get the my files from smart contract
   React.useEffect(() => {
     setupMyFiles();
   }, [contract]);
