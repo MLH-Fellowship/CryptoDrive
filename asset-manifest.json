@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/CryptoDrive/static/css/main.4081a549.chunk.css",
-    "main.js": "/CryptoDrive/static/js/main.03735ee8.chunk.js",
-    "main.js.map": "/CryptoDrive/static/js/main.03735ee8.chunk.js.map",
+    "main.js": "/CryptoDrive/static/js/main.4c6b72f7.chunk.js",
+    "main.js.map": "/CryptoDrive/static/js/main.4c6b72f7.chunk.js.map",
     "runtime-main.js": "/CryptoDrive/static/js/runtime-main.6beaadfe.js",
     "runtime-main.js.map": "/CryptoDrive/static/js/runtime-main.6beaadfe.js.map",
     "static/js/2.2d1aa9e1.chunk.js": "/CryptoDrive/static/js/2.2d1aa9e1.chunk.js",
@@ -26,6 +26,6 @@
     "static/js/runtime-main.6beaadfe.js",
     "static/js/2.2d1aa9e1.chunk.js",
     "static/css/main.4081a549.chunk.css",
-    "static/js/main.03735ee8.chunk.js"
+    "static/js/main.4c6b72f7.chunk.js"
   ]
 }
