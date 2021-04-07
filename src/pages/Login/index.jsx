@@ -267,7 +267,7 @@ const Login = () => {
           <div style={{ paddingTop: "2rem" }}>
             <p>
               Don't have an account?  <Link to={ROUTES.SIGN_UP}>
-                          Sign in
+                          Sign Up
                         </Link>
             </p>
           </div>

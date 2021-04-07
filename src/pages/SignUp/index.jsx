@@ -12,7 +12,7 @@ import { loadWeb3, ContractConnect, signup } from "../../Web3";
 import { EncrptPublicKey } from "../../cryptography";
 import { StringUpload } from "./../../Ipfs";
 import * as ROUTES from "./../../constants/routes";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { SaveFile } from "../../components";
 import Validator from "./../../utility/validator";
 import { Checkmark } from "../../components/checkmark/checkmark";
@@ -274,7 +274,9 @@ const SignUp = () => {
           </Card>
           <div style={{ paddingTop: "2rem" }}>
             <p>
-              Have an account? <a href="/signin"> Sign In </a>
+              Have an account? <Link to={ROUTES.SIGN_IN}>
+                          Sign in
+                        </Link>
             </p>
           </div>
           {error && Alert.error(error)}
