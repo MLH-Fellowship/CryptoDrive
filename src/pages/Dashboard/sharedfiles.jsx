@@ -29,13 +29,6 @@ const SharedFiles = ({ privateKey, setPrivateKey }) => {
   const [checkedstyle, setCheckedStyle] = React.useState({});
   const [message, setMessage] = React.useState("");
   const [loader, setLoader] = React.useState(false);
-
-  // for testing, IPFS not in use
-  // const [SharedFiles, setSharedFiles] = React.useState([
-  //   { hash: "23y129839122323321321312", name: "HelloWorld.jpg" },
-  //   { hash: "23y129839122323321321312", name: "HelloWorld.jpg" },
-  //   { hash: "23y129839122323321321312", name: "HelloWorld.jpg" },
-  // ]);
   function getUserName() {
     const tokenString = localStorage.getItem("user_name");
     if (tokenString) {
@@ -140,11 +133,7 @@ const SharedFiles = ({ privateKey, setPrivateKey }) => {
         setMessage("Files Decrypted and saved. Please check downloads.");
       });
     }
-  }
-
-  React.useEffect(() => {
-    setup();
-  }, []);
+  };
 
   React.useEffect(() => {
     setupSharedFiles();
@@ -158,7 +147,6 @@ const SharedFiles = ({ privateKey, setPrivateKey }) => {
 
   const styles = {
     border: "1px solid black",
-    // marginTop:"calc(100% - 625px)",
     color: "black",
     padding: 20,
   };
