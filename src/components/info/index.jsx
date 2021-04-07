@@ -1,3 +1,7 @@
+// Info Component
+// Not yet used by any component.
+// Use to display the piece of "HOW CryptoDrive Works"
+
 import React from "react";
 import { Grid } from "@material-ui/core";
 const Info = () => {

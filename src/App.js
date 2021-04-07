@@ -10,7 +10,6 @@ export default function App() {
 
   return (
     <>
-      {console.log(location.pathname)}
       <Switch>
         <Route exact path="/">
           <Landing />

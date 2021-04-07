@@ -1,3 +1,9 @@
+/**
+ * MyFileHolder component.
+ * Used to display the files in MyFiles and SharedFiles component.
+ * Props are : Name, Sender(only for shared files ), FileHash
+ */
+
 import React from "react";
 import { makeStyles, TextField, Grid } from "@material-ui/core";
 

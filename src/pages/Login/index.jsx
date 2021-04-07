@@ -9,6 +9,7 @@ import { Checkmark } from "../../components/checkmark/checkmark";
 import Validator from "./../../utility/validator";
 
 const Login = () => {
+  // setting empty states for variables
   const [username, setUsername] = React.useState("");
   const [privateKey, setPrivateKey] = React.useState("");
   const [contract, setContract] = React.useState("");
@@ -16,43 +17,42 @@ const Login = () => {
   const [keyFile, setKeyFile] = React.useState("");
 
   const hiddenFileInput = React.useRef(null);
-
+  // handling the button for private key file upload
   const handleClick = (_event) => {
     hiddenFileInput.current.click();
   };
+  // handling change in the file upload of privatekey
   const handleChange = (event) => {
     const fileUploaded = event.target.files[0];
     setKeyFile(fileUploaded);
     readkeyFile(fileUploaded);
   };
-
+  // fucntion to read the private file
   function readkeyFile(file) {
     var reader = new FileReader();
     reader.readAsText(file, "UTF-8");
     reader.onload = (evt) => {
       setPrivateKey(evt.target.result);
-      console.log(evt.target.result);
     };
     reader.onerror = () => console.log("error");
   }
-
+  // preloaded script to load the web3 and connect with contract
   React.useEffect(() => {
     async function setup() {
       await loadWeb3();
-      console.log("Web3 Loaded");
       const Contract = await ContractConnect();
       setContract(Contract);
     }
     setup();
   }, []);
-
+  // get the public hash and set it in the local storage
   React.useEffect(() => {
     if (publicHash) {
       const json = JSON.stringify(publicHash);
       localStorage.setItem("public_hash", json);
     }
   }, [publicHash]);
-
+// get the public username and set it in the local storage
   React.useEffect(() => {
     if (username) {
       const json = JSON.stringify(username);
@@ -64,36 +64,36 @@ const Login = () => {
     paddingTop: "3em",
   };
 
+  // Function to handle the signin 
   const Signin = async () => {
+    // if the username and private key are present then this will handle else it will throw an error
     if (username && privateKey) {
+      // getting the public hash for the username
       const public_hash = await GetPublic(contract, username);
+      // getting the passhash  from the smart contract
       const pass_hash = await GetPassHash(contract, username);
+      // getting the public key from the hash
       const public_key = await StringRetrive(public_hash);
-      console.log(public_key);
-      console.log(pass_hash);
-      console.log(public_hash);
+      // getting encrpyted text from the ipfs
       const encrypted_pass = await StringRetrive(pass_hash);
-      console.log(encrypted_pass);
+      // decrypt the encrpyted pass from private key
       const decrypted_pass = await DefaultDecryptPrivateKey(
         encrypted_pass,
         privateKey
       );
-      console.log(decrypted_pass);
-
+      // if it matches with the username then we can set the public hash
       if (decrypted_pass === username);
       {
-        console.log(true);
         setPublicHash(public_hash);
       }
     } else {
     }
   };
-
+// Styling CSS Variables
   const heading = {
     alignSelf: "flex-end",
     fontSize: "26px",
     color: "#fff",
-    marginTop: "5rem",
     marginBottom: "15rem",
     paddingRight: "5rem",
   };
@@ -130,11 +130,11 @@ const Login = () => {
 
   const token = Validator("publicHash");
   const LoginUser = Validator("username");
-  console.log(LoginUser);
+  // if token and login user name is present then return to dashboard
   if (token && LoginUser) {
     return <Redirect to={ROUTES.DASHBOARD} />;
   }
-
+  // If the public hash is not empty then routes to dash board
   if (publicHash !== "") {
     return <Redirect to={ROUTES.DASHBOARD} />;
   }
@@ -159,8 +159,6 @@ const Login = () => {
             <Fade in={true}>
               <p style={subHeading}>
                 Please add your Private Key, this won't leave your browser
-                {/* <br />
-          <p style={{ fontSize: "16px" }}>(It won't be uploaded)</p> */}
               </p>
             </Fade>
           )}
@@ -177,11 +175,9 @@ const Login = () => {
             alignItems: "center",
             justifyContent: "center",
             flexDirection: "column",
-            // height: "500px",
           }}
         >
           <Card
-            // className={classes.root}
             style={{
               background: "#fff",
               padding: "30px",
