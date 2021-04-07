@@ -21,7 +21,7 @@ const loadWeb3=async ()=> {
 
 const ContractConnect = async () => {
     const CryptoDriveABI = JSON.parse(JSON.stringify(data), "utf8").abi;
-    const CryptoDriveAddress = "0x71F0383F6b3888B5cb415e5691486C24f7De0aB3";
+    const CryptoDriveAddress = "0x7e3BCc0cCc08e41Cac806721E418b775C64e50c3";
     const CryptoDrive = await new window.web3.eth.Contract(
       CryptoDriveABI,
       CryptoDriveAddress
@@ -83,6 +83,14 @@ const GetShareFiles=async(contract,username)=>{
     return result;
 };
 
+// Function to checkUser exists in the database or not
+
+
+const CheckUser=async(contract,username)=>{
+    const result= await contract.methods.checkUser(username).call();
+    return result;
+};
+
 // Exporting all the functions
 
 export {
@@ -94,5 +102,6 @@ export {
     GetFileHash,
     GetPassHash,
     GetPublic,
-    GetShareFiles
+    GetShareFiles,
+    CheckUser
 };

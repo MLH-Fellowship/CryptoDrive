@@ -6,9 +6,10 @@ import {
   Card,
   Backdrop,
   CircularProgress,
+  Snackbar
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { loadWeb3, ContractConnect, signup } from "../../Web3";
+import { loadWeb3, ContractConnect, signup,CheckUser } from "../../Web3";
 import { EncrptPublicKey } from "../../cryptography";
 import { StringUpload } from "./../../Ipfs";
 import * as ROUTES from "./../../constants/routes";
@@ -16,7 +17,7 @@ import { Redirect, Link } from "react-router-dom";
 import { SaveFile } from "../../components";
 import Validator from "./../../utility/validator";
 import { Checkmark } from "../../components/checkmark/checkmark";
-import { Alert } from "rsuite";
+import { Alert , Notification, } from "rsuite";
 
 const NodeRSA = require("node-rsa");
 
@@ -36,6 +37,10 @@ const SignUp = () => {
   const [loader, setLoader] = React.useState(false);
   const [hash, setHash] = React.useState("");
   const [publichash, SetPublicHash] = React.useState("");
+  const [status,SetStatus]=React.useState("Begin");
+
+
+
 
   // Intialize web3 and ensure MetMask is installed.
   React.useEffect(() => {
@@ -53,6 +58,13 @@ const SignUp = () => {
   // generate Public and private keys
   const generateKeyPair = async () => {
     if (username) {
+      // Check the username exist or not
+      const userexist=await CheckUser(contract,username);
+      console.log(userexist)
+      if(userexist){
+        window.alert("User Already Exist!")
+        return;
+      }
       // Set requied states to show loader and other UI elements
       setLoader(true);
       setPubKey(false);
@@ -122,7 +134,7 @@ const SignUp = () => {
     return <Redirect to={ROUTES.DASHBOARD} />;
   }
 
-  return (
+  return (// // // // // // // // // // // // // // // // // // // // 
     <Fade in={true} timeout={1200}>
       <div style={{ display: "flex" }}>
         <div
