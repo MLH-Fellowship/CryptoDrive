@@ -11,6 +11,7 @@ const useStyles = (theme) =>
   makeStyles({
     input: {
       color: "white",
+      fontSize: "22px",
     },
   });
 
@@ -20,13 +21,17 @@ const MyFile = (props) => {
     <>
       <Grid container>
         <Grid item xs={5} sm={5} md={5} lg={5}>
-          <span style={{ color: "#ECEDED" }}>{props.name}</span>
+          <span style={{ color: "#ECEDED", fontSize: "18px" }}>
+            {props.name}
+          </span>
         </Grid>
-        {props.sender && ( <Grid item xs={2} sm={2} md={2} lg={2}>
-         
-            <span style={{ color: "#ECEDED" }}>{props.sender}</span>
-        
-        </Grid>  )}
+        {props.sender && (
+          <Grid item xs={2} sm={2} md={2} lg={2}>
+            <span style={{ color: "#ECEDED", fontSize: "18px" }}>
+              {props.sender}
+            </span>
+          </Grid>
+        )}
         <Grid item xs={5} sm={5} md={5} lg={5}>
           {/* <TextField
     fullWidth
@@ -42,7 +47,7 @@ const MyFile = (props) => {
            {background:"#6163FF"}}
         }}
       /> */}
-          <span style={{ color: "#ECEDED",opacity:'0.4' }}>{props.hash}</span>
+          <span style={{ color: "#ECEDED", opacity: "0.4" }}>{props.hash}</span>
         </Grid>
       </Grid>
       <br />

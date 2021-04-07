@@ -14,7 +14,14 @@ import * as ROUTES from "./../../constants/routes";
 import Checkbox from "@material-ui/core/Checkbox";
 import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
 import ScreenShareIcon from "@material-ui/icons/ScreenShare";
-import { Button, Grid, Snackbar } from "@material-ui/core";
+import {
+  Button,
+  Grid,
+  Snackbar,
+  Backdrop,
+  Card,
+  CircularProgress,
+} from "@material-ui/core";
 import AlertDialogSlide from "../../components/alert_dailog_slide";
 import { Checkmark } from "../../components/checkmark/checkmark";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
@@ -27,7 +34,15 @@ import {
   DefaultDecryptPrivateKeyFile,
 } from "../../cryptography";
 import TextField from "@material-ui/core/TextField";
+import { Loader } from "rsuite";
+import { makeStyles } from "@material-ui/core/styles";
 
+const useStyles = makeStyles((theme) => ({
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: "#fff",
+  },
+}));
 const MyFiles = ({ privateKey, setPrivateKey }) => {
   const [myFiles, setMyFiles] = React.useState([]); // Use this when you set up the IPFS thing.
   const [contract, setContract] = React.useState("");
@@ -42,6 +57,9 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
   const [message, setMessage] = React.useState("");
   const [loader, setLoader] = React.useState(false);
   const [entry, setEntry] = React.useState(0);
+  const [showSnackBar, setSnackbar] = React.useState(false);
+
+  const classes = useStyles();
   // function to retrieve the username from the local storage
   function getUserName() {
     const tokenString = localStorage.getItem("user_name");
@@ -52,6 +70,7 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
       return false;
     }
   }
+
   // preloaded script to load the contract and initialise the web3
   React.useEffect(() => {
     async function setup() {
@@ -77,7 +96,7 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
       setCheckedStyle(selectionStyle);
     }
     // if the checked index value is false then that means the checkbox is unchecked then we need to remove the particular ndex from the array
-    // once the array is final it will be in the set state 
+    // once the array is final it will be in the set state
     if (!checked[index]) {
       const checked_index_dummmy = checked_index;
       const i = checked_index_dummmy.indexOf(index);
@@ -101,7 +120,7 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
       // if the file hashes is not an empty array then we will set it to state
       if (filehashes) {
         setMyFiles(filehashes);
-        // setting the false value to the array with the length of the filehashes 
+        // setting the false value to the array with the length of the filehashes
         setChecked(Array(myFiles.length).fill(false));
       }
     }
@@ -117,13 +136,13 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
     // If it found error it prints the error in the console.log
     reader.onerror = () => console.log("error");
   }
-  // Function for handling the download files 
+  // Function for handling the download files
   async function handleDownloadFiles() {
     // if the private eky is initialised and any atleast one item in checked then this block will be executed
     if (privateKey && checked_index.length >= 0) {
       // we will start the loader
       setLoader(true);
-      // setting the status of the action 
+      // setting the status of the action
       setMessage(
         "We are de-compressing the file. It may take a while, please click on wait if prompted in your browser."
       );
@@ -154,22 +173,23 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
         // setting the status message for successful downlaod
         setMessage("Decompression Successful. Please Check Browser Downloads");
         setLoader(false);
+        setSnackbar(true);
       });
     }
   }
-// function used for handling the shared files
+  // function used for handling the shared files
   async function handleShareFiles() {
     // if the private key is initialised and any atleast one item in checked then this block will be executed
     if (privateKey && checked_index.length >= 0) {
       // we will start the loader
       setLoader(true);
-      // setting the status of the action 
+      // setting the status of the action
       setMessage(
         `We are sharing the file with ${receiverName}. The Browser may prompt with a option of wait, please click on wait.`
       );
-      // Creating a empty array 
+      // Creating a empty array
       var hashfile_share_array = [];
-      // Looping the checked index 
+      // Looping the checked index
       checked_index.map(async (value, j) => {
         // getting the file name from myfiles retrived from the smart contract
         const file_n = myFiles[checked_index[j]].filename;
@@ -191,7 +211,7 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
         const public_receiver = await GetPublic(contract, receiver);
         // getting the public key from the hash from ipfs
         const public_key_receiver = await StringRetrive(public_receiver);
-        // encrpyting the file with the sender private key 
+        // encrpyting the file with the sender private key
         const encrypted_sender = await EncrptPrivateKeyFile(decr, privateKey);
         // encrypting the file with the receiver public key
         const encrypted_receiver = await EncrptPublicKey(
@@ -202,7 +222,7 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
         const encrypted_receiver_sender_hash = await StringUpload(
           encrypted_receiver
         );
-        // storing the file upload meta data in a json 
+        // storing the file upload meta data in a json
         const fileshare = {
           filehash: encrypted_receiver_sender_hash,
           filename: file_n,
@@ -219,6 +239,7 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
           if (result.status) {
             setLoader(false);
             setMessage(`File shared with, ${receiverName}`);
+            setSnackbar(true);
           } else {
             setLoader(false);
             setMessage(
@@ -351,17 +372,21 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
             )}
           </Grid>
         </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={6}
-        style={{ display: "flex", justifyContent: "center",  }}
+        <Grid
+          item
+          xs={12}
+          sm={12}
+          md={6}
+          lg={6}
+          style={{ display: "flex", justifyContent: "center" }}
         >
-          <div style={{position:'fixed',zIndex:5}}>
+          <div style={{ position: "fixed", zIndex: 5 }}>
             <Button
               style={{
                 marginLeft: "10px",
                 borderRadius: 25,
                 backgroundColor: "#6163FF",
                 color: "white",
-                
               }}
               onClick={async () => {
                 setEntry(0);
@@ -380,8 +405,8 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
                 marginLeft: "10px",
                 borderRadius: 25,
                 backgroundColor: "#6163FF",
-                color: "#ECEDED",          
-                transition:'ease 0.7s all',
+                color: "#ECEDED",
+                transition: "ease 0.7s all",
               }}
               onClick={async () => {
                 setEntry(1);
@@ -412,25 +437,29 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
           >
             <center>
               <br />
-              {message && (
-                <Snackbar
-                  anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: "right",
+              {Loader && (
+                <Backdrop
+                  className={classes.backdrop}
+                  open={loader}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
                   }}
-                  ContentProps={{
-                    style: {
-                      background: "#6163FF",
-                      width: "200px",
-                      padding: "20px",
-                    },
-                  }}
-                  open={true}
-                  autoHideDuration={3000}
-                  action={
-                    <div style={{ background: "#6163FF" }}>{message}</div>
-                  }
-                />
+                >
+                  <Card
+                    style={{
+                      width: "25rem",
+                      height: "12rem",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <CircularProgress color="#fff" />
+                    <p style={{ marginTop: "2rem" }}>{message}</p>
+                  </Card>
+                </Backdrop>
               )}
             </center>
           </div>
@@ -485,6 +514,24 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
             </>
           )}
         </Grid>
+        {showSnackBar && (
+          <Snackbar
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "right",
+            }}
+            ContentProps={{
+              style: {
+                background: "#6163FF",
+                width: "200px",
+                padding: "20px",
+              },
+            }}
+            open={true}
+            autoHideDuration={3000}
+            action={<div style={{ background: "#6163FF" }}>{message}</div>}
+          />
+        )}
       </Grid>
       <br />
     </>
