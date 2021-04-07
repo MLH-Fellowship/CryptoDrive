@@ -1,9 +1,16 @@
 import React from "react";
-import {TextField,Button,Fade,Card,Backdrop,CircularProgress} from "@material-ui/core";
+import {
+  TextField,
+  Button,
+  Fade,
+  Card,
+  Backdrop,
+  CircularProgress,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import {loadWeb3,ContractConnect,signup} from "../../Web3";
-import {EncrptPublicKey} from "../../cryptography";
-import {StringUpload} from "./../../Ipfs";
+import { loadWeb3, ContractConnect, signup } from "../../Web3";
+import { EncrptPublicKey } from "../../cryptography";
+import { StringUpload } from "./../../Ipfs";
 import * as ROUTES from "./../../constants/routes";
 import { Redirect } from "react-router-dom";
 import { SaveFile } from "../../components";
@@ -30,6 +37,7 @@ const SignUp = () => {
   const [hash, setHash] = React.useState("");
   const [publichash, SetPublicHash] = React.useState("");
 
+  // Intialize web3 and ensure MetMask is installed.
   React.useEffect(() => {
     async function setup() {
       await loadWeb3();
@@ -42,38 +50,49 @@ const SignUp = () => {
 
   const classes = useStyles();
 
+  // generate Public and private keys
   const generateKeyPair = async () => {
     if (username) {
+      // Set requied states to show loader and other UI elements
       setLoader(true);
       setPubKey(false);
       setError(false);
       setPrivate(false);
-
       setHash(false);
       SetPublicHash(false);
+
+      // obtain key value from NodeRSA
       const key = new NodeRSA({ b: 512 });
+      // export genrated public and private key
       const public_key = key.exportKey("public");
       const private_key = key.exportKey("private");
+
+      // set keys to state to obtain for downloading
       setPrivate(private_key);
       setPubKey(public_key);
+
+      // Encrypt public key and upalod to IPFS and BlockChain
       const encrypted_text = await EncrptPublicKey(username, public_key);
       const hash = await StringUpload(encrypted_text);
       const public_hash = await StringUpload(public_key);
+
+      // Upload user detials to block chain
       const result = await signup(contract, username, hash, public_hash);
 
       if (result) {
         setLoader(false);
       }
 
-
       setHash(hash);
       SetPublicHash(public_hash);
     } else {
+      // incase a username already exists
       setLoader(false);
       setError("Enter a valid username");
     }
   };
 
+  // Styles for heading text
   const heading = {
     alignSelf: "flex-end",
     fontSize: "24px",
@@ -84,6 +103,7 @@ const SignUp = () => {
     paddingLeft: "5rem",
   };
 
+  // Styles for sub-heading text
   const subHeading = {
     alignSelf: "flex-end",
     fontSize: "24px",
@@ -95,6 +115,7 @@ const SignUp = () => {
     paddingRight: "5rem",
   };
 
+  // Validate username and publichash to re-route to dashboard if exists
   const token = Validator("publicHash");
   const loginUser = Validator("username");
   if (token && loginUser) {
@@ -127,11 +148,6 @@ const SignUp = () => {
               </p>
             </Fade>
           )}
-          {/* {privateKey && username.length > 5 && (
-            <Fade in={true}>
-              <p style={subHeading}>You can click on Enter to safely Login </p>
-            </Fade>
-          )} */}
         </div>
         <div
           style={{
