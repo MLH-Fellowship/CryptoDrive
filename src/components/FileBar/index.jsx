@@ -1,3 +1,10 @@
+/**
+ * Filebar Component
+ * Used to display the filenames and sizes in MyFiles Section.
+ * Every filebar component has Filename and Sizes, computed in MBs
+ */
+
+
 import React from 'react'
 
 const FileBar =(props)=>{

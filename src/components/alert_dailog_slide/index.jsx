@@ -1,3 +1,10 @@
+/**
+ * Alert Dialog Slide Component.
+ * Used for building Alert Popups. 
+ * An example can be seen, when user downloads the file, 
+ *   
+ * */ 
+
 import React from "react";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -7,6 +14,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
 
+// using Slide component from Material UI
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -21,7 +29,6 @@ export default function AlertDialogSlide({
   return (
     <div >
       <Dialog
-        
         open={open}
         TransitionComponent={Transition}
         keepMounted

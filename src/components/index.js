@@ -1,3 +1,6 @@
+/**
+ * A generic Wrapper with usual export.
+ */
 import Header from "./header";
 import Info from "./info";
 import Footer from "./footer";

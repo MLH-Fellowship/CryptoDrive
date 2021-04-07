@@ -1,3 +1,11 @@
+/**
+ * SaveFile Component
+ * 
+ * Used to deliver .pem files based on the key fetched from IPFS.
+ * An example can be seen in Signup page, when you are able to download
+ * Public and Private Keys.
+ */
+
 import React, { useEffect, useState } from "react";
 
 export const SaveFile = ({ text, fileName, buttonText }) => {
