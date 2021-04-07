@@ -19,7 +19,9 @@
     <a href="https://github.com/MLH-Fellowship/CryptoDrive/issues">Request Feature</a>
   </p>
 </p>
+<center>
 
+[![Continuous Integration](https://github.com/MLH-Fellowship/CryptoDrive/actions/workflows/integration.yml/badge.svg?branch=staging)](https://github.com/MLH-Fellowship/CryptoDrive/actions/workflows/integration.yml)&nbsp;&nbsp;[![Deployment](https://github.com/MLH-Fellowship/CryptoDrive/actions/workflows/deployment.yml/badge.svg)](https://github.com/MLH-Fellowship/CryptoDrive/actions/workflows/deployment.yml) </center>
 
 <!-- TABLE OF CONTENTS -->
 
