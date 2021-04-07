@@ -1,70 +1,143 @@
-# Getting Started with Create React App
+<!-- PROJECT LOGO -->
+<p align="center">
+  <a href="https://github.com/MLH-Fellowship/CryptoDrive">
+    <img src="./docs/assets/logo.png" height="250px"  />
+  </a>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+  <p align="center">
+    "A Decentralised Encrypted File Storing and Sharing App which is back-boned by Ethereum Smart Contracts and is preparing its launch to the moon 🚀"
+    <br /><br />
+    <a href="https://mlh-fellowship.github.io/CryptoDrive/"><strong>Browse CryptoDrive</strong></a>
+    <br />
+    <br />
+    <a href="https://en.wikipedia.org/wiki/Decentralization">What is Decentralization</a>
+    ·
+    <a href="https://mlh-fellowship.github.io/CryptoDrive/">Live</a>
+    .
+    <a href="https://github.com/MLH-Fellowship/CryptoDrive/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/MLH-Fellowship/CryptoDrive/issues">Request Feature</a>
+  </p>
+</p>
+<center>
 
-## Available Scripts
+[![Continuous Integration](https://github.com/MLH-Fellowship/CryptoDrive/actions/workflows/integration.yml/badge.svg?branch=staging)](https://github.com/MLH-Fellowship/CryptoDrive/actions/workflows/integration.yml)&nbsp;&nbsp;[![Deployment](https://github.com/MLH-Fellowship/CryptoDrive/actions/workflows/deployment.yml/badge.svg)](https://github.com/MLH-Fellowship/CryptoDrive/actions/workflows/deployment.yml) </center>
 
-In the project directory, you can run:
+<!-- TABLE OF CONTENTS -->
 
-### `yarn start`
+## Table of Contents
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- [About the Project](#about-the-project)
+  - [Usage Guidelines](#usage-guidelines)
+  - [Built With](#built-with)
+- [Project Architecture](#project-architecture)
+- [Getting Started](#getting-started-as-contributor)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Roadmap](#roadmap)
+- [IRC and Conversations](#irc-and-conversations)
+- [Contact](#admins)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `yarn test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<!-- ABOUT THE PROJECT -->
 
-### `yarn build`
+## About The Project
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+A Decentralised Encrypted File Storing and Sharing App which is back-boned by Ethereum Smart Contracts. 
+<br/>
+Make sure, you have [Metamask](https://metamask.io/download.html) extension installed on your browser.
+<br/>
+You can  use it live here: <a href="https://mlh-fellowship.github.io/CryptoDrive">CryptoDrive</a>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
+<!-- Extensions Required -->
+### Usage Guidelines.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+To use CryptoDrive ,<strong> Metamask </strong> browser extension is required. You can download it for [Chrome](https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en), [Firefox](https://addons.mozilla.org/en-US/firefox/addon/ether-metamask/), [Brave](https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en), [Edge](https://microsoftedge.microsoft.com/addons/detail/metamask/ejbalbakoplchlghecdalmeeeajnimhm?hl=en-US) 
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Built With
 
-## Learn More
+- [IPFS](https://ipfs.io/)
+- [Infura](https://infura.io/)
+- [Solidity](https://docs.soliditylang.org/en/v0.8.3/)
+- [React](https://reactjs.org/)
+- [Ethereum Smart Contracts](https://www.investopedia.com/terms/s/smart-contracts.asp)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+<!-- Project Breakdown -->
+## Project Architecture 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```js
+Architecture and Figma need to be added here
+```
 
-### Analyzing the Bundle Size
+<!-- GETTING STARTED -->
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Getting Started as Contributor
 
-### Making a Progressive Web App
+To get a local copy up and running follow these simple steps.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Prerequisites
 
-### Advanced Configuration
+This is an example of how to list things you need to use the software and how to install them.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- npm
 
-### Deployment
+```sh
+npm install npm@latest -g
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Installation
 
-### `yarn build` fails to minify
+1. Clone the repo
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```sh
+git clone https://github.com/MLH-Fellowship/CryptoDrive.git
+```
+
+2. Install NPM packages
+
+```sh
+npm install
+```
+3. Run Locally
+
+```sh
+npm run start
+```
+<!-- ROADMAP -->
+
+## Roadmap
+
+See the [open issues](https://github.com/MLH-Fellowship/CryptoDrive/issues) for a list of proposed features (and known issues).
+
+<!-- CONTRIBUTING -->
+
+## IRC and Conversations
+
+- We recommend Blockchain beginners, to go through tutorials by CryptoZombies and Dapp University
+If you are familiar with blockchain 
+
+- For front-end we are using ReactJS at core, you need to have a decent proficiency in React to contribute to the project.
+- For queries and other conversations. Join us on Discord.
+
+```
+Will Put Discord Link Here
+```
+
+## Admins
+Important decisions regarding the project are taken by the following maintainer.
+
+| Kamesh  | Abir  | Sameer  |
+|---|---|---|
+| <img  height="100" width="100" src="https://avatars.githubusercontent.com/u/46109386?v=4">     | <img  height="100" width="100" src="https://avatars3.githubusercontent.com/u/53480076?s=460&u=c1aad58f1a773750a47475682afa80ac3b74f583&v=4">  | <img  height="100" width="100" src="https://avatars.githubusercontent.com/u/40424087?v=4"> |
+| [@ksdkamesh99](https://github.com/ksdkamesh99)  | [@imabp](https://github.com/imabp/)     | [@Sameerkash](https://github.com/Sameerkash)  |
+
+
+## Deployment
+<a href="https://mlh-fellowship.github.io/CryptoDrive/"><img src="https://img.shields.io/badge/-GitHub%20Pages-black?style=for-the-badge&logo=github"/></a>
