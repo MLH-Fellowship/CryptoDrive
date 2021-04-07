@@ -28,10 +28,10 @@
 - [About the Project](#about-the-project)
   - [Usage Guidelines](#usage-guidelines)
   - [Built With](#built-with)
+- [Project Architecture](#project-architecture)
 - [Getting Started](#getting-started-as-contributor)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
-- [Project Breakdown](#project-breakdown)
 - [Roadmap](#roadmap)
 - [IRC and Conversations](#irc-and-conversations)
 - [Contact](#admins)
@@ -68,7 +68,7 @@ To use CryptoDrive ,<strong> Metamask </strong> browser extension is required. Y
 
 
 <!-- Project Breakdown -->
-## Project Breakdown 
+## Project Architecture 
 
 ```js
 Architecture and Figma need to be added here
