@@ -1,3 +1,6 @@
+// Smart Contract Crypto Drive ABI which is used while loading the smart contract
+// This should be exported as a JSON
+
 const data ={
     "abi": [
         {

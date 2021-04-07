@@ -1,7 +1,0 @@
-.loaderAnim {
-     animation: rotateLogo 2s infinite;
-  }
-  
-  @keyframes rotateLogo {
-    100% {transform: rotate(360deg);}
-  }

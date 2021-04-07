@@ -9,7 +9,7 @@ import * as ROUTES from "../../constants/routes";
 import { Redirect } from "react-router-dom";
 import { FileDrop } from "react-file-drop";
 import Validator from './../../utility/validator'
-
+// This page defines the upload files components in the dashboard route 
 const DashBoard = (props) => {
   const [uploadFiles, setUploadFiles] = useState([]);
   const [bufferState, setBufferState] = useState([]);
@@ -20,25 +20,21 @@ const DashBoard = (props) => {
   const [loader,setLoader] = useState(false)
   const [message,setMessage] = useState("")
   var jsscompress = require("js-string-compression");
-
+  // useeffect used to load the web3 and connect the contract 
   React.useEffect(() => {
     async function setup() {
-      await loadWeb3();
-      console.log("Web3 Loaded");
-      const Contract = await ContractConnect();
+      await loadWeb3();      const Contract = await ContractConnect();
       setContract(Contract);
     }
     setup();
   }, []);
-
+  // Function to get the file buffer from the drag and drop
   const captureFile = (files, event) => {
     setLoader(true)
     setMessage("Encrypting  your File")
     event.stopPropagation();
     event.preventDefault();
-    const file = files[0];
-    console.log(file);
-    setfilename(file.name);
+    const file = files[0];    setfilename(file.name);
     let reader = new window.FileReader();
     reader.readAsArrayBuffer(file);
     reader.onloadend = () => convertToBuffer(reader);
@@ -48,12 +44,14 @@ const DashBoard = (props) => {
 
   
   
-
+  // Function to convert the file object to the Array Buffer and setting it to state
   const convertToBuffer = async (reader) => {
     //file is converted to a buffer for upload to IPFS
     const buffer = await Buffer.from(reader.result);
     setBufferState(buffer);
   };
+
+  // Function which is triggered when the user clicked on the upload button
   const onSubmit = async (event) => {
     event.preventDefault();
     setLoader(true)
@@ -61,49 +59,45 @@ const DashBoard = (props) => {
     event.stopPropagation();
     //save document to IPFS,return its hash#, and set hash# to state
     const publicHASH =await Validator('publicHash');
+    // Get the public key from the public hash stored in the local storage
     const publicKey = await StringRetrive(publicHASH);
-    console.log(publicKey);
-    console.log(bufferState);
+    // Buffer of the file is encrypted with the public key
     const buffer_encrypted = await EncrptPublicKeyFile(bufferState, publicKey);
     setMessage("Converted to Buffer. Uploading to Blockchain! ")
-    console.log(buffer_encrypted.length);
-    
-var hm = new jsscompress.Hauffman();
-var compressed = hm.compress(buffer_encrypted);
-console.log(compressed.length)
+    // We used the Huffmann Compression to compress the encrpyted string 
+    var hm = new jsscompress.Hauffman();
+    var compressed = hm.compress(buffer_encrypted);
+    // Upload the compressed string to IPFS as a string and return the Hash
     const hash = await StringUpload(compressed);
     setHash(hash);
-    console.log(hash);
     const username = Validator('username')
 
+    // Add the file name and dile hash retrived from the ipfs will be sent to the smart contract
     const result = await AddFile(contract, username, hash, filename);
     setMessage("Upload Request Sent to Blockchain")
-    console.log(result);
+    
+
+    // If the file is successfully uploaded to blockchain, notify it to user
     if(result.status===true){
       setMessage("Uploaded to Blockchain.")
       setUploadFiles([])
       setLoader(false);
     }
+    // If the file failed to upload, notify the message to user
     else{
       setMessage("Upload failed, Please Try again")
       setLoader(false);
     }
   };
-  // React.useEffect(() => {
-  //   if (passHash == "") {
-  //     return <Redirect to={ROUTES.SIGN_IN} />;
-  //   }
-  // }, [passHash]);
-
-  // const Logout = () => {
-  //   localStorage.removeItem("public_hash");
-  // };
-
+// get ipfs publicHash, if already logged in
   const token = Validator('publicHash')
+// if user is logged in, get its username
   const loginUser = Validator('username')
+// if anyone of them do not exist, redirect to signin page.
   if (!token || !loginUser) {
     return <Redirect to={ROUTES.SIGN_IN} />;
   }
+//setting up styles for the upload to my files section
   const styles = {
     border: "2px solid #6163FF",
     color: "#6163FF",
@@ -119,19 +113,14 @@ console.log(compressed.length)
       <Grid item xs={12} sm={12} md={12} lg={12}>
       <div  style={styles} >
         <FileDrop
-       
-          // onFrameDragEnter={(event) => console.log('onFrameDragEnter', event)}
-          // onFrameDragLeave={(event) => console.log('onFrameDragLeave', event)}
-          // onFrameDrop={(event) => console.log('onFrameDrop', event)}
-          onDragOver={(event) => {console.log('onDragOver', event.currentTarget)
-      
+          onDragOver={(event) => {
         event.currentTarget.style.color="#ECEDED"
         event.currentTarget.style.opacity="0.8"
         event.currentTarget.style.transition='ease 1s all'
         event.currentTarget.style.border="2px dashed #6163FF"
         
         }}
-       onDragLeave={(event) => {console.log('onDragOver', event.currentTarget)
+       onDragLeave={(event) => {
        event.currentTarget.style.background=""
        event.currentTarget.style.color=""
        event.currentTarget.style.opacity=""
@@ -145,13 +134,11 @@ console.log(compressed.length)
             event.currentTarget.style.padding="25px"
             captureFile(files, event);
             setUploadFiles(files);
-            console.log("Files ", files);
-            console.log(typeof uploadFiles);
+        
           }}
         >
           Drop a file here!
           <hr />
-          {uploadFiles && console.log(uploadFiles)}
           {uploadFiles.length > 0 && (
             <FileBar
               filename={uploadFiles[0].name}
@@ -168,32 +155,7 @@ console.log(compressed.length)
      </Button>
       </Grid>
       <Grid></Grid>
-    </Grid>
-      {/* <div
-        {...getRootProps()}
-        className={`${styles.dropzone} ${isDragActive ? styles.active : null}`}
-      >
-        <input {...getInputProps()} />
-        Drop a file to get started.
-      </div>
-      {uploadFiles && <>{uploadFiles.length}</>}
-      <Button
-        onClick={PromiseChain}
-        style={{
-          borderRadius: 25,
-          backgroundColor: "#2b3b4e",
-          color: "white",
-        }}
-      >
-        Upload Files
-      </Button> */}
-
-     
-      {/* <form onSubmit={onSubmit}>
-        <input type="file" onChange={captureFile} />
-        <Button type="submit">Send it</Button>
-      </form> */}
-  
+    </Grid> 
 <br/>
 {message && <Snackbar
                   anchorOrigin={{
@@ -210,9 +172,6 @@ console.log(compressed.length)
                     <div style={{ background: "#6163FF" }}>{message}</div>
                   }
                 />}
-
-
-      {/* <Button onClick={Logout}>Logout</Button> */}
     </>
   );
 };

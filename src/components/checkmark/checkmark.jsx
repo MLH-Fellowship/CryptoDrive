@@ -1,3 +1,8 @@
+/**
+ * CheckMark Component
+ * Used as indication whether the triggered action is success or failure.
+ * An example can be seen, while uploading the Privatekey.pem file
+ */
 
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -13,7 +18,9 @@ const PREDEFINED_SIZE_MAP = {
 };
 
 export function Checkmark({ size, color }) {
+  // size allotment
   const computedSize = PREDEFINED_SIZE_MAP[size] || size;
+  // declaring styles
   const style = { width: computedSize, height: computedSize };
   if (color) {
     style['--checkmark-fill-color'] = color;
