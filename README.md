@@ -103,7 +103,11 @@ git clone https://github.com/MLH-Fellowship/CryptoDrive.git
 ```sh
 npm install
 ```
+3. Run Locally
 
+```sh
+npm run start
+```
 <!-- ROADMAP -->
 
 ## Roadmap
