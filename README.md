@@ -28,12 +28,12 @@
 - [About the Project](#about-the-project)
   - [Usage Guidelines](#usage-guidelines)
   - [Built With](#built-with)
-- [Getting Started](#getting-started)
+- [Getting Started](#getting-started-as-contributor)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
 - [Project Breakdown](#project-breakdown)
 - [Roadmap](#roadmap)
-- [Contribution](#contribute)
+- [IRC and Conversations](#irc-and-conversations)
 - [Contact](#admins)
 
 
