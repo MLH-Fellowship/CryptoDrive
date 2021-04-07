@@ -3,6 +3,7 @@ import LoginUI from "./pages/Login/";
 import SignUpUI from "./pages/SignUp";
 import * as ROUTES from "./constants/routes";
 import { Route, Switch, useLocation } from "react-router-dom";
+import { HashRouter as Router } from 'react-router-dom'
 import VerticalTabs from "./pages/Dashboard/index";
 import Landing from "../src/pages/Landing";
 export default function App() {
@@ -10,6 +11,7 @@ export default function App() {
 
   return (
     <>
+    <Router basename={process.env.PUBLIC_URL}>
       <Switch>
         <Route exact path="/">
           <Landing />
@@ -26,6 +28,7 @@ export default function App() {
           </div>
         </Route>
       </Switch>
+      </Router>
     </>
   );
 }
