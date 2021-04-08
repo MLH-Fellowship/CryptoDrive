@@ -6,9 +6,10 @@ import {
   Card,
   Backdrop,
   CircularProgress,
+  Snackbar,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { loadWeb3, ContractConnect, signup } from "../../Web3";
+import { loadWeb3, ContractConnect, signup, CheckUser } from "../../Web3";
 import { EncrptPublicKey } from "../../cryptography";
 import { StringUpload } from "./../../Ipfs";
 import * as ROUTES from "./../../constants/routes";
@@ -16,8 +17,8 @@ import { Redirect, Link } from "react-router-dom";
 import { SaveFile } from "../../components";
 import Validator from "./../../utility/validator";
 import { Checkmark } from "../../components/checkmark/checkmark";
-import { Alert } from "rsuite";
-
+import { Alert, Notification } from "rsuite";
+import HomeIcon from "@material-ui/icons/Home";
 const NodeRSA = require("node-rsa");
 
 const useStyles = makeStyles((theme) => ({
@@ -36,6 +37,7 @@ const SignUp = () => {
   const [loader, setLoader] = React.useState(false);
   const [hash, setHash] = React.useState("");
   const [publichash, SetPublicHash] = React.useState("");
+  const [status, SetStatus] = React.useState("Begin");
 
   // Intialize web3 and ensure MetMask is installed.
   React.useEffect(() => {
@@ -53,6 +55,13 @@ const SignUp = () => {
   // generate Public and private keys
   const generateKeyPair = async () => {
     if (username) {
+      // Check the username exist or not
+      const userexist = await CheckUser(contract, username);
+      console.log(userexist);
+      if (userexist) {
+        window.alert("User Already Exist!");
+        return;
+      }
       // Set requied states to show loader and other UI elements
       setLoader(true);
       setPubKey(false);
@@ -67,24 +76,31 @@ const SignUp = () => {
       const public_key = key.exportKey("public");
       const private_key = key.exportKey("private");
 
-      // set keys to state to obtain for downloading
-      setPrivate(private_key);
-      setPubKey(public_key);
+      try {
+        // Encrypt public key and upalod to IPFS and BlockChain
+        const encrypted_text = await EncrptPublicKey(username, public_key);
+        const hash = await StringUpload(encrypted_text);
+        const public_hash = await StringUpload(public_key);
 
-      // Encrypt public key and upalod to IPFS and BlockChain
-      const encrypted_text = await EncrptPublicKey(username, public_key);
-      const hash = await StringUpload(encrypted_text);
-      const public_hash = await StringUpload(public_key);
+        // Upload user detials to block chain
+        const result = await signup(contract, username, hash, public_hash);
 
-      // Upload user detials to block chain
-      const result = await signup(contract, username, hash, public_hash);
+        if (result) {
+          setLoader(false);
+          // set keys to state to obtain for downloading
+          setPrivate(private_key);
+          setPubKey(public_key);
+        }
 
-      if (result) {
+        setHash(hash);
+        SetPublicHash(public_hash);
+      } catch (error) {
         setLoader(false);
+        window.alert(
+          "Signup failed due to rejection in transaction from smart contract! Please try again and confirm metamask"
+        );
+        return;
       }
-
-      setHash(hash);
-      SetPublicHash(public_hash);
     } else {
       // incase a username already exists
       setLoader(false);
@@ -123,11 +139,14 @@ const SignUp = () => {
   }
 
   return (
+    // // // // // // // // // // // // // // // // // // // //
     <Fade in={true} timeout={1200}>
       <div style={{ display: "flex" }}>
         <div
           style={{
-            background: "#6163FF",
+            background:
+              "url(https://raw.githubusercontent.com/imabp/wallpapers/main/collection/CachedImage_1920_1080_POS2.jpg) no-repeat ",
+            backgroundSize: "cover",
             flex: 1,
             height: "100vh",
             display: "flex",
@@ -136,18 +155,24 @@ const SignUp = () => {
             alignItems: "center",
           }}
         >
-          <h2 style={heading}>
-            Welcom to CryptoDrive, you can create an account to store, access
-            and share files securely.
+          <h2 style={{ marginTop: "25px", marginLeft: "25px" }}>
+            A place where you OWN,<br/> your OWN data.
+            <br />
+            <br />
+            {/* <span style={{background:'#EDEDED',opacity:'0.8', color:'#6163FF'}}> Help us making this place a better and safer place for everyone.</span> */}
           </h2>
-          {username.length > 5 && (
+          {/* <h5>
+            CryptoDrive is one of the fastest growing <br/>
+            <span style={{background:'#6163FF', color:'#EDEDED'}}><u>Decentralized</u> File Storage and Sharing Solutions.</span>
+          </h5> */}
+          {/* {username.length > 5 && (
             <Fade in={true}>
               <p style={subHeading}>
                 Please wait while we generate your keys. You'll be notified
                 soon.
               </p>
             </Fade>
-          )}
+          )} */}
         </div>
         <div
           style={{
@@ -168,7 +193,12 @@ const SignUp = () => {
               alignItems: "center",
             }}
           >
-            <p style={{ fontSize: "24px", fontWeight: "bold" }}>SigUp</p>
+            <p style={{ fontSize: "30px", fontWeight: "bold" }}>SignUp</p>
+            <img
+              src="https://raw.githubusercontent.com/MLH-Fellowship/CryptoDrive/staging/docs/assets/cd.png?token=AMYAVDGLQBOZ4HMS5SC4PC3APBWQ4"
+              height="70"
+              width="120"
+            />
             <div
               style={{
                 display: "flex",
@@ -183,7 +213,8 @@ const SignUp = () => {
                   setUsername(e.target.value);
                 }}
                 id="filled-basic"
-                label="username"
+                label="Username"
+                helperText="Atleast 6 Characters long"
                 variant="filled"
                 style={{
                   width: 340,
@@ -197,10 +228,11 @@ const SignUp = () => {
               {username.length > 5 && <Checkmark />}
             </div>
 
+            <br />
             <Button
               disabled={username.length > 5 ? false : true}
               style={{
-                width: 342,
+                width: 345,
                 height: 40,
                 background: "#6163AB",
                 color: " white",
@@ -224,59 +256,64 @@ const SignUp = () => {
             <CircularProgress color="#fff" />
             <p style={{ marginTop: "2rem" }}>Generating Keys</p>
           </Backdrop>
-          <Card
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              padding: "30px",
-              paddingTop: "10px",
-              paddingBottom: "10px",
-              marginTop: "2rem",
-            }}
-          >
-            <Button
-              disabled={privateKey ? false : true}
-              style={{
-                width: 342,
-                height: 40,
-                background: "#6163AB",
-                color: " white",
-                marginTop: "2rem",
-                marginBottom: "1.5rem",
-                marginRight: "2.5rem",
-                marginLeft: "1rem",
-              }}
-            >
-              <SaveFile
-                text={privateKey}
-                fileName={"privateKey"}
-                buttonText={"Get Private Key"}
-              ></SaveFile>
-            </Button>
-            <Button
-              disabled={pubKey ? false : true}
-              style={{
-                width: 342,
-                height: 40,
-                background: "#6163AB",
-                color: " white",
-                marginBottom: "1.5rem",
-                marginRight: "2.5rem",
-                marginLeft: "1rem",
-              }}
-            >
-              <SaveFile
-                text={pubKey}
-                fileName={"publickey"}
-                buttonText={"Get Public Key"}
-              ></SaveFile>
-            </Button>
-          </Card>
+          {privateKey && pubKey && (
+            <Fade in={true} timeout={1200}>
+              <Card
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  padding: "30px",
+                  paddingTop: "10px",
+                  paddingBottom: "10px",
+                  marginTop: "2rem",
+                }}
+              >
+                <Button
+                  disabled={privateKey ? false : true}
+                  style={{
+                    width: 342,
+                    height: 40,
+                    background: "#6163AB",
+                    color: " white",
+                    marginTop: "2rem",
+                    marginBottom: "1.5rem",
+                    marginRight: "2.5rem",
+                    marginLeft: "1rem",
+                  }}
+                >
+                  <SaveFile
+                    text={privateKey}
+                    fileName={"privateKey"}
+                    buttonText={"Get Private Key"}
+                  ></SaveFile>
+                </Button>
+                <Button
+                  disabled={pubKey ? false : true}
+                  style={{
+                    width: 342,
+                    height: 40,
+                    background: "#6163AB",
+                    color: " white",
+                    marginBottom: "1.5rem",
+                    marginRight: "2.5rem",
+                    marginLeft: "1rem",
+                  }}
+                >
+                  <SaveFile
+                    text={pubKey}
+                    fileName={"publickey"}
+                    buttonText={"Get Public Key"}
+                  ></SaveFile>
+                </Button>
+              </Card>
+            </Fade>
+          )}
           <div style={{ paddingTop: "2rem" }}>
-            <p>
-              Have an account? <Link to={ROUTES.SIGN_IN}>
-                          Sign in
-                        </Link>
+            <p align="center">
+              Have an account? <Link to={ROUTES.SIGN_IN}>Sign in</Link><br/><br/>
+              <Link to={ROUTES.HOME}>
+                <HomeIcon />
+              </Link>
             </p>
           </div>
           {error && Alert.error(error)}

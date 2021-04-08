@@ -6,6 +6,7 @@ import {
   GetFileHash,
   GetPublic,
   AddShareFile,
+  CheckUser
 } from "../../Web3/";
 import { FileRetrive, StringRetrive, StringUpload } from "../../Ipfs";
 import Validator from "./../../utility/validator";
@@ -140,6 +141,7 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
   async function handleDownloadFiles() {
     // if the private eky is initialised and any atleast one item in checked then this block will be executed
     if (privateKey && checked_index.length >= 0) {
+      try{
       // we will start the loader
       setLoader(true);
       // setting the status of the action
@@ -157,6 +159,7 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
         // using js string compression library and huffman algorithm
         var jsscompress = require("js-string-compression");
         var hm = new jsscompress.Hauffman();
+        try{
         // decrypted the encrypted file with private key of the user and before that we need to decompress the encrypted file
         const decr = await DefaultDecryptPrivateKeyFile(
           await hm.decompress(encryted_file),
@@ -173,14 +176,48 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
         // setting the status message for successful downlaod
         setMessage("Decompression Successful. Please Check Browser Downloads");
         setLoader(false);
-        setSnackbar(true);
+        setSnackbar(true);}
+        catch(error){
+          setLoader(false);
+          setKeyFile(false);
+          setPrivateKey(false);
+          window.alert(
+            "The provided private Key is incorrect! Please add correct private key"
+          );
+          return;
+        }
       });
     }
+    catch(error){
+      setLoader(false);
+      setKeyFile(false);
+      setPrivateKey(false);
+      window.alert(
+        "The provided private Key is incorrect! Please add correct private key"
+      );
+      return;
+    }
   }
+}
   // function used for handling the shared files
   async function handleShareFiles() {
     // if the private key is initialised and any atleast one item in checked then this block will be executed
-    if (privateKey && checked_index.length >= 0) {
+    if (privateKey && checked_index.length >= 0 && receiverName) {
+      // Edge Case:-
+      // If the sender and receiver is same then
+      if(username===receiverName){
+        window.alert(
+          "Sender and Receiver can't be same. Please try again"
+        );
+        return;
+      }
+      // If the receiver name doesn't exist
+      try{
+      const userExist=await CheckUser(contract,receiverName);
+      if(!userExist){
+        window.alert("Receiver Username Doesn't Exist! Please try again");
+        return;
+      }
       // we will start the loader
       setLoader(true);
       // setting the status of the action
@@ -200,6 +237,7 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
         // using the js string compression library and huffman algorithm
         var jsscompress = require("js-string-compression");
         var hm = new jsscompress.Hauffman();
+        try{
         // Decompressing the encrpted file and decrypt with the private key
         const decr = await DefaultDecryptPrivateKeyFile(
           await hm.decompress(encryted_file),
@@ -230,6 +268,7 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
         };
         hashfile_share_array.push(fileshare);
         if (j === checked_index.length - 1) {
+          try{
           // if the index of check array is last then we will send th json array to smart contract where we can save the details
           const result = await AddShareFile(
             contract,
@@ -247,9 +286,41 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
             );
           }
         }
+        catch(error){
+          setLoader(false);
+          window.alert(
+            "Upload failed due to rejection in transaction from smart contract"
+          );
+          return;
+        }
+      }
+    }
+    catch(error){
+      setLoader(false);
+      setKeyFile(false);
+      setPrivateKey(false);
+      
+      window.alert(
+        "The provided private Key is incorrect! Please add correct private key"
+      );
+      return;
+    }
       });
     }
+    catch(error){
+      setLoader(false);
+      setKeyFile(false);
+      setPrivateKey(false);
+    
+      window.alert(
+        "The provided private Key is may be incorrect! Please add correct private key"
+      );
+     
+      return;
+
+    }
   }
+}
 
   // Preload script to get the my files from smart contract
   React.useEffect(() => {
@@ -315,8 +386,14 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
               id="fileupload"
               style={{ display: "none" }}
               onChange={(event) => {
-                setKeyFile(event.target.files[0]);
-                readkeyFile(event.target.files[0]);
+                const fileUploaded=event.target.files[0]
+                const fileext=fileUploaded.name.split('.').reverse()[0]
+                if(!(fileext==='pem')){
+                  window.alert("The private key uploaded should have an extention with .pem");
+                  return;
+                }
+                setKeyFile(fileUploaded);
+                readkeyFile(fileUploaded);
               }}
             />
             <label

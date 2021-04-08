@@ -1,12 +1,19 @@
 import React from "react";
 import { TextField, Button, Card, makeStyles, Fade } from "@material-ui/core";
-import {GetPassHash,GetPublic,loadWeb3,ContractConnect} from "../../Web3/";
-import {StringRetrive} from "../../Ipfs";
-import {DefaultDecryptPrivateKey} from "../../cryptography";
+import {
+  GetPassHash,
+  GetPublic,
+  loadWeb3,
+  ContractConnect,
+  CheckUser,
+} from "../../Web3/";
+import { StringRetrive } from "../../Ipfs";
+import { DefaultDecryptPrivateKey } from "../../cryptography";
 import { Redirect, Link } from "react-router-dom";
 import * as ROUTES from "./../../constants/routes";
 import { Checkmark } from "../../components/checkmark/checkmark";
 import Validator from "./../../utility/validator";
+import HomeIcon from '@material-ui/icons/Home';
 
 const Login = () => {
   // setting empty states for variables
@@ -24,6 +31,12 @@ const Login = () => {
   // handling change in the file upload of privatekey
   const handleChange = (event) => {
     const fileUploaded = event.target.files[0];
+    const fileext=fileUploaded.name.split('.').reverse()[0]
+    if(!(fileext==='pem')){
+      window.alert("The private key uploaded should have an extention with .pem");
+      return;
+    }
+    console.log(fileUploaded);
     setKeyFile(fileUploaded);
     readkeyFile(fileUploaded);
   };
@@ -52,7 +65,7 @@ const Login = () => {
       localStorage.setItem("public_hash", json);
     }
   }, [publicHash]);
-// get the public username and set it in the local storage
+  // get the public username and set it in the local storage
   React.useEffect(() => {
     if (username) {
       const json = JSON.stringify(username);
@@ -64,10 +77,18 @@ const Login = () => {
     paddingTop: "3em",
   };
 
-  // Function to handle the signin 
+  // Function to handle the signin
   const Signin = async () => {
     // if the username and private key are present then this will handle else it will throw an error
     if (username && privateKey) {
+      const userexist = await CheckUser(contract, username);
+      if (!userexist) {
+        window.alert(
+          "Username not Found ! Kindly Check the Username you entered"
+        );
+        return;
+      }
+      try{
       // getting the public hash for the username
       const public_hash = await GetPublic(contract, username);
       // getting the passhash  from the smart contract
@@ -82,14 +103,21 @@ const Login = () => {
         privateKey
       );
       // if it matches with the username then we can set the public hash
-      if (decrypted_pass === username);
+      if (decrypted_pass === username)
       {
         setPublicHash(public_hash);
       }
-    } else {
+      }
+      catch(error){
+        window.alert(
+          "The provided private Key is incorrect! Please add correct private key"
+        );
+        return;
+      }
+      
     }
   };
-// Styling CSS Variables
+  // Styling CSS Variables
   const heading = {
     alignSelf: "flex-end",
     fontSize: "26px",
@@ -143,33 +171,6 @@ const Login = () => {
       <div style={{ display: "flex" }}>
         <div
           style={{
-            background: "#6163FF",
-            flex: 1,
-            height: "100vh",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "flex-start",
-            alignItems: "center",
-          }}
-        >
-          <h2 style={heading}>
-            Sign in to your account to upload, access or share your files
-          </h2>
-          {username.length > 5 && (
-            <Fade in={true}>
-              <p style={subHeading}>
-                Please add your Private Key, this won't leave your browser
-              </p>
-            </Fade>
-          )}
-          {privateKey && username.length > 5 && (
-            <Fade in={true}>
-              <p style={subHeading}>You can click on Enter to saftely Login </p>
-            </Fade>
-          )}
-        </div>
-        <div
-          style={{
             flex: 1,
             display: "flex",
             alignItems: "center",
@@ -187,7 +188,9 @@ const Login = () => {
               alignItems: "center",
             }}
           >
-            <p style={{ fontSize: "24px", fontWeight: "bold" }}>SigIn</p>
+          
+            <p style={{ fontSize: "30px", fontWeight: "bold" }}>SignIn</p>
+            <img src="https://raw.githubusercontent.com/MLH-Fellowship/CryptoDrive/staging/docs/assets/cd.png?token=AMYAVDGLQBOZ4HMS5SC4PC3APBWQ4" height="70" width="120"/>
             <div
               style={{
                 display: "flex",
@@ -202,7 +205,8 @@ const Login = () => {
                   setUsername(e.target.value);
                 }}
                 id="filled-basic"
-                label="username"
+                label="Username"
+                helperText="Enter your Username"
                 variant="filled"
                 style={{
                   width: 340,
@@ -266,11 +270,43 @@ const Login = () => {
           {/* <div style={{ flexGrow: 1 }} /> */}
           <div style={{ paddingTop: "2rem" }}>
             <p>
-              Don't have an account?  <Link to={ROUTES.SIGN_UP}>
-                          Sign Up
-                        </Link>
+              Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
             </p>
           </div>
+          <Link to={ROUTES.HOME}>
+            <HomeIcon/> 
+          </Link>
+        </div>
+
+        <div
+          style={{
+            background:
+              "url(https://raw.githubusercontent.com/imabp/wallpapers/21795f89e0237a2043c1cc8cf0683d471d8d6af5/collection/eaerth.svg)",
+
+            flex: 1,
+            height: "100vh",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "flex-start",
+            alignItems: "center",
+          }}
+        >
+          <div style={{background:"black", opacity:"0.7", height:'100%', width:'100%'}}/>
+          
+         
+         
+          {/* {username.length > 5 && (
+            <Fade in={true}>
+              <p style={subHeading}>
+                Please add your Private Key, this won't leave your browser
+              </p>
+            </Fade>
+          )} */}
+          {/* {privateKey && username.length > 5 && (
+            <Fade in={true}>
+              <p style={subHeading}>You can click on Enter to saftely Login </p>
+            </Fade>
+          )} */}
         </div>
       </div>
     </Fade>

@@ -6,16 +6,16 @@ import Box from "@material-ui/core/Box";
 import MyFiles from "./myfiles";
 import Dashboard from "./dashbaord";
 import * as ROUTES from "./../../constants/routes";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import SharedFiles from "./sharedfiles";
-import FolderIcon from '@material-ui/icons/Folder';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import ShareIcon from '@material-ui/icons/Share';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import FolderIcon from "@material-ui/icons/Folder";
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import ShareIcon from "@material-ui/icons/Share";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Validator from "../../utility/validator";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
-  // Function to get the public key pass hash 
+  // Function to get the public key pass hash
   function getPassHash() {
     const tokenString = localStorage.getItem("public_hash");
     const userToken = JSON.parse(tokenString);
@@ -27,7 +27,6 @@ function TabPanel(props) {
     let userToken = null;
 
     if (tokenString) userToken = JSON.parse(tokenString);
-
 
     if (userToken) return userToken;
     else return false;
@@ -85,6 +84,12 @@ const useStyles = makeStyles((theme) => ({
   tabs: {
     borderRight: `1px solid ${theme.palette.divider}`,
   },
+  leftPanelRoot:{
+    position: "fixed",
+    width: "calc(100% - 95%)",
+ 
+    height: "100%",
+  },
   leftPanel: {
     width: "calc(100% - 95%)",
     paddingLeft: "20px",
@@ -93,7 +98,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#ECEDED",
     display: "flex",
     flexDirection: "column",
-    position: "fixed",
+    width:'100%',
     height: "100%",
   },
   leftPanelHeading: {
@@ -103,8 +108,10 @@ const useStyles = makeStyles((theme) => ({
   },
   rightPanel: {
     paddingLeft: "calc(100% - 93%)",
-    paddingTop:'22px',
-    width:'100%'
+    paddingTop: "22px",
+    width: "100%",
+    background: "#151719",
+    backgroundSize: "cover",
   },
   menu: {
     marginTop: "10px",
@@ -120,9 +127,9 @@ const useStyles = makeStyles((theme) => ({
     },
     paddingBottom: "10px",
   },
-  logout:{
-    justifyContent:'right'
-  }
+  logout: {
+    justifyContent: "right",
+  },
 }));
 
 // exporting the vertical tabs main function
@@ -131,7 +138,7 @@ export default function VerticalTabs() {
   const [value, setValue] = React.useState(0);
   const [view, setView] = React.useState(0);
   const [privateKey, setPrivateKey] = React.useState("");
-  const [logout,setLogout] = React.useState(false)
+  const [logout, setLogout] = React.useState(false);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -155,44 +162,63 @@ export default function VerticalTabs() {
     setView(index);
   };
   // If person clicks on log out the local storage will be deleted and returns the Page to Signin
-  if(logout)
-  {
-      return <Redirect to={ROUTES.SIGN_IN}/>
+  if (logout) {
+    return <Redirect to={ROUTES.SIGN_IN} />;
   }
   // else it will display the tab panel
   return (
     <div className={classes.root}>
-      <div className={classes.leftPanel}>
-     
-
-        <div className={classes.menu}>
-          {menuItems.map((item, index) => (
-            <div
-              className={classes.navigationItem}
-              onClick={() => {
-                handleClick(index);
-              }}
-            >
-              {item.index===0 && <b><FolderIcon/></b>}
-              {item.index===1 && <b><CloudUploadIcon/></b>}
-              {item.index===2 && <b><ShareIcon/></b>}
+      <div className={classes.leftPanelRoot} style={{display:'flex', flexDirection:'column'}}>
+        
+        <div>
+              <Link to={ROUTES.HOME}>
+                <img src="https://raw.githubusercontent.com/MLH-Fellowship/CryptoDrive/staging/docs/assets/cd.png?token=AMYAVDGLQBOZ4HMS5SC4PC3APBWQ4" height="50" width="80" />
+              </Link>
             </div>
-          ))}
+        
+        <div className={classes.leftPanel}>
+          <div className={classes.menu}>
+            {menuItems.map((item, index) => (
+              <div
+                className={classes.navigationItem}
+                onClick={() => {
+                  handleClick(index);
+                }}
+              >
+                {item.index === 0 && (
+                  <b>
+                    <FolderIcon />
+                  </b>
+                )}
+                {item.index === 1 && (
+                  <b>
+                    <CloudUploadIcon />
+                  </b>
+                )}
+                {item.index === 2 && (
+                  <b>
+                    <ShareIcon />
+                  </b>
+                )}
+              </div>
+            ))}
+          </div>
+          <div>
+            <div
+              onClick={() => {
+                // Removing the tokens from the local storage
+                localStorage.removeItem("public_hash");
+                localStorage.removeItem("user_name");
+                if (!Validator("publicHash") && !Validator("username")) {
+                  setLogout(true);
+                }
+              }}
+              className={classes.navigationItem}
+            >
+              <ExitToAppIcon />
+            </div>
+          </div>
         </div>
-        <div >
-          <div
-          onClick={()=>{
-            // Removing the tokens from the local storage
-            localStorage.removeItem('public_hash');
-            localStorage.removeItem('user_name');
-            if(!Validator('publicHash') && !Validator('username')){
-                setLogout(true)
-            }
-
-          }}
-          className={classes.navigationItem}><ExitToAppIcon/></div>
-        </div>
-
       </div>
       <div className={classes.rightPanel}>
         {(view === 0 && (

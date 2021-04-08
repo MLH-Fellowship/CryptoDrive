@@ -131,7 +131,7 @@ const FeaturesSplit = ({
                 <p className="m-0">
                   We use zero servers, so you can be assured that none of your
                   data is sent in any database. All operations are performed on
-                  the client side, hence no secret data leaves your browser
+                  the client side, hence no secret data leaves your browser.
                 </p>
               </div>
               <div

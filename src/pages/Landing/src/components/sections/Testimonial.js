@@ -3,7 +3,7 @@ import classNames from "classnames";
 import { SectionTilesProps } from "../../utils/SectionProps";
 import SectionHeader from "./partials/SectionHeader";
 import Image from "../elements/Image";
-import sameer from "./../../assets/images/sameer.jpg";
+import sameer from "./../../assets/images/sameer.png";
 
 const propTypes = {
   ...SectionTilesProps.types,
@@ -52,30 +52,16 @@ const Testimonial = ({
         <div className={innerClasses}>
           <SectionHeader data={sectionHeader} className="center-content" />
           <div className={tilesClasses}>
-            <div
-              className="tiles-item reveal-from-right"
-              data-reveal-delay="200"
-            >
-              <div className="tiles-item-inner">
-                <div className="testimonial-item-content">
-                  <Image src={sameer} width={500} height={300} />
-                </div>
-                <div className="testimonial-item-footer text-xs mt-32 mb-0 has-top-divider">
-                  <span className="testimonial-item-link">
-                    <a href="#0">Sameer</a>
-                  </span>
-                </div>
-              </div>
-            </div>
+
 
             <div className="tiles-item reveal-from-bottom">
               <div className="tiles-item-inner">
                 <div className="testimonial-item-content">
-                  <Image src={sameer} width={500} height={300} />
+                  <Image src="https://avatars.githubusercontent.com/u/46109386?v=4" width={500} height={300} />
                 </div>
                 <div className="testimonial-item-footer text-xs mt-32 mb-0 has-top-divider">
                   <span className="testimonial-item-link">
-                    <a href="#0">Kamesh</a>
+                    <a href="https://www.linkedin.com/in/saidurgakameshkota/">Sai Durga Kamesh Kota</a>
                   </span>
                 </div>
               </div>
@@ -87,11 +73,27 @@ const Testimonial = ({
             >
               <div className="tiles-item-inner">
                 <div className="testimonial-item-content">
+                  <Image src="https://avatars.githubusercontent.com/u/53480076?v=4" width={500} height={300} />
+                </div>
+                <div className="testimonial-item-footer text-xs mt-32 mb-0 has-top-divider">
+                  <span className="testimonial-item-link">
+                    <a href="https://linkedin.com/in/imabp">Abir Pal</a>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div
+              className="tiles-item reveal-from-right"
+              data-reveal-delay="200"
+            >
+              <div className="tiles-item-inner">
+                <div className="testimonial-item-content">
                   <Image src={sameer} width={500} height={300} />
                 </div>
                 <div className="testimonial-item-footer text-xs mt-32 mb-0 has-top-divider">
                   <span className="testimonial-item-link">
-                    <a href="#0">Abir</a>
+                    <a href="https://twitter.com/Sameeerkashyap">Sameer Kashyap</a>
                   </span>
                 </div>
               </div>

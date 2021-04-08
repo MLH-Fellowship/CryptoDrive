@@ -6,7 +6,8 @@ import Button from "../elements/Button";
 import Image from "../elements/Image";
 import Modal from "../elements/Modal";
 import video from "../../assets/images/video-placeholder.jpg";
-
+import * as ROUTES from "./../../../../../constants/routes";
+import {Link} from 'react-router-dom'
 const propTypes = {
   ...SectionProps.types,
 };
@@ -68,18 +69,18 @@ const Hero = ({
                 className="m-0 mb-32 reveal-from-bottom"
                 data-reveal-delay="400"
               >
-                Your one stop solution to fast, secure file storage.
+                Your one stop solution to decentralized and secure file storage and sharing service.
               </p>
               <div className="reveal-from-bottom" data-reveal-delay="600">
                 <ButtonGroup>
-                  <Button
+                <Link to={ROUTES.SIGN_UP}> <Button
                     tag="a"
                     color="primary"
                     wideMobile
                     href=""
                   >
-                    Get started
-                  </Button>
+                     Get started
+                  </Button></Link>
                   <Button
                     tag="a"
                     color="dark"

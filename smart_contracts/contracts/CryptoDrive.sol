@@ -27,6 +27,20 @@ contract CryptoDrive{
     mapping(string=>string) private PublicKeys;
     mapping(string=>ShareFile[]) private SharedData;
     
+    
+    // Function CheckUser to check whether the user id exist in the database
+    // It checks the key is present or not based on the byte length for each map key value
+    
+    function checkUser(string memory user_id) public view returns(bool){
+        if(bytes(PassHash[user_id]).length>0 && bytes(PublicKeys[user_id]).length>0){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
+    
     // Function AddFileHash which takes user id , filehash , filename
     // It is pushes the structure in Filehash Mapping
     

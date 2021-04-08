@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import Image from '../../elements/Image';
-import Img from './../../../assets/images/logo.svg'
+import Img from './../../../../../../assets/newLogo.svg'
 const Logo = ({
   className,
   ...props
@@ -22,8 +22,8 @@ const Logo = ({
         <Link to="/">
           <Image
             src={Img}
-            width={32}
-            height={32} />
+            width={50}
+            height={50} />
         </Link>
       </h1>
     </div>

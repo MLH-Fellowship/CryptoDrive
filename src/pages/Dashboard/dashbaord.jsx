@@ -72,6 +72,7 @@ const DashBoard = (_props) => {
 
   // Function which is triggered when the user clicked on the upload button
   const onSubmit = async (event) => {
+    try{
     event.preventDefault();
     setLoader(true);
     setMessage("Preparing to Upload to Blockchain");
@@ -90,11 +91,10 @@ const DashBoard = (_props) => {
     const hash = await StringUpload(compressed);
     setHash(hash);
     const username = Validator("username");
-
+    try{
     // Add the file name and dile hash retrived from the ipfs will be sent to the smart contract
-    const result = await AddFile(contract, username, hash, filename);
     setMessage("Upload Request Sent to Blockchain");
-
+    const result = await AddFile(contract, username, hash, filename);
     // If the file is successfully uploaded to blockchain, notify it to user
     if (result.status === true) {
       setMessage("Uploaded to Blockchain.");
@@ -107,6 +107,21 @@ const DashBoard = (_props) => {
       setMessage("Upload failed, Please Try again");
       setLoader(false);
     }
+    }
+    catch(error){
+      setLoader(false);
+
+    }
+
+    }
+    catch(error){
+      setLoader(false);
+      window.alert(
+        "The provided private Key is incorrect! Please add correct private key"
+      );
+      return;
+    }
+    
   };
   // get ipfs publicHash, if already logged in
   const token = Validator("publicHash");
