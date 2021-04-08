@@ -139,7 +139,8 @@ const SignUp = () => {
       <div style={{ display: "flex" }}>
         <div
           style={{
-            background: "#6163FF",
+            background: "url(https://raw.githubusercontent.com/imabp/wallpapers/main/collection/CachedImage_1920_1080_POS2.jpg) no-repeat ",
+            backgroundSize:'cover',
             flex: 1,
             height: "100vh",
             display: "flex",
@@ -148,18 +149,22 @@ const SignUp = () => {
             alignItems: "center",
           }}
         >
-          <h2 style={heading}>
-            Welcom to CryptoDrive, you can create an account to store, access
-            and share files securely.
+          <h2 style={{marginTop:'25px', marginLeft:'25px',}}>
+           A place where you OWN, your OWN data.<br/><br/>
+           {/* <span style={{background:'#EDEDED',opacity:'0.8', color:'#6163FF'}}> Help us making this place a better and safer place for everyone.</span> */}
           </h2>
-          {username.length > 5 && (
+          {/* <h5>
+            CryptoDrive is one of the fastest growing <br/>
+            <span style={{background:'#6163FF', color:'#EDEDED'}}><u>Decentralized</u> File Storage and Sharing Solutions.</span>
+          </h5> */}
+          {/* {username.length > 5 && (
             <Fade in={true}>
               <p style={subHeading}>
                 Please wait while we generate your keys. You'll be notified
                 soon.
               </p>
             </Fade>
-          )}
+          )} */}
         </div>
         <div
           style={{
@@ -181,6 +186,7 @@ const SignUp = () => {
             }}
           >
             <p style={{ fontSize: "24px", fontWeight: "bold" }}>SigUp</p>
+            
             <div
               style={{
                 display: "flex",
@@ -195,7 +201,8 @@ const SignUp = () => {
                   setUsername(e.target.value);
                 }}
                 id="filled-basic"
-                label="username"
+                label="Username"
+                helperText="Atleast 6 Characters long"
                 variant="filled"
                 style={{
                   width: 340,
@@ -205,14 +212,17 @@ const SignUp = () => {
                   marginLeft: "1rem",
                 }}
               />
-              {username.length <= 5 && <div style={{ width: 24 }} />}
-              {username.length > 5 && <Checkmark />}
+               {username.length <= 5 && <div style={{width:24}} />}
+               {username.length > 5 && <Checkmark />}
             </div>
 
+         
+
+            <br/> 
             <Button
               disabled={username.length > 5 ? false : true}
               style={{
-                width: 342,
+                width: 345,
                 height: 40,
                 background: "#6163AB",
                 color: " white",
@@ -236,7 +246,7 @@ const SignUp = () => {
             <CircularProgress color="#fff" />
             <p style={{ marginTop: "2rem" }}>Generating Keys</p>
           </Backdrop>
-          <Card
+         { privateKey && pubKey &&  <Fade in={true} timeout={1200}><Card
             style={{
               display: "flex",
               flexDirection: "column",
@@ -283,7 +293,7 @@ const SignUp = () => {
                 buttonText={"Get Public Key"}
               ></SaveFile>
             </Button>
-          </Card>
+          </Card></Fade>}
           <div style={{ paddingTop: "2rem" }}>
             <p>
               Have an account? <Link to={ROUTES.SIGN_IN}>
