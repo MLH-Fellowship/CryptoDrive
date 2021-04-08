@@ -187,7 +187,7 @@ const Login = () => {
               alignItems: "center",
             }}
           >
-            <p style={{ fontSize: "24px", fontWeight: "bold" }}>SigIn</p>
+            <p style={{ fontSize: "24px", fontWeight: "bold" }}>SignIn</p>
             <div
               style={{
                 display: "flex",
@@ -202,7 +202,8 @@ const Login = () => {
                   setUsername(e.target.value);
                 }}
                 id="filled-basic"
-                label="username"
+                label="Username"
+                helperText="Enter your Username"
                 variant="filled"
                 style={{
                   width: 340,
