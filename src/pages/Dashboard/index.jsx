@@ -110,8 +110,7 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: "calc(100% - 93%)",
     paddingTop: "22px",
     width: "100%",
-    background:
-      "black url(https://raw.githubusercontent.com/imabp/wallpapers/main/collection/430207.jpg) no-repeat",
+    background: "#151719",
     backgroundSize: "cover",
   },
   menu: {
