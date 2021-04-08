@@ -18,7 +18,7 @@ import { SaveFile } from "../../components";
 import Validator from "./../../utility/validator";
 import { Checkmark } from "../../components/checkmark/checkmark";
 import { Alert , Notification, } from "rsuite";
-
+import Logo from './../../assets/newLogo.svg'
 const NodeRSA = require("node-rsa");
 
 const useStyles = makeStyles((theme) => ({
@@ -185,8 +185,8 @@ const SignUp = () => {
               alignItems: "center",
             }}
           >
-            <p style={{ fontSize: "24px", fontWeight: "bold" }}>SignUp</p>
-            
+            <p style={{ fontSize: "30px", fontWeight: "bold" }}>SignUp</p>
+            <img src={Logo} height="70" width="120"/>
             <div
               style={{
                 display: "flex",
