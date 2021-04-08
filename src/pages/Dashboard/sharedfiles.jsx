@@ -113,6 +113,7 @@ const SharedFiles = ({ privateKey, setPrivateKey }) => {
   async function handleDownloadFiles() {
       // if the private eky is initialised and any atleast one item in checked then this block will be executed
     if (privateKey && checked_index.length >= 0) {
+      try{
       // we will start the loader
       setLoader(true);
       // setting the status of the action 
@@ -155,6 +156,15 @@ const SharedFiles = ({ privateKey, setPrivateKey }) => {
         // setting the status message for successful downlaod
         setMessage("Files Decrypted and saved. Please check downloads.");
       });
+    }
+      catch(error){
+        setLoader(false);
+        window.alert(
+          "The provided private Key is incorrect! Please add correct private key"
+        );
+        return;
+
+      }
     }
   };
   // Preload script to get the shared files from smart contract
