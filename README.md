@@ -1,7 +1,7 @@
 <!-- PROJECT LOGO -->
 <p align="center">
   <a href="https://github.com/MLH-Fellowship/CryptoDrive">
-    <img src="./docs/assets/logo.png" height="250px"  />
+    <img src="./docs/assets/cd.png" height="250px"  />
   </a>
 
   <p align="center">
