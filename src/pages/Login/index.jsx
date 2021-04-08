@@ -13,7 +13,7 @@ import { Redirect, Link } from "react-router-dom";
 import * as ROUTES from "./../../constants/routes";
 import { Checkmark } from "../../components/checkmark/checkmark";
 import Validator from "./../../utility/validator";
-
+import Logo from './../../assets/newLogo.svg'
 const Login = () => {
   // setting empty states for variables
   const [username, setUsername] = React.useState("");
@@ -187,7 +187,9 @@ const Login = () => {
               alignItems: "center",
             }}
           >
-            <p style={{ fontSize: "24px", fontWeight: "bold" }}>SignIn</p>
+          
+            <p style={{ fontSize: "30px", fontWeight: "bold" }}>SignIn</p>
+            <img src={Logo} height="70" width="120"/>
             <div
               style={{
                 display: "flex",
@@ -275,8 +277,8 @@ const Login = () => {
         <div
           style={{
             background:
-              "url(https://raw.githubusercontent.com/imabp/wallpapers/main/collection/earthlights.jpeg)",
-            backgroundSize: "cover",
+              "url(https://raw.githubusercontent.com/imabp/wallpapers/21795f89e0237a2043c1cc8cf0683d471d8d6af5/collection/eaerth.svg)",
+
             flex: 1,
             height: "100vh",
             display: "flex",
@@ -285,10 +287,12 @@ const Login = () => {
             alignItems: "center",
           }}
         >
-          <h2 style={{margin:'36px'}} >
-            Sign in to your account to upload, access or share your files securely in <br/> the blockchain way.
+          <div style={{background:"black", opacity:"0.7", height:'100%', width:'100%'}}>
+          </div>
+          <h2 style={{margin:'36px', zIndex:'5',position:'fixed'}} >
+            Sign in to your account to upload, access or share your files securely in  the blockchain way.
           </h2>
-       
+         
           {username.length > 5 && (
             <Fade in={true}>
               <p style={subHeading}>
