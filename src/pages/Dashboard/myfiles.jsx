@@ -200,6 +200,13 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
     // if the private key is initialised and any atleast one item in checked then this block will be executed
     if (privateKey && checked_index.length >= 0 && receiverName) {
       // Edge Case:-
+      // If the sender and receiver is same then
+      if(username===receiverName){
+        window.alert(
+          "Sender and Receiver can't be same. Please try again"
+        );
+        return;
+      }
       // If the receiver name doesn't exist
       try{
       const userExist=await CheckUser(contract,receiverName);
