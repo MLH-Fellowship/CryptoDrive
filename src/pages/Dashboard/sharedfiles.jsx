@@ -191,8 +191,14 @@ const SharedFiles = ({ privateKey, setPrivateKey }) => {
             id="fileupload"
             style={{ display: "none" }}
             onChange={(event) => {
-              setKeyFile(event.target.files[0]);
-              readkeyFile(event.target.files[0]);
+              const fileUploaded=event.target.files[0]
+              const fileext=fileUploaded.name.split('.').reverse()[0]
+              if(!(fileext==='pem')){
+                window.alert("The private key uploaded should have an extention with .pem");
+                return;
+              }
+              setKeyFile(fileUploaded);
+              readkeyFile(fileUploaded);
             }}
           />
           <label

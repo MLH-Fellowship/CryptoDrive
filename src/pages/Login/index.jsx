@@ -30,6 +30,11 @@ const Login = () => {
   // handling change in the file upload of privatekey
   const handleChange = (event) => {
     const fileUploaded = event.target.files[0];
+    const fileext=fileUploaded.name.split('.').reverse()[0]
+    if(!(fileext==='pem')){
+      window.alert("The private key uploaded should have an extention with .pem");
+      return;
+    }
     console.log(fileUploaded);
     setKeyFile(fileUploaded);
     readkeyFile(fileUploaded);
