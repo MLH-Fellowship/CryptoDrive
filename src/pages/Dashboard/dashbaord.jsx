@@ -110,10 +110,6 @@ const DashBoard = (_props) => {
     }
     catch(error){
       setLoader(false);
-      window.alert(
-        "Upload failed due to rejection in transaction from smart contract"
-      );
-      return;
 
     }
 

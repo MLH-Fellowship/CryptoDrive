@@ -141,6 +141,7 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
   async function handleDownloadFiles() {
     // if the private eky is initialised and any atleast one item in checked then this block will be executed
     if (privateKey && checked_index.length >= 0) {
+      try{
       // we will start the loader
       setLoader(true);
       // setting the status of the action
@@ -177,13 +178,22 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
         setSnackbar(true);
       });
     }
+    catch(error){
+      setLoader(false);
+      window.alert(
+        "The provided private Key is incorrect! Please add correct private key"
+      );
+      return;
+    }
   }
+}
   // function used for handling the shared files
   async function handleShareFiles() {
     // if the private key is initialised and any atleast one item in checked then this block will be executed
     if (privateKey && checked_index.length >= 0 && receiverName) {
       // Edge Case:-
       // If the receiver name doesn't exist
+      try{
       const userExist=await CheckUser(contract,receiverName);
       if(!userExist){
         window.alert("Receiver Username Doesn't Exist! Please try again");
@@ -238,6 +248,7 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
         };
         hashfile_share_array.push(fileshare);
         if (j === checked_index.length - 1) {
+          try{
           // if the index of check array is last then we will send th json array to smart contract where we can save the details
           const result = await AddShareFile(
             contract,
@@ -255,9 +266,26 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
             );
           }
         }
+        catch(error){
+          setLoader(false);
+          window.alert(
+            "Upload failed due to rejection in transaction from smart contract"
+          );
+          return;
+        }
+      }
       });
     }
+    catch(error){
+      setLoader(false);
+      window.alert(
+        "The provided private Key is may be incorrect! Please add correct private key"
+      );
+      return;
+
+    }
   }
+}
 
   // Preload script to get the my files from smart contract
   React.useEffect(() => {
