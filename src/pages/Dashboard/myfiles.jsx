@@ -159,6 +159,7 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
         // using js string compression library and huffman algorithm
         var jsscompress = require("js-string-compression");
         var hm = new jsscompress.Hauffman();
+        try{
         // decrypted the encrypted file with private key of the user and before that we need to decompress the encrypted file
         const decr = await DefaultDecryptPrivateKeyFile(
           await hm.decompress(encryted_file),
@@ -175,7 +176,14 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
         // setting the status message for successful downlaod
         setMessage("Decompression Successful. Please Check Browser Downloads");
         setLoader(false);
-        setSnackbar(true);
+        setSnackbar(true);}
+        catch(error){
+          setLoader(false);
+          window.alert(
+            "The provided private Key is incorrect! Please add correct private key"
+          );
+          return;
+        }
       });
     }
     catch(error){
@@ -218,6 +226,7 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
         // using the js string compression library and huffman algorithm
         var jsscompress = require("js-string-compression");
         var hm = new jsscompress.Hauffman();
+        try{
         // Decompressing the encrpted file and decrypt with the private key
         const decr = await DefaultDecryptPrivateKeyFile(
           await hm.decompress(encryted_file),
@@ -274,6 +283,14 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
           return;
         }
       }
+    }
+    catch(error){
+      setLoader(false);
+      window.alert(
+        "The provided private Key is incorrect! Please add correct private key"
+      );
+      return;
+    }
       });
     }
     catch(error){

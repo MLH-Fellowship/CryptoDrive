@@ -134,6 +134,7 @@ const SharedFiles = ({ privateKey, setPrivateKey }) => {
         const sender_public_key = await StringRetrive(sender_public_hash);
         // get the encrypted file from the filehash
         const encrypted_file = await FileRetrive(file_h);
+        try{
         // decrypt with the private key and return the file buffer
         const decrypt_receiver = await DefaultDecryptPrivateKey(
           encrypted_file,
@@ -155,6 +156,14 @@ const SharedFiles = ({ privateKey, setPrivateKey }) => {
         setLoader(false);
         // setting the status message for successful downlaod
         setMessage("Files Decrypted and saved. Please check downloads.");
+      }
+      catch(error){
+        setLoader(false);
+        window.alert(
+          "The provided private Key is incorrect! Please add correct private key"
+        );
+        return;
+      }
       });
     }
       catch(error){
