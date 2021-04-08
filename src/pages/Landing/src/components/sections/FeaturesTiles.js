@@ -70,12 +70,12 @@ const FeaturesTiles = ({
                   </div>
                 </div>
                 <div className="features-tiles-item-content">
-                  <h4 className="mt-0 mb-8">Private</h4>
+                  <h4 className="mt-0 mb-8">Decentralized</h4>
                   <p className="m-0 text-sm">
-                    We use zero servers, Noting leaves your browser
+                    Blockchain ensures all the data is decentralized
                   </p>
                 </div>
-              </div>
+               </div>
             </div>
 
             <div
@@ -118,9 +118,9 @@ const FeaturesTiles = ({
                   </div>
                 </div>
                 <div className="features-tiles-item-content">
-                  <h4 className="mt-0 mb-8">Decentralized</h4>
+                  <h4 className="mt-0 mb-8">Zero Servers</h4>
                   <p className="m-0 text-sm">
-                    Blockchain ensures all the data is decentralized
+                    We use zero servers, Nothing leaves your browser
                   </p>
                 </div>
               </div>
