@@ -78,10 +78,8 @@ const SignUp = () => {
       const public_key = key.exportKey("public");
       const private_key = key.exportKey("private");
 
-      // set keys to state to obtain for downloading
-      setPrivate(private_key);
-      setPubKey(public_key);
-
+      try{
+        
       // Encrypt public key and upalod to IPFS and BlockChain
       const encrypted_text = await EncrptPublicKey(username, public_key);
       const hash = await StringUpload(encrypted_text);
@@ -91,11 +89,22 @@ const SignUp = () => {
       const result = await signup(contract, username, hash, public_hash);
 
       if (result) {
-        setLoader(false);
+      setLoader(false);
+      // set keys to state to obtain for downloading
+      setPrivate(private_key);
+      setPubKey(public_key);
       }
 
       setHash(hash);
       SetPublicHash(public_hash);
+      }
+      catch(error){
+        setLoader(false);
+        window.alert(
+          "Signup failed due to rejection in transaction from smart contract! Please try again and confirm metamask"
+        );
+        return;
+      }
     } else {
       // incase a username already exists
       setLoader(false);
