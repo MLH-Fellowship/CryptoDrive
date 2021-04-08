@@ -6,6 +6,7 @@ import {
   GetFileHash,
   GetPublic,
   AddShareFile,
+  CheckUser
 } from "../../Web3/";
 import { FileRetrive, StringRetrive, StringUpload } from "../../Ipfs";
 import Validator from "./../../utility/validator";
@@ -180,7 +181,13 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
   // function used for handling the shared files
   async function handleShareFiles() {
     // if the private key is initialised and any atleast one item in checked then this block will be executed
-    if (privateKey && checked_index.length >= 0) {
+    if (privateKey && checked_index.length >= 0 && receiverName) {
+      // Edge Case:-
+      // If the receiver name doesn't exist
+      const userExist=await CheckUser(contract,receiverName);
+      if(!userExist){
+        
+      }
       // we will start the loader
       setLoader(true);
       // setting the status of the action
