@@ -186,7 +186,8 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
       // If the receiver name doesn't exist
       const userExist=await CheckUser(contract,receiverName);
       if(!userExist){
-        
+        window.alert("Receiver Username Doesn't Exist! Please try again");
+        return;
       }
       // we will start the loader
       setLoader(true);
