@@ -87,6 +87,7 @@ const Login = () => {
         );
         return;
       }
+      try{
       // getting the public hash for the username
       const public_hash = await GetPublic(contract, username);
       // getting the passhash  from the smart contract
@@ -101,11 +102,18 @@ const Login = () => {
         privateKey
       );
       // if it matches with the username then we can set the public hash
-      if (decrypted_pass === username);
+      if (decrypted_pass === username)
       {
         setPublicHash(public_hash);
       }
-    } else {
+      }
+      catch(error){
+        window.alert(
+          "The provided private Key is incorrect! Please add correct private key"
+        );
+        return;
+      }
+      
     }
   };
   // Styling CSS Variables
