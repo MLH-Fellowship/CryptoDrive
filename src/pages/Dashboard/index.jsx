@@ -104,7 +104,10 @@ const useStyles = makeStyles((theme) => ({
   rightPanel: {
     paddingLeft: "calc(100% - 93%)",
     paddingTop:'22px',
-    width:'100%'
+    width:'100%',
+    background:'black url(https://raw.githubusercontent.com/imabp/wallpapers/main/collection/blockchain.jpeg) no-repeat',
+    backgroundSize:'cover',
+
   },
   menu: {
     marginTop: "10px",
