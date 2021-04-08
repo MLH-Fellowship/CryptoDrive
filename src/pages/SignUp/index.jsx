@@ -185,7 +185,7 @@ const SignUp = () => {
               alignItems: "center",
             }}
           >
-            <p style={{ fontSize: "24px", fontWeight: "bold" }}>SigUp</p>
+            <p style={{ fontSize: "24px", fontWeight: "bold" }}>SignUp</p>
             
             <div
               style={{
