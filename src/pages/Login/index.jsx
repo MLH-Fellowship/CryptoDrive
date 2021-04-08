@@ -13,6 +13,8 @@ import { Redirect, Link } from "react-router-dom";
 import * as ROUTES from "./../../constants/routes";
 import { Checkmark } from "../../components/checkmark/checkmark";
 import Validator from "./../../utility/validator";
+import HomeIcon from '@material-ui/icons/Home';
+
 const Login = () => {
   // setting empty states for variables
   const [username, setUsername] = React.useState("");
@@ -271,6 +273,9 @@ const Login = () => {
               Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
             </p>
           </div>
+          <Link to={ROUTES.HOME}>
+            <HomeIcon/> 
+          </Link>
         </div>
 
         <div
@@ -286,24 +291,22 @@ const Login = () => {
             alignItems: "center",
           }}
         >
-          <div style={{background:"black", opacity:"0.7", height:'100%', width:'100%'}}>
-          </div>
-          <h2 style={{margin:'36px', zIndex:'5',position:'fixed'}} >
-            Sign in to your account to upload, access or share your files securely in  the blockchain way.
-          </h2>
+          <div style={{background:"black", opacity:"0.7", height:'100%', width:'100%'}}/>
+          
          
-          {username.length > 5 && (
+         
+          {/* {username.length > 5 && (
             <Fade in={true}>
               <p style={subHeading}>
                 Please add your Private Key, this won't leave your browser
               </p>
             </Fade>
-          )}
-          {privateKey && username.length > 5 && (
+          )} */}
+          {/* {privateKey && username.length > 5 && (
             <Fade in={true}>
               <p style={subHeading}>You can click on Enter to saftely Login </p>
             </Fade>
-          )}
+          )} */}
         </div>
       </div>
     </Fade>
