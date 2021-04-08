@@ -13,7 +13,6 @@ import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import ShareIcon from "@material-ui/icons/Share";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Validator from "../../utility/validator";
-import Logo from "./../../assets/newLogo.svg";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
   // Function to get the public key pass hash
@@ -174,7 +173,7 @@ export default function VerticalTabs() {
         
         <div>
               <Link to={ROUTES.HOME}>
-                <img src={Logo} height="50" width="80" />
+                <img src="https://raw.githubusercontent.com/MLH-Fellowship/CryptoDrive/staging/docs/assets/cd.png?token=AMYAVDGLQBOZ4HMS5SC4PC3APBWQ4" height="50" width="80" />
               </Link>
             </div>
         

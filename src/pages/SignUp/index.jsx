@@ -18,7 +18,6 @@ import { SaveFile } from "../../components";
 import Validator from "./../../utility/validator";
 import { Checkmark } from "../../components/checkmark/checkmark";
 import { Alert , Notification, } from "rsuite";
-import Logo from './../../assets/newLogo.svg'
 const NodeRSA = require("node-rsa");
 
 const useStyles = makeStyles((theme) => ({
@@ -186,7 +185,7 @@ const SignUp = () => {
             }}
           >
             <p style={{ fontSize: "30px", fontWeight: "bold" }}>SignUp</p>
-            <img src={Logo} height="70" width="120"/>
+            <img src="https://raw.githubusercontent.com/MLH-Fellowship/CryptoDrive/staging/docs/assets/cd.png?token=AMYAVDGLQBOZ4HMS5SC4PC3APBWQ4" height="70" width="120"/>
             <div
               style={{
                 display: "flex",

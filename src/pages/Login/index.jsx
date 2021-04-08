@@ -13,7 +13,6 @@ import { Redirect, Link } from "react-router-dom";
 import * as ROUTES from "./../../constants/routes";
 import { Checkmark } from "../../components/checkmark/checkmark";
 import Validator from "./../../utility/validator";
-import Logo from './../../assets/newLogo.svg'
 const Login = () => {
   // setting empty states for variables
   const [username, setUsername] = React.useState("");
@@ -189,7 +188,7 @@ const Login = () => {
           >
           
             <p style={{ fontSize: "30px", fontWeight: "bold" }}>SignIn</p>
-            <img src={Logo} height="70" width="120"/>
+            <img src="https://raw.githubusercontent.com/MLH-Fellowship/CryptoDrive/staging/docs/assets/cd.png?token=AMYAVDGLQBOZ4HMS5SC4PC3APBWQ4" height="70" width="120"/>
             <div
               style={{
                 display: "flex",
