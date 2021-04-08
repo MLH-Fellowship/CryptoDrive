@@ -179,6 +179,8 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
         setSnackbar(true);}
         catch(error){
           setLoader(false);
+          setKeyFile(false);
+          setPrivateKey(false);
           window.alert(
             "The provided private Key is incorrect! Please add correct private key"
           );
@@ -188,6 +190,8 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
     }
     catch(error){
       setLoader(false);
+      setKeyFile(false);
+      setPrivateKey(false);
       window.alert(
         "The provided private Key is incorrect! Please add correct private key"
       );
@@ -293,6 +297,9 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
     }
     catch(error){
       setLoader(false);
+      setKeyFile(false);
+      setPrivateKey(false);
+      
       window.alert(
         "The provided private Key is incorrect! Please add correct private key"
       );
@@ -302,9 +309,13 @@ const MyFiles = ({ privateKey, setPrivateKey }) => {
     }
     catch(error){
       setLoader(false);
+      setKeyFile(false);
+      setPrivateKey(false);
+    
       window.alert(
         "The provided private Key is may be incorrect! Please add correct private key"
       );
+     
       return;
 
     }
