@@ -113,9 +113,9 @@ const Header = ({
                     )}
                   >
                     <li>
-                      <Link to="#0" onClick={closeMenu}>
+                      <a href="https://github.com/MLH-Fellowship/CryptoDrive/blob/main/README.md">
                         Documentation
-                      </Link>
+                      </a>
                     </li>
                   </ul>
                   {!hideSignin && (
