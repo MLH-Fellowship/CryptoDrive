@@ -20,6 +20,7 @@ const loadWeb3=async ()=> {
 // Function COntractCOnnect used to connect the smart contract and the web3 provider like metamask
 
 const ContractConnect = async () => {
+    try{
     const CryptoDriveABI = JSON.parse(JSON.stringify(data), "utf8").abi;
     const CryptoDriveAddress = "0x7e3BCc0cCc08e41Cac806721E418b775C64e50c3";
     const CryptoDrive = await new window.web3.eth.Contract(
@@ -27,6 +28,11 @@ const ContractConnect = async () => {
       CryptoDriveAddress
     );
     return CryptoDrive;
+    }
+    catch(error){
+        window.alert("Please install metamask to connect with the contract");
+        return;
+    }
   };
 
 // Function SignUp is used to store the username,passhash,publichash to the smart contract to register the particular user
