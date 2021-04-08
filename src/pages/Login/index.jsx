@@ -1,8 +1,14 @@
 import React from "react";
 import { TextField, Button, Card, makeStyles, Fade } from "@material-ui/core";
-import {GetPassHash,GetPublic,loadWeb3,ContractConnect,CheckUser} from "../../Web3/";
-import {StringRetrive} from "../../Ipfs";
-import {DefaultDecryptPrivateKey} from "../../cryptography";
+import {
+  GetPassHash,
+  GetPublic,
+  loadWeb3,
+  ContractConnect,
+  CheckUser,
+} from "../../Web3/";
+import { StringRetrive } from "../../Ipfs";
+import { DefaultDecryptPrivateKey } from "../../cryptography";
 import { Redirect, Link } from "react-router-dom";
 import * as ROUTES from "./../../constants/routes";
 import { Checkmark } from "../../components/checkmark/checkmark";
@@ -53,7 +59,7 @@ const Login = () => {
       localStorage.setItem("public_hash", json);
     }
   }, [publicHash]);
-// get the public username and set it in the local storage
+  // get the public username and set it in the local storage
   React.useEffect(() => {
     if (username) {
       const json = JSON.stringify(username);
@@ -65,13 +71,15 @@ const Login = () => {
     paddingTop: "3em",
   };
 
-  // Function to handle the signin 
+  // Function to handle the signin
   const Signin = async () => {
     // if the username and private key are present then this will handle else it will throw an error
     if (username && privateKey) {
-      const userexist=await CheckUser(contract,username);
-      if(!userexist){
-        window.alert("Username not Found ! Kindly Check the Username you entered");
+      const userexist = await CheckUser(contract, username);
+      if (!userexist) {
+        window.alert(
+          "Username not Found ! Kindly Check the Username you entered"
+        );
         return;
       }
       // getting the public hash for the username
@@ -95,7 +103,7 @@ const Login = () => {
     } else {
     }
   };
-// Styling CSS Variables
+  // Styling CSS Variables
   const heading = {
     alignSelf: "flex-end",
     fontSize: "26px",
@@ -147,33 +155,6 @@ const Login = () => {
   return (
     <Fade in={true} timeout={1200}>
       <div style={{ display: "flex" }}>
-        <div
-          style={{
-            background: "#6163FF",
-            flex: 1,
-            height: "100vh",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "flex-start",
-            alignItems: "center",
-          }}
-        >
-          <h2 style={heading}>
-            Sign in to your account to upload, access or share your files
-          </h2>
-          {username.length > 5 && (
-            <Fade in={true}>
-              <p style={subHeading}>
-                Please add your Private Key, this won't leave your browser
-              </p>
-            </Fade>
-          )}
-          {privateKey && username.length > 5 && (
-            <Fade in={true}>
-              <p style={subHeading}>You can click on Enter to saftely Login </p>
-            </Fade>
-          )}
-        </div>
         <div
           style={{
             flex: 1,
@@ -272,11 +253,40 @@ const Login = () => {
           {/* <div style={{ flexGrow: 1 }} /> */}
           <div style={{ paddingTop: "2rem" }}>
             <p>
-              Don't have an account?  <Link to={ROUTES.SIGN_UP}>
-                          Sign Up
-                        </Link>
+              Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
             </p>
           </div>
+        </div>
+
+        <div
+          style={{
+            background:
+              "url(https://raw.githubusercontent.com/imabp/wallpapers/main/collection/earthlights.jpeg)",
+            backgroundSize: "cover",
+            flex: 1,
+            height: "100vh",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "flex-start",
+            alignItems: "center",
+          }}
+        >
+          <h2 style={{margin:'36px'}} >
+            Sign in to your account to upload, access or share your files securely in <br/> the blockchain way.
+          </h2>
+       
+          {username.length > 5 && (
+            <Fade in={true}>
+              <p style={subHeading}>
+                Please add your Private Key, this won't leave your browser
+              </p>
+            </Fade>
+          )}
+          {privateKey && username.length > 5 && (
+            <Fade in={true}>
+              <p style={subHeading}>You can click on Enter to saftely Login </p>
+            </Fade>
+          )}
         </div>
       </div>
     </Fade>
