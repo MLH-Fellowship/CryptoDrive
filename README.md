@@ -7,12 +7,12 @@
   <p align="center">
     "A Decentralised Encrypted File Storing and Sharing App which is back-boned by Ethereum Smart Contracts and is preparing its launch to the moon 🚀"
     <br /><br />
-    <a href="https://mlh-fellowship.github.io/CryptoDrive/"><strong>Browse CryptoDrive</strong></a>
+    <a href="https://www.cryptodrive.tech"><strong>Browse CryptoDrive</strong></a>
     <br />
     <br />
     <a href="https://en.wikipedia.org/wiki/Decentralization">What is Decentralization</a>
     ·
-    <a href="https://mlh-fellowship.github.io/CryptoDrive/">Live</a>
+    <a href="https://www.cryptodrive.tech">Live</a>
     .
     <a href="https://github.com/MLH-Fellowship/CryptoDrive/issues">Report Bug</a>
     ·
@@ -72,9 +72,11 @@ To use CryptoDrive ,<strong> Metamask </strong> browser extension is required. Y
 <!-- Project Breakdown -->
 ## Project Architecture 
 
+Explained on Figma [here](https://www.figma.com/proto/DihWjVshe5rKgssA7aauCM/CryptoDrive?node-id=46%3A399&scaling=min-zoom)
 ```js
 Architecture and Figma need to be added here
 ```
+
 
 <!-- GETTING STARTED -->
 
@@ -140,4 +142,4 @@ Important decisions regarding the project are taken by the following maintainer.
 
 
 ## Deployment
-<a href="https://mlh-fellowship.github.io/CryptoDrive/"><img src="https://img.shields.io/badge/-GitHub%20Pages-black?style=for-the-badge&logo=github"/></a>
+<a href="https://www.cryptodrive.tech"><img src="https://img.shields.io/badge/-GitHub%20Pages-black?style=for-the-badge&logo=github"/></a>

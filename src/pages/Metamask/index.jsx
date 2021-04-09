@@ -36,17 +36,17 @@ const Mtmsk = () => {
           <br />
           <br /> <br />
         </center>
-        <h3>Step 1: Make an Account on Metamask Extension</h3>
-        <h3>
+        <h5>Step 1: Make an Account on Metamask Extension</h5>
+        <h5>
           Step 2: Copy your Account Address It looks like this:{" "}
           <code>ox0C0D.....60A</code>
-        </h3>
-        <h3>
+        </h5>
+        <h5>
           Step 3: You do need some ethers, to start Cryptodrive, lets have
           faucet ethers from Rinkeby Testnet
-        </h3>
-        <h3>Step 4: You need tweet your address, dont worry its safe. </h3>
-        <h3>
+        </h5>
+        <h5>Step 4: You need tweet your address, dont worry its safe. </h5>
+        <h5>
           Step 5: You need paste that tweet link, here{" "}
           <a
             target="_blank"
@@ -55,15 +55,15 @@ const Mtmsk = () => {
           >
             https://faucet.rinkeby.io/
           </a>{" "}
-        </h3>
-        <h3>
+        </h5>
+        <h5>
           Step 6: Now you have your ethers, in Metamask, you can check on to
           extension
-        </h3>
-        <h3>
+        </h5>
+        <h5>
           Note: If you are not able see ethers, just click on Rinkeby Test
           Network, just above your Account Address, from the drop down menu.{" "}
-        </h3>
+        </h5>
         <br />
         <h2>
           Hurray!! You did it.

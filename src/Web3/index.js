@@ -1,6 +1,7 @@
 import Web3 from "web3";
 import data from "./contractABI";
-
+import {Redirect }from "react-router-dom"
+import * as ROUTES from './../constants/routes'
 // Function LoadWeb3 used to laod the web3 in the browser and checking whether the web3 has etheruem access or not
 // If not it returns a alert stating the metamask is not present
 
@@ -12,7 +13,8 @@ const loadWeb3=async ()=> {
 		if (window.web3) {
 			window.web3 = new Web3(window.web3.currentProvider);
 		} else {
-			window.alert("please use metamask");
+			window.location.replace(`https://www.cryptodrive.tech/#/help`) 
+            return
 		}
 
   };
@@ -30,8 +32,9 @@ const ContractConnect = async () => {
     return CryptoDrive;
     }
     catch(error){
-        window.alert("Please install metamask to connect with the contract");
-        return;
+        // window.alert("Please install metamask to connect with the contract");
+        window.location.replace(`https://www.cryptodrive.tech/#/help`) 
+        return 
     }
   };
 
