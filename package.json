@@ -1,0 +1,61 @@
+{
+  "homepage": "https://www.cryptodrive.tech",
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "@truffle/hdwallet-provider": "1.0.40",
+    "classnames": "^2.2.6",
+    "file-saver": "^2.0.5",
+    "ipfs-api": "^26.1.2",
+    "js-string-compression": "^1.0.1",
+    "lodash": "^4.17.15",
+    "mime-types": "^2.1.30",
+    "node-rsa": "^1.1.1",
+    "node-sass": "^4.13.1",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
+    "react-file-drop": "^3.1.2",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.3",
+    "react-text-typist": "^1.0.5",
+    "rodal": "^1.8.1",
+    "rsuite": "^4.9.3",
+    "web-vitals": "^1.0.1",
+    "web3": "^1.3.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "gh-pages": "^3.1.0"
+  }
+}
