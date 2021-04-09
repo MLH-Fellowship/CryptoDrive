@@ -73,9 +73,7 @@ To use CryptoDrive ,<strong> Metamask </strong> browser extension is required. Y
 ## Project Architecture 
 
 Explained on Figma [here](https://www.figma.com/proto/DihWjVshe5rKgssA7aauCM/CryptoDrive?node-id=46%3A399&scaling=min-zoom)
-```js
-Architecture and Figma need to be added here
-```
+
 
 
 <!-- GETTING STARTED -->
