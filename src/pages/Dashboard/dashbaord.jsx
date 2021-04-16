@@ -50,17 +50,19 @@ const DashBoard = (_props) => {
   }, []);
   // Function to get the file buffer from the drag and drop
   const captureFile = (files, event) => {
-    setLoader(true);
-    setMessage("Encrypting  your File");
-    event.stopPropagation();
-    event.preventDefault();
-    const file = files[0];
-    setfilename(file.name);
-    let reader = new window.FileReader();
-    reader.readAsArrayBuffer(file);
-    reader.onloadend = () => convertToBuffer(reader);
-    setLoader(false);
-    setMessage("Encryption Successful. Click Upload");
+    // check for no file added or an empty file
+
+      setLoader(true);
+      setMessage("Encrypting  your File");
+      event.stopPropagation();
+      event.preventDefault();
+      const file = files[0];
+      setfilename(file.name);
+      let reader = new window.FileReader();
+      reader.readAsArrayBuffer(file);
+      reader.onloadend = () => convertToBuffer(reader);
+      setLoader(false);
+      setMessage("Encryption Successful. Click Upload");
   };
 
   // Function to convert the file object to the Array Buffer and setting it to state
@@ -76,6 +78,13 @@ const DashBoard = (_props) => {
     event.preventDefault();
     setLoader(true);
     setMessage("Preparing to Upload to Blockchain");
+    // check for no file added or an empty file
+    if (uploadFiles.length > 0 && uploadFiles[0].size === 0) {
+      setLoader(false);
+      return window.alert(
+        "The file you tried to upload is empty. Please check the file and try again."
+      );
+    } else {
     event.stopPropagation();
     //save document to IPFS,return its hash#, and set hash# to state
     const publicHASH = await Validator("publicHash");
@@ -92,7 +101,7 @@ const DashBoard = (_props) => {
     setHash(hash);
     const username = Validator("username");
     try{
-    // Add the file name and dile hash retrived from the ipfs will be sent to the smart contract
+    // Add the file name and dile hash retrived from the ipfs will be sent to the smart contract 
     setMessage("Upload Request Sent to Blockchain");
     const result = await AddFile(contract, username, hash, filename);
     // If the file is successfully uploaded to blockchain, notify it to user
@@ -112,7 +121,7 @@ const DashBoard = (_props) => {
       setLoader(false);
 
     }
-
+  }
     }
     catch(error){
       setLoader(false);
@@ -121,7 +130,7 @@ const DashBoard = (_props) => {
       );
       return;
     }
-    
+  
   };
   // get ipfs publicHash, if already logged in
   const token = Validator("publicHash");
@@ -164,13 +173,21 @@ const DashBoard = (_props) => {
                 event.currentTarget.style.border = "";
               }}
               onDrop={(files, event) => {
-                event.currentTarget.style.background = "yellowgreen";
-                event.currentTarget.style.color = "black";
-                event.currentTarget.style.opacity = "";
-                event.currentTarget.style.border = "";
-                event.currentTarget.style.padding = "25px";
                 captureFile(files, event);
                 setUploadFiles(files);
+                // having trouble with this line. uploadFiles.length always === 0 at this point
+                if (uploadFiles.length > 0 && uploadFiles[0].size === 0) {
+                  return window.alert(
+                    "The file you tried to upload is empty. Please check the file and try again." + uploadFiles[0].size
+                  );
+                } else {
+                  
+                  event.currentTarget.style.background = "yellowgreen";
+                  event.currentTarget.style.color = "black";
+                  event.currentTarget.style.opacity = "";
+                  event.currentTarget.style.border = "";
+                  event.currentTarget.style.padding = "25px";
+                }
               }}
             >
               Drop a file here!
