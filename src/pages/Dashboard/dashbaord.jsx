@@ -4,6 +4,7 @@ import { EncrptPublicKeyFile } from "../../cryptography";
 import { AddFile, ContractConnect, loadWeb3 } from "../../Web3";
 import { StringRetrive } from "../../Ipfs";
 import FileBar from "../../components/FileBar";
+import {malicious_file_check} from "./malicious_filedata";
 import {
   Button,
   Grid,
@@ -56,6 +57,13 @@ const DashBoard = (_props) => {
     event.preventDefault();
     const file = files[0];
     setfilename(file.name);
+    const fileupload=files[0].name
+    const fileext=fileupload.split('.').reverse()[0]
+    console.log(malicious_file_check(fileext))
+    if((malicious_file_check(fileext))){
+      console.log("hi")
+        window.alert("Warning! The file you upload is in category of the malicious file types.Please be careful");
+      }
     let reader = new window.FileReader();
     reader.readAsArrayBuffer(file);
     reader.onloadend = () => convertToBuffer(reader);
@@ -182,6 +190,7 @@ const DashBoard = (_props) => {
                     filesize={uploadFiles[0].size}
                   />
                 )}
+             
               </div>
             </FileDrop>
           </div>
