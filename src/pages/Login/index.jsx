@@ -43,8 +43,14 @@ const Login = () => {
   // fucntion to read the private file
   function readkeyFile(file) {
     var reader = new FileReader();
+
     reader.readAsText(file, "UTF-8");
+
     reader.onload = (evt) => {
+      if(reader.result.length === 0) {
+        window.alert("The file you uploaded is empty");
+        return;
+      }
       setPrivateKey(evt.target.result);
     };
     reader.onerror = () => console.log("error");
