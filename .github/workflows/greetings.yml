@@ -1,0 +1,13 @@
+name: FirstGreetings
+
+on: [pull_request, issues]
+
+jobs:
+  greeting:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/first-interaction@v1
+      with:
+        repo-token: ${{ secrets.ACTIONS_DEPLOY_ACCESS_TOKEN }}
+        issue-message: 'Hello there!:wave: Welcome to CryptoDrive!:rocket::zap:. Thank you and congrats:tada: for opening your issue for CryptoDrive. Our team will get back to this issue and work towards resolving it. You can join our discord server to discuss more about your issue ( https://discord.gg/BKgbJFS4Kf )'
+        pr-message: 'Hi there!:wave:. Thanks for making a PR in CryptoDrive. Our team will review your PR soon and get back to you. Keep Contributing!:rocket:'
