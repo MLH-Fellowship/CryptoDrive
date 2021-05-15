@@ -53,7 +53,7 @@ const FeaturesSplit = ({
   const sectionHeader = {
     title: "Why choose us?",
     paragraph:
-      "We use the best future technologies, to ensure we handle your data ethically and with atmost care",
+      "We use the best future technologies, to ensure we handle your data ethically and with utmost care",
   };
 
   return (
@@ -71,9 +71,9 @@ const FeaturesSplit = ({
                 <h3 className="mt-0 mb-12">Blockchain</h3>
                 <p className="m-0">
                   All user data is stored on the Etherum Blockchain, this
-                  ensures all data is decentralized and never suceptible to
-                  hacks. Only the usernamne and public key are stored in smart
-                  contract. This ensure user anonymity and complete privacy.
+                  ensures all data is decentralized and never susceptible  to
+                  hacks. Only the username and public key are stored in smart
+                  contract. This ensures user anonymity and complete privacy.
                 </p>
               </div>
               <div
@@ -131,7 +131,7 @@ const FeaturesSplit = ({
                 <p className="m-0">
                   We use zero servers, so you can be assured that none of your
                   data is sent in any database. All operations are performed on
-                  the client side, hence no secret data leaves your browser.
+                  the client-side, hence no secret data leaves your browser.
                 </p>
               </div>
               <div
