@@ -7,7 +7,7 @@ const Mtmsk = () => {
       <div>
         <center>
           <h1>
-            Please Install Metamask Extension, in order to proceed with
+            Please Install Metamask Extension in order to proceed with
             Cryptodrive.
           </h1>
           <br />
