@@ -5,14 +5,22 @@ import {
   ContractConnect,
   GetShareFiles,
   GetPublic,
+  CheckUser,
+  AddShareFile
 } from "../../Web3";
-import { FileRetrive, StringRetrive } from "../../Ipfs";
+import { FileRetrive, StringRetrive,StringUpload } from "../../Ipfs";
 import Validator from "./../../utility/validator";
 import { Redirect } from "react-router-dom";
 import * as ROUTES from "./../../constants/routes";
+import TextField from "@material-ui/core/TextField";
 import {
   DefaultDecryptPublicKeyFile,
   DefaultDecryptPrivateKey,
+} from "../../cryptography";
+import {
+  EncrptPublicKey,
+  EncrptPrivateKeyFile,
+  DefaultDecryptPrivateKeyFile,
 } from "../../cryptography";
 import Checkbox from "@material-ui/core/Checkbox";
 import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
@@ -23,15 +31,20 @@ import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import _ from "lodash";
 import FileSaver from "file-saver";
 import mime from "mime-types";
+import ScreenShareIcon from "@material-ui/icons/ScreenShare";
+
 
 const SharedFiles = ({ privateKey, setPrivateKey }) => {
   // Setting up empty state for the state variables
   const [SharedFiles, setSharedFiles] = React.useState([]); // Use this when you set up the IPFS thing.
   const [contract, setContract] = React.useState("");
   const [username, setUsername] = React.useState("");
+  const [entry, setEntry] = React.useState(0);
   const [checked_index, setindex] = React.useState([]);
   const [checked, setChecked] = React.useState([]);
   const [modalVisible, setModalVisible] = React.useState(false);
+  const [receiverName, setReceiverName] = React.useState();
+  const [showSnackBar, setSnackbar] = React.useState(false);
   const [keyFile, setKeyFile] = React.useState();
   const [nameDialog, setUnameDialog] = React.useState(false);
   const [checkedstyle, setCheckedStyle] = React.useState({});
@@ -185,6 +198,130 @@ const SharedFiles = ({ privateKey, setPrivateKey }) => {
       }
     }
   }
+
+
+ // function used for handling the shared files
+ async function handleShareFiles() {
+  // if the private key is initialised and any atleast one item in checked then this block will be executed
+  if (privateKey && checked_index.length >= 0 && receiverName) {
+    // Edge Case:-
+    // If the sender and receiver is same then
+    if(username===receiverName){
+      window.alert(
+        "Sender and Receiver can't be same. Please try again"
+      );
+      return;
+    }
+    // If the receiver name doesn't exist
+    try{
+    const userExist=await CheckUser(contract,receiverName);
+    if(!userExist){
+      window.alert("Receiver Username Doesn't Exist! Please try again");
+      return;
+    }
+    // we will start the loader
+    setLoader(true);
+    // setting the status of the action
+    setMessage(
+      `We are sharing the file with ${receiverName}. The Browser may prompt with a option of wait, please click on wait.`
+    );
+    // Creating a empty array
+    var hashfile_share_array = [];
+    // Looping the checked index
+    checked_index.map(async (value, j) => {
+      // getting the file name from SharedFiles retrived from the smart contract
+      const file_n = SharedFiles[checked_index[j]].filename;
+      // getting the filehash from the SharedFiles retrived from the smart contract
+      const file_h = SharedFiles[checked_index[j]].filehash;
+      // getting the encrypted file from the hash of ipfs
+      const encryted_file = await FileRetrive(file_h);
+      // using the js string compression library and huffman algorithm
+      var jsscompress = require("js-string-compression");
+      var hm = new jsscompress.Hauffman();
+      try{
+      // Decompressing the encrpted file and decrypt with the private key
+      const decr = await DefaultDecryptPrivateKeyFile(
+        await hm.decompress(encryted_file),
+        privateKey
+      );
+      // get the reciver name
+      const receiver = receiverName;
+      // getting the public key hash of the reciver from the smart contract
+      const public_receiver = await GetPublic(contract, receiver);
+      // getting the public key from the hash from ipfs
+      const public_key_receiver = await StringRetrive(public_receiver);
+      // encrpyting the file with the sender private key
+      const encrypted_sender = await EncrptPrivateKeyFile(decr, privateKey);
+      // encrypting the file with the receiver public key
+      const encrypted_receiver = await EncrptPublicKey(
+        encrypted_sender,
+        public_key_receiver
+      );
+      // sending the encrpyted string to ipfs for string upload
+      const encrypted_receiver_sender_hash = await StringUpload(
+        encrypted_receiver
+      );
+      // storing the file upload meta data in a json
+      const fileshare = {
+        filehash: encrypted_receiver_sender_hash,
+        filename: file_n,
+        sender: username,
+      };
+      hashfile_share_array.push(fileshare);
+      if (j === checked_index.length - 1) {
+        try{
+        // if the index of check array is last then we will send th json array to smart contract where we can save the details
+        const result = await AddShareFile(
+          contract,
+          receiver,
+          hashfile_share_array
+        );
+        if (result.status) {
+          setLoader(false);
+          setMessage(`File shared with, ${receiverName}`);
+          setSnackbar(true);
+        } else {
+          setLoader(false);
+          setMessage(
+            `Unable to share the file with ${receiverName}. Please try again. Make sure, you are entering correct username.`
+          );
+        }
+      }
+      catch(error){
+        setLoader(false);
+        window.alert(
+          "Upload failed due to rejection in transaction from smart contract"
+        );
+        return;
+      }
+    }
+  }
+  catch(error){
+    setLoader(false);
+    setKeyFile(false);
+    setPrivateKey(false);
+    
+    window.alert(
+      "The provided private Key is incorrect! Please add correct private key"
+    );
+    return;
+  }
+    });
+  }
+  catch(error){
+    setLoader(false);
+    setKeyFile(false);
+    setPrivateKey(false);
+  
+    window.alert(
+      "The provided private Key is may be incorrect! Please add correct private key"
+    );
+   
+    return;
+
+  }
+}
+}
   // Preload script to get the shared files from smart contract
   React.useEffect(() => {
     setupSharedFiles();
@@ -203,6 +340,33 @@ const SharedFiles = ({ privateKey, setPrivateKey }) => {
   };
   return (
     <>
+    <AlertDialogSlide
+        title={"Enter a username to share"}
+        subtitle={"Please make sure the username is valid "}
+        open={nameDialog}
+        handleClose={async (e) => {
+          setUnameDialog(false);
+          if (receiverName) await handleShareFiles();
+        }}
+      >
+        <form noValidate autoComplete="off">
+          <TextField
+            id="outlined-basic"
+            label="UserName"
+            variant="outlined"
+            onChange={async (e) => {
+              setReceiverName(e.target.value);
+            }}
+            onKeyPress={async (e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                setUnameDialog(false);
+                if (receiverName) await handleShareFiles();
+              }
+            }}
+          />
+        </form>
+      </AlertDialogSlide>
       <AlertDialogSlide
         title={" Add your private key to conitnue to download or share"}
         subtitle={"Your private key will not leave your browser"}
@@ -283,18 +447,16 @@ const SharedFiles = ({ privateKey, setPrivateKey }) => {
           lg={6}
           style={{ display: "flex", justifyContent: "center" }}
         >
-          <div>
+          <div style={{ position: "fixed", zIndex: 5 }}>
             <Button
               style={{
-                textAlign: "right",
-                borderRadius: 100,
+                marginLeft: "10px",
+                borderRadius: 25,
                 backgroundColor: "#6163FF",
-                color: "#ECEDED",
-                position: "fixed",
-                zIndex: 5,
-                transition: "ease 0.7s all",
+                color: "white",
               }}
               onClick={async () => {
+                setEntry(0);
                 if (checked_index.length <= 0) {
                   window.alert("please select a file before downloading");
                   return;
@@ -304,6 +466,28 @@ const SharedFiles = ({ privateKey, setPrivateKey }) => {
               }}
             >
               <CloudDownloadIcon />
+            </Button>
+            <Button
+              style={{
+                marginLeft: "10px",
+                borderRadius: 25,
+                backgroundColor: "#6163FF",
+                color: "#ECEDED",
+                transition: "ease 0.7s all",
+              }}
+              onClick={async () => {
+                setEntry(1);
+                if (checked_index.length <= 0) {
+                  window.alert("please select a file before sharing");
+                  return;
+                }
+                if (!privateKey) {
+                  setModalVisible(true);
+                }
+                setUnameDialog(true);
+              }}
+            >
+              <ScreenShareIcon />
             </Button>
           </div>
         </Grid>
