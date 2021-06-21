@@ -71,7 +71,7 @@ const FeaturesSplit = ({
                 <h3 className="mt-0 mb-12">Blockchain</h3>
                 <p className="m-0">
                   All user data is stored on the Etherum Blockchain, this
-                  ensures all data is decentralized and never suceptible to
+                  ensures all data is decentralized and never susceptible to
                   hacks. Only the usernamne and public key are stored in smart
                   contract. This ensure user anonymity and complete privacy.
                 </p>
