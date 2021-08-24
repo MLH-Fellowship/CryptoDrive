@@ -53,7 +53,7 @@ const FeaturesSplit = ({
   const sectionHeader = {
     title: "Why choose us?",
     paragraph:
-      "We use the best future technologies, to ensure we handle your data ethically and with at most care",
+      "We use the best future technologies, to ensure we handle your data ethically and with utmost care",
   };
 
   return (
